@@ -1,6 +1,9 @@
-# 🚀 Windows Cleanup & Optimizer v5.1.4 - Pro Toolkit (WCaO)
+# 🚀 Windows Cleanup & Optimizer v5.1.5 - Pro Toolkit (WCaO) <a href="[https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/latest]"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="75"></a>
 
-> **Công cụ bảo trì toàn diện** dưới dạng Batch Script, cung cấp các tùy chọn **Tự động** và **Chuyên sâu (Expert)** để dọn dẹp, sửa lỗi và tối ưu hóa hiệu suất hệ thống Windows. Nó thuộc loại **mã nguồn mở** nên có thể **tùy chỉnh** theo *sở thích*❤️! Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
+
+![Version](https://img.shields.io/badge/version-v5.1.5-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires-Admin-red?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Paused-inactive?style=plastic&logo=player-pause&logoColor=white)
+
+> **Công cụ bảo trì toàn diện** dưới dạng Batch Script, cung cấp các tùy chọn **Tự động** và **Chuyên sâu (Expert)** để dọn dẹp, sửa lỗi và tối ưu hóa hiệu suất hệ thống Windows. Nó thuộc loại **mã nguồn mở** nên có thể **tùy chỉnh** theo *sở thích*❤️! Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản (v5.1.5) thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
 
 ---
 
@@ -36,7 +39,7 @@ Tác vụ sửa chữa hệ thống và dọn dẹp chuyên sâu. **Thích hợp
 * **SFC /scannow:** Quét và sửa chữa các tệp hệ thống Windows bị hỏng hoặc thiếu.
 * **cleanmgr /autoclean:** Chạy công cụ Disk Cleanup gốc để dọn dẹp các mục hệ thống thiết yếu.
 
-*(Lưu ý: Chức năng dọn dẹp cache trình duyệt tự động đã bị loại bỏ (được comment lại) khỏi menu này trong v5.1.4).*
+*(Lưu ý: Chức năng dọn dẹp cache trình duyệt tự động đã bị loại bỏ (được comment lại) khỏi menu này trong v5.1.5).*
 
 ### 3. ⚙️ System Optimization (Menu [3])
 
@@ -57,10 +60,11 @@ Các tác vụ quản trị mạnh mẽ, một số yêu cầu **Expert Mode** (
 | Chức Năng (Menu con) | Yêu cầu Expert Mode? | Trường hợp sử dụng |
 | :--- | :--- | :--- |
 | **[1] Clear Windows Update Cache** | Không | Khắc phục lỗi Windows Update không thể tải/cài đặt bản vá. |
-| **[2] Remove Windows.old folder** | Có | **Giải phóng dung lượng lớn** sau khi nâng cấp Windows. (CẢNH BÁO: Không thể quay lại phiên bản cũ). |
-| **[3] Manage Pagefile / Hibernation** | Có | Tắt file ngủ đông (`hiberfil.sys`) hoặc quản lý pagefile. |
-| **[4] Network Reset & Flush DNS** | Không | Khắc phục lỗi mạng, DNS, hoặc không thể truy cập internet. |
-| **[5] Create System Restore Point** | Không | **Tạo điểm an toàn** trước khi chạy bất kỳ công cụ tối ưu hóa nào khác. |
+| **[2] Uninstall Office Key**| Không | Gỡ bỏ key bản quyền Office (hỗ trợ Office 16) khi bị kẹt. |
+| **[3] Remove Windows.old folder** | Có | **Giải phóng dung lượng lớn** sau khi nâng cấp Windows. (CẢNH BÁO: Không thể quay lại phiên bản cũ). |
+| **[4] Manage Pagefile / Hibernation** | Có | Tắt file ngủ đông (`hiberfil.sys`) hoặc quản lý pagefile. |
+| **[5] Network Reset & Flush DNS** | Không | Khắc phục lỗi mạng, DNS, hoặc không thể truy cập internet. |
+| **[6] Create System Restore Point** | Không | **Tạo điểm an toàn** trước khi chạy bất kỳ công cụ tối ưu hóa nào khác. |
 
 ### 5. 🏃 Auto Run Full Maintenance (Menu [5])
 
@@ -83,7 +87,7 @@ Tự động thực hiện toàn bộ quy trình bảo trì quan trọng (Quick 
 
 ### 3. Điều Hướng & Chế Độ Expert
 
-* **Lựa chọn:** Nhập số tương ứng (1-8) với chức năng bạn muốn và nhấn **Enter**.
+* **Lựa chọn:** Nhập số tương ứng (1-8) với chức năng bạn muốn và nhấn **Enter**. 
 * **Expert Mode:** Để sử dụng các chức năng nguy hiểm hơn (như xóa Windows.old), bạn phải chọn **[6] Toggle Expert Mode** để chuyển trạng thái sang **On** trước khi vào menu **Advanced Tools [4]**.
 
 ### 4. Xuất Báo Cáo (Menu [7])
@@ -96,9 +100,9 @@ Tự động thực hiện toàn bộ quy trình bảo trì quan trọng (Quick 
 
 | Tình huống | Hành động khuyến nghị |
 | :--- | :--- |
-| **Máy tính chậm, đầy ổ C** | Chạy **[1] Quick Cleanup** và **[2] Deep Cleanup** (chạy `cleanmgr /autoclean`). |
-| **Sau khi cài đặt phần mềm/driver mới** | Chạy **[5] Create System Restore Point** (trong Menu [4]). |
+| **Máy tính chậm, đầy ổ C** | Chạy **[1] Quick Cleanup** và **Deep Cleanup** (chạy `cleanmgr /autoclean`). |
+| **Sau khi cài đặt phần mềm/driver mới** | Chạy **[6] Create System Restore Point** (trong Menu [4]). |
 | **Máy bị lỗi hiển thị biểu tượng/hình ảnh** | Chạy **[3] Rebuild System Caches** (trong Menu [3]). |
-| **Mất kết nối mạng đột ngột hoặc lỗi DNS** | Chạy **[4] Network Reset & Flush DNS** (trong Menu [4]). |
+| **Mất kết nối mạng đột ngột hoặc lỗi DNS** | Chạy **[5] Network Reset & Flush DNS** (trong Menu [4]). |
 | **Cần bảo trì định kỳ hàng tháng** | Chạy **[5] Auto Run Full Maintenance**. |
-| **Sau khi nâng cấp Windows lớn** | Bật **Expert Mode** rồi chạy **[2] Remove Windows.old folder** (trong Menu [4]). |
+| **Sau khi nâng cấp Windows lớn** | Bật **Expert Mode** rồi chạy **[3] Remove Windows.old folder** (trong Menu [4]). |
