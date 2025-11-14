@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
-title "Windows Cleanup & Optimizer v5.1.4 - Pro Toolkit"
+title "Windows Cleanup & Optimizer v5.1.5 - Pro Toolkit"
 
 REM  /========================================================================\
-REM  |                   CONFIGURATION - CUSTOMIZE HERE                       |
+REM  |                CONFIGURATION - CUSTOMIZE HERE                          |
 REM  \========================================================================/
-set "VERSION=5.1.4"
+set "VERSION=5.1.5"
 set "TOOLNAME=Windows Cleanup and Optimizer"
 
 :: Log Configuration
@@ -28,7 +28,7 @@ set "COLOR_ERROR=04"      :: Red 			- Error Messages
 set "COLOR_WARNING=6F"    :: Yellow BG, White Text - Warning Messages
 
 REM  /========================================================================\
-REM  |        SCRIPT INITIALIZATION (Do not edit below this line)             |
+REM  |       SCRIPT INITIALIZATION (Do not edit below this line)              |
 REM  \========================================================================/
 
 set "EXPERT_MODE=%DEFAULT_EXPERT_MODE%"
@@ -114,7 +114,7 @@ if "%choice%"=="8" (
 goto main_menu
 
 REM  /========================================================================\
-REM  |                  CLEANUP & OPTIMIZATION FUNCTIONS                      |
+REM  |                     CLEANUP FUNCTIONS [1] [2]                          |
 REM  \========================================================================/
 
 :: ===== QUICK CLEANUP =====
@@ -271,7 +271,7 @@ call :PauseToContinue
 goto :EOF
 
 REM  /========================================================================\
-REM  |                       MENUS and SUB-FUNCTIONS                          |
+REM  |               SYSTEM OPTIMIZATION MENU & FUNCTIONS [3]                 |
 REM  \========================================================================/
 
 :: ===== SYSTEM OPTIMIZATION MENU =====
@@ -305,131 +305,6 @@ if "%opt%"=="4" (call :SetPowerPlan)
 if "%opt%"=="5" (call :SetVisualEffects)
 if "%opt%"=="6" (goto :EOF)
 goto SubSystemOptimizeMenu
-
-:: ===== ADVANCED TOOLS MENU =====
-:AdvancedMenu
-:SubAdvancedMenu
-cls & color %COLOR_ADVANCED% & call :DrawBox "ADVANCED TOOLS"
-echo.
-echo  [1] Clear Windows Update Cache
-echo  [2] Remove Windows.old folder (Expert)
-echo  [3] Manage Pagefile / Hibernation (Expert)
-echo  [4] Network Reset ^& Flush DNS
-echo  [5] Create System Restore Point
-echo  [6] Back to Main Menu
-echo.
-set "adv="
-set /p "adv=  Please choose an option (1-6): "
-if "%adv%"=="1" (call :ClearWinUpdate & pause)
-if "%adv%"=="2" (if "!EXPERT_MODE!"=="1" (call :RemoveWindowsOld & pause) else (echo. & color %COLOR_WARNING% & echo  [WARNING] This function requires Expert Mode. & color %COLOR_ADVANCED% & pause))
-if "%adv%"=="3" (if "!EXPERT_MODE!"=="1" (call :PagefileMenu) else (echo. & color %COLOR_WARNING% & echo  [WARNING] This function requires Expert Mode. & color %COLOR_ADVANCED% & pause))
-if "%adv%"=="4" (call :NetReset & pause)
-if "%adv%"=="5" (call :CreateRestorePoint & pause)
-if "%adv%"=="6" (goto :EOF)
-goto SubAdvancedMenu
-
-:: ===== ADVANCED SUB-FUNCTIONS =====
-
-:ClearWinUpdate
-cls & call :DrawBox "CLEAR WINDOWS UPDATE CACHE" & echo.
-echo  [+] Stopping required services...
-sc stop wuauserv >nul 2>&1
-sc stop bits >nul 2>&1
-sc stop cryptsvc >nul 2>&1
-echo  [+] Deleting cache folders...
-if exist "%windir%\SoftwareDistribution" (
-    rd /s /q "%windir%\SoftwareDistribution" >nul 2>&1
-    echo      [OK] Removed SoftwareDistribution folder.
-    call :LogAction "SoftwareDistribution removed"
-)
-if exist "%windir%\System32\catroot2" (
-    rd /s /q "%windir%\System32\catroot2" >nul 2>&1
-    echo      [OK] Removed catroot2 folder.
-    call :LogAction "catroot2 removed"
-)
-echo  [+] Restarting services...
-net start cryptsvc >nul 2>&1
-net start bits >nul 2>&1
-net start wuauserv >nul 2>&1
-echo  [+] Done.
-goto :EOF
-
-:RemoveWindowsOld
-cls & color %COLOR_WARNING% & call :DrawBox "REMOVE WINDOWS.OLD FOLDER" & echo.
-set "WINOLD=%OS_DRIVE%\Windows.old"
-if exist "%WINOLD%" (
-    echo  WARNING: This action is IRREVERSIBLE and will permanently delete the
-    echo  Windows.old folder. You will NOT be able to revert to the previous
-    echo  version of Windows after doing this.
-    echo.
-    set /p "confirm=  Type 'YES' to continue: "
-    if /i "%confirm%"=="YES" (
-        echo.
-        echo  [*] Taking ownership of the folder...
-        takeown /F "%WINOLD%" /R /D Y >nul
-        icacls "%WINOLD%" /grant *S-1-5-32-544:F /T >nul
-        echo  [*] Deleting the folder... This may take a moment.
-        rd /s /q "%WINOLD%"
-        if not exist "%WINOLD%" (
-            echo  [+] Done. Folder removed successfully.
-            call :LogAction "Windows.old removed"
-        ) else (
-            color %COLOR_ERROR%
-            echo  [ERROR] Failed to remove the folder. It might be in use or permissions issue.
-            call :LogError "Failed to remove Windows.old folder."
-        )
-    ) else ( echo. & echo  Cancelled by user. )
-) else ( echo  Windows.old folder not found. )
-color %COLOR_ADVANCED%
-goto :EOF
-
-:PagefileMenu
-:SubPagefileMenu
-cls & call :DrawBox "PAGEFILE AND HIBERNATION MANAGEMENT" & echo.
-echo  [1] Disable Automatic Pagefile Management
-echo  [2] Disable Hibernation (removes hiberfil.sys)
-echo  [3] Back
-echo.
-set "pf="
-set /p "pf=  Please choose (1-3): "
-if "%pf%"=="1" (
-    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul
-    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v PagingFiles /t REG_MULTI_SZ /d "" /f >nul
-    echo. & echo  [+] Automatic pagefile management disabled (reboot required). & call :LogAction "Pagefile management disabled" & pause
-)
-if "%pf%"=="2" (
-    powercfg -h off && (echo. & echo  [+] Hibernation has been disabled. & call :LogAction "Hibernation disabled") || (echo. & echo  [-] Could not disable Hibernation. Check admin rights.)
-    pause
-)
-if "%pf%"=="3" (goto :EOF)
-goto SubPagefileMenu
-
-:NetReset
-cls & call :DrawBox "NETWORK RESET AND FLUSH DNS" & echo.
-ipconfig /flushdns >nul && echo  [+] Flushed DNS cache. & call :LogAction "DNS flushed"
-netsh winsock reset >nul && echo  [+] Winsock has been reset. & call :LogAction "Winsock reset"
-netsh int ip reset >nul && echo  [+] TCP/IP has been reset. & call :LogAction "TCP/IP reset"
-echo  [+] Done. A reboot is recommended to apply all changes.
-goto :EOF
-
-:CreateRestorePoint
-cls & call :DrawBox "CREATE SYSTEM RESTORE POINT" & echo.
-echo  [+] Enabling System Restore and creating a point...
-powershell -Command "Enable-ComputerRestore -Drive '%OS_DRIVE%'" >nul 2>&1
-for /f "usebackq" %%i in (`powershell -Command "Get-Date -Format 'yyyyMMddHHmm'"`) do set "RP_TIME=%%i"
-if not defined RP_TIME set "RP_TIME=backup"
-set "RP_DESC=ProToolkit_Backup_%RP_TIME:~0,8%_%RP_TIME:~8,6%"
-powershell -Command "Checkpoint-Computer -Description '%RP_DESC%' -RestorePointType 'MODIFY_SETTINGS'"
-if %errorlevel% equ 0 (
-    echo      [OK] Restore point '%RP_DESC%' created successfully.
-    call :LogAction "Restore point created: %RP_DESC%"
-) else (
-    echo      [ERROR] Failed to create restore point.
-    echo      Please check your System Protection settings in Control Panel.
-    call :LogAction "Restore point creation failed"
-    call :LogError "Restore point creation failed. User should check System Protection."
-)
-goto :EOF
 
 :: ===== OPTIMIZATION SUB-FUNCTIONS =====
 
@@ -566,6 +441,216 @@ if "%ve%"=="4" (
 
 goto :SubSetVisualEffects
 
+REM  /========================================================================\
+REM  |                 ADVANCED TOOLS MENU & FUNCTIONS [4]                    |
+REM  \========================================================================/
+
+:: ===== ADVANCED TOOLS MENU =====
+:AdvancedMenu
+:SubAdvancedMenu
+cls & color %COLOR_ADVANCED% & call :DrawBox "ADVANCED TOOLS"
+echo.
+echo  [1] Clear Windows Update Cache
+echo  [2] Uninstall Office Key
+echo  [3] Remove Windows.old folder (Expert)
+echo  [4] Manage Pagefile / Hibernation (Expert)
+echo  [5] Network Reset ^& Flush DNS
+echo  [6] Create System Restore Point
+echo  [7] Back to Main Menu
+echo.
+set "adv="
+set /p "adv=  Please choose an option (1-7): "
+if "%adv%"=="1" (call :ClearWinUpdate & pause)
+if "%adv%"=="2" (call :UninstallOfficeKey & pause)
+if "%adv%"=="3" (if "!EXPERT_MODE!"=="1" (call :RemoveWindowsOld & pause) else (echo. & color %COLOR_WARNING% & echo  [WARNING] This function requires Expert Mode. & color %COLOR_ADVANCED% & pause))
+if "%adv%"=="4" (if "!EXPERT_MODE!"=="1" (call :PagefileMenu) else (echo. & color %COLOR_WARNING% & echo  [WARNING] This function requires Expert Mode. & color %COLOR_ADVANCED% & pause))
+if "%adv%"=="5" (call :NetReset & pause)
+if "%adv%"=="6" (call :CreateRestorePoint & pause)
+if "%adv%"=="7" (goto :EOF)
+goto SubAdvancedMenu
+
+:: ===== ADVANCED SUB-FUNCTIONS =====
+
+:ClearWinUpdate
+cls & call :DrawBox "CLEAR WINDOWS UPDATE CACHE" & echo.
+echo  [+] Stopping required services...
+sc stop wuauserv >nul 2>&1
+sc stop bits >nul 2>&1
+sc stop cryptsvc >nul 2>&1
+echo  [+] Deleting cache folders...
+if exist "%windir%\SoftwareDistribution" (
+    rd /s /q "%windir%\SoftwareDistribution" >nul 2>&1
+    echo      [OK] Removed SoftwareDistribution folder.
+    call :LogAction "SoftwareDistribution removed"
+)
+if exist "%windir%\System32\catroot2" (
+    rd /s /q "%windir%\System32\catroot2" >nul 2>&1
+    echo      [OK] Removed catroot2 folder.
+    call :LogAction "catroot2 removed"
+)
+echo  [+] Restarting services...
+net start cryptsvc >nul 2>&1
+net start bits >nul 2>&1
+net start wuauserv >nul 2>&1
+echo  [+] Done.
+goto :EOF
+
+:UninstallOfficeKey
+cls & call :DrawBox "UNINSTALL OFFICE KEY" & echo.
+if exist "C:\Program Files\Microsoft Office\Office16\ospp.vbs" (
+    cd /d "C:\Program Files\Microsoft Office\Office16"
+) else if exist "C:\Program Files (x86)\Microsoft Office\Office16\ospp.vbs" (
+    cd /d "C:\Program Files (x86)\Microsoft Office\Office16"
+) else (
+    echo Could not find ospp.vbs.
+    echo This tool currently only supports Office 2016.
+    exit /b
+)
+
+echo  [+] Checking installed product keys...
+echo.
+cscript ospp.vbs /dstatus
+
+set count=0
+echo.
+echo  [+] Extracting product keys...
+
+for /f "tokens=2 delims=:" %%a in ('cscript ospp.vbs /dstatus ^| findstr /c:"Last 5 characters"') do (
+    set "raw_key=%%a"
+    set "clean_key=!raw_key: =!"
+    set /a count+=1
+    set key!count!=!clean_key!
+)
+
+if %count% equ 0 (
+    echo    [-] No product key found to remove.
+) else (
+    call :_UninstallOfficeKey_Process %count%
+)
+
+echo  [+] Process complete.
+goto :EOF
+
+:_UninstallOfficeKey_Process
+setlocal
+set "key_count=%1"
+
+echo    [-] Found %key_count% product key(s):
+echo.
+
+for /l %%i in (1,1,%key_count%) do (
+    echo    [%%i] - !key%%i!
+)
+echo    [0] - Cancel (Do not remove any key)
+echo.
+
+set "key_choice="
+set /p key_choice="Enter the number of the key you want to remove (0-%key_count%): "
+
+if not defined key_choice (
+    echo  [!] Invalid choice. No input given.
+    goto :EOF
+)
+set /a "check_num=key_choice" 2>nul
+if !check_num! neq %key_choice% (
+    echo  [!] Invalid choice. Please enter a valid number.
+    goto :EOF
+)
+
+if "!key_choice!"=="0" (
+    echo  [+] Operation cancelled. No key was removed.
+) else if %key_choice% gtr 0 if %key_choice% leq %key_count% (
+    set "key_can_go=!key%key_choice%!"
+    echo.
+    echo ...Removing product key ending with: !key_can_go!...
+    cscript ospp.vbs /unpkey:!key_can_go!
+) else (
+    echo  [!] Invalid choice. No action performed.
+)
+endlocal
+goto :EOF
+
+:RemoveWindowsOld
+cls & color %COLOR_WARNING% & call :DrawBox "REMOVE WINDOWS.OLD FOLDER" & echo.
+set "WINOLD=%OS_DRIVE%\Windows.old"
+if exist "%WINOLD%" (
+    echo  WARNING: This action is IRREVERSIBLE and will permanently delete the
+    echo  Windows.old folder. You will NOT be able to revert to the previous
+    echo  version of Windows after doing this.
+    echo.
+    set /p "confirm=  Type 'YES' to continue: "
+    if /i "%confirm%"=="YES" (
+        echo.
+        echo  [*] Taking ownership of the folder...
+        takeown /F "%WINOLD%" /R /D Y >nul
+        icacls "%WINOLD%" /grant *S-1-5-32-544:F /T >nul
+        echo  [*] Deleting the folder... This may take a moment.
+        rd /s /q "%WINOLD%"
+        if not exist "%WINOLD%" (
+            echo  [+] Done. Folder removed successfully.
+            call :LogAction "Windows.old removed"
+        ) else (
+            color %COLOR_ERROR%
+            echo  [ERROR] Failed to remove the folder. It might be in use or permissions issue.
+            call :LogError "Failed to remove Windows.old folder."
+        )
+    ) else ( echo. & echo  Cancelled by user. )
+) else ( echo  Windows.old folder not found. )
+color %COLOR_ADVANCED%
+goto :EOF
+
+:PagefileMenu
+:SubPagefileMenu
+cls & call :DrawBox "PAGEFILE AND HIBERNATION MANAGEMENT" & echo.
+echo  [1] Disable Automatic Pagefile Management
+echo  [2] Disable Hibernation (removes hiberfil.sys)
+echo  [3] Back
+echo.
+set "pf="
+set /p "pf=  Please choose (1-3): "
+if "%pf%"=="1" (
+    wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False >nul
+    reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v PagingFiles /t REG_MULTI_SZ /d "" /f >nul
+    echo. & echo  [+] Automatic pagefile management disabled (reboot required). & call :LogAction "Pagefile management disabled" & pause
+)
+if "%pf%"=="2" (
+    powercfg -h off && (echo. & echo  [+] Hibernation has been disabled. & call :LogAction "Hibernation disabled") || (echo. & echo  [-] Could not disable Hibernation. Check admin rights.)
+    pause
+)
+if "%pf%"=="3" (goto :EOF)
+goto SubPagefileMenu
+
+:NetReset
+cls & call :DrawBox "NETWORK RESET AND FLUSH DNS" & echo.
+ipconfig /flushdns >nul && echo  [+] Flushed DNS cache. & call :LogAction "DNS flushed"
+netsh winsock reset >nul && echo  [+] Winsock has been reset. & call :LogAction "Winsock reset"
+netsh int ip reset >nul && echo  [+] TCP/IP has been reset. & call :LogAction "TCP/IP reset"
+echo  [+] Done. A reboot is recommended to apply all changes.
+goto :EOF
+
+:CreateRestorePoint
+cls & call :DrawBox "CREATE SYSTEM RESTORE POINT" & echo.
+echo  [+] Enabling System Restore and creating a point...
+powershell -Command "Enable-ComputerRestore -Drive '%OS_DRIVE%'" >nul 2>&1
+for /f "usebackq" %%i in (`powershell -Command "Get-Date -Format 'yyyyMMddHHmm'"`) do set "RP_TIME=%%i"
+if not defined RP_TIME set "RP_TIME=backup"
+set "RP_DESC=ProToolkit_Backup_%RP_TIME:~0,8%_%RP_TIME:~8,6%"
+powershell -Command "Checkpoint-Computer -Description '%RP_DESC%' -RestorePointType 'MODIFY_SETTINGS'"
+if %errorlevel% equ 0 (
+    echo      [OK] Restore point '%RP_DESC%' created successfully.
+    call :LogAction "Restore point created: %RP_DESC%"
+) else (
+    echo      [ERROR] Failed to create restore point.
+    echo      Please check your System Protection settings in Control Panel.
+    call :LogAction "Restore point creation failed"
+    call :LogError "Restore point creation failed. User should check System Protection."
+)
+goto :EOF
+
+REM  /========================================================================\
+REM  |                 AUTOMATION & REPORTING [5] [7]                         |
+REM  \========================================================================/
+
 :: ===== AUTO RUN FULL MAINTENANCE =====
 :AutoRun
 cls & color %COLOR_DEEP% & call :DrawBox "AUTO RUN - FULL MAINTENANCE"
@@ -646,7 +731,7 @@ pause
 goto :EOF
 
 REM  /========================================================================\
-REM  |                    HELPER FUNCTIONS (Do not edit)                      |
+REM  |                     HELPER FUNCTIONS (Do not edit)                     |
 REM  \========================================================================/
 
 :CreateNewTempLog
