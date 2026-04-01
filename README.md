@@ -2,7 +2,7 @@
 
 ![Version](https://img.shields.io/badge/version-v5.2.4-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires-Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
 
-> **Công cụ bảo trì toàn diện** dưới dạng Batch Script, cung cấp các tùy chọn **Tự động** và **Chuyên sâu (Expert)** để dọn dẹp, sửa lỗi và tối ưu hóa hệ thống. Ở phiên bản **v5.2.4** này, dự án đã chính thức được hồi sinh với một "lớp giáp chống đạn" hoàn toàn mới: không còn văng đột ngột, hỗ trợ kéo thả thư mục siêu mượt, chạy được cả khi không có quyền Admin, và giao diện màu ANSI cực kỳ đã mắt! ❤️
+> **Công cụ bảo trì toàn diện** dưới dạng Batch Script, cung cấp các tùy chọn **Tự động** và **Chuyên sâu (Expert)** để dọn dẹp, sửa lỗi và tối ưu hóa hệ thống. Ở phiên bản **v5.2.4** này, dự án đã chính thức được hồi sinh với một "lớp giáp chống đạn" hoàn toàn mới: không còn văng đột ngột, hỗ trợ kéo thả thư mục siêu mượt, chạy được cả khi không có quyền Admin, và giao diện màu ANSI cực kỳ đã mắt! ❤️ Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
 
 ---
 
