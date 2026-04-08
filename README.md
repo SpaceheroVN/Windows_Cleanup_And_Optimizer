@@ -1,8 +1,8 @@
-# 🚀 Windows Cleanup & Optimizer v6.1.2 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.2/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
+# 🚀 Windows Cleanup & Optimizer v6.1.5 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.5/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
 
-![Version](https://img.shields.io/badge/version-v6.1.2-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
+![Version](https://img.shields.io/badge/version-v6.1.5-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
 
-Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. Phiên bản v6.0.1 cung cấp tổng cộng **9 nhóm danh mục** với hơn **25 chức năng cụ thể** giúp dọn dẹp, sửa lỗi và tối ưu hóa Windows. Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
+Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. Phiên bản v6.1.5 cung cấp tổng cộng **9 nhóm danh mục** với nhiều chức năng cụ thể giúp dọn dẹp, sửa lỗi và tối ưu hóa Windows. Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
 
 ---
 
@@ -47,7 +47,8 @@ Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức 
 * Hiển thị thông tin hệ thống chi tiết (OS, CPU, RAM, GPU, Storage).
 * Khởi động lại Windows Explorer để sửa lỗi giao diện.
 * Tắt ép buộc (Kill) các ứng dụng đang bị treo (Not Responding).
-* Cập nhật toàn bộ phần mềm trên máy thông qua Winget.
+* **[MỚI] Winget Power Tools:** * Cập nhật tất cả phần mềm tự động ẩn (Silent & Auto) hoặc chọn lọc theo App ID.
+  * Cài đặt phần mềm thiết yếu được chia theo danh mục cụ thể (Runtimes, Browsers, Media, Dev Tools, Utilities...).
 
 ### 6. Screen & Power Tools (Công cụ màn hình & Nguồn)
 * Tắt màn hình ngay lập tức.
@@ -57,11 +58,12 @@ Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức 
 Công cụ hỗ trợ kéo thả trực tiếp để đổi tên File và Folder số lượng lớn:
 * **File:** Xóa dấu ngoặc, đánh số thứ tự (1, 2, 3...), xóa hậu tố, hoặc tìm & thay thế chuỗi ký tự.
 * **Folder:** Xóa dấu ngoặc, xóa hậu tố.
+* **[MỚI] Fast Rename:** Đổi tên nhanh tương tác từng bước thủ công, hoặc đổi hàng loạt tự động dựa trên danh sách file `.txt` (Hỗ trợ cả File và Folder).
 * **Hoàn tác (Undo):** Hỗ trợ hoàn tác lại thao tác đổi tên gần nhất.
 
 ### 8. Auto Maintenance (Bảo trì tự động)
 *Yêu cầu quyền Admin.*
-* Chạy tự động chuỗi tác vụ: Quick Cleanup $\to$ Deep Cleanup $\to$ Clear Windows Update Cache.
+* Chạy tự động chuỗi tác vụ: Quick Cleanup -> Deep Cleanup -> Clear Windows Update Cache.
 
 ### 9. Toolkit Options (Cài đặt & Nhật ký)
 * Bật/Tắt chế độ chuyên gia (**Expert Mode**) để hiển thị các tính năng nâng cao/nguy hiểm.
