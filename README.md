@@ -1,83 +1,85 @@
+*Read this in other languages: [English](README.md) | [Tiếng Việt](README-vi.md)*
+
 # 🚀 Windows Cleanup & Optimizer v6.1.7 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.7/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
 
 ![Version](https://img.shields.io/badge/version-v6.1.7-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
 
-Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. Phiên bản v6.1.7 cung cấp tổng cộng **9 nhóm danh mục** với nhiều chức năng cụ thể giúp dọn dẹp, sửa lỗi và tối ưu hóa Windows. Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
+Open-source system maintenance tool written in Batch Script. Version v6.1.7 provides a total of **9 categories** with specific functions to help clean, fix, and optimize Windows. If you see me updating **README.md** to the **current** version, it means the project is ***indefinitely paused***...
 
 ---
 
-## ⚙️ Chi Tiết Chức Năng
+## ⚙️ Features Detail
 
-Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức năng sau:
+The toolkit is divided into 9 main categories on the Menu, including the following functions:
 
-### 1. Quick Cleanup (Dọn dẹp nhanh)
-*Không yêu cầu quyền Admin.*
-* Xóa thư mục tạm của người dùng (`%temp%`) và lối tắt gần đây.
-* Xóa thư mục tạm của hệ thống (`%SystemRoot%\Temp`) và Prefetch *(nếu có Admin)*.
-* Xóa DNS Cache *(nếu có Admin)*.
-* Làm sạch hoàn toàn Thùng rác (Recycle Bin).
+### 1. Quick Cleanup
+*No Admin rights required.*
+* Clear user temporary folder (`%temp%`) and recent shortcuts.
+* Clear system temporary folder (`%SystemRoot%\Temp`) and Prefetch *(if Admin)*.
+* Flush DNS Cache *(if Admin)*.
+* Fully empty the Recycle Bin.
 
-### 2. Deep Cleanup (Dọn dẹp chuyên sâu)
-*Yêu cầu quyền Admin.*
-* **DISM /RestoreHealth:** Sửa chữa image hệ thống Windows.
-* **SFC /scannow:** Quét và phục hồi các tệp hệ thống bị hỏng.
-* **Disk Cleanup:** Quét và dọn dẹp ổ đĩa tự động.
+### 2. Deep Cleanup
+*Requires Admin rights.*
+* **DISM /RestoreHealth:** Repair Windows system image.
+* **SFC /scannow:** Scan and restore corrupted system files.
+* **Disk Cleanup:** Automated disk scanning and cleaning.
 
-### 3. System Optimization (Tối ưu hóa hệ thống)
-| Chức Năng | Tính năng cụ thể | Yêu cầu Admin |
+### 3. System Optimization
+| Function | Specific Feature | Admin Required |
 | :--- | :--- | :--- |
-| **Check Disk Integrity** | Quét lỗi ổ cứng (`chkdsk /scan`). | Có |
-| **Defrag / Trim Drive** | Chống phân mảnh hoặc tối ưu SSD. | Có |
-| **Rebuild Caches** | Làm mới icon, thumbnail và khởi động lại WSearch. | Không |
-| **Optimize Power Plan** | Thêm, xóa hoặc thiết lập các chế độ nguồn điện (Ultimate, High...). | Có |
-| **Optimize Visual Effects** | Bật/tắt hiệu ứng đồ họa để tăng hiệu suất. | Không |
-| **Win 11 Context Menu** | Chuyển đổi giữa Menu chuột phải kiểu Win 10 và Win 11 (Tự động khởi động lại Explorer để áp dụng). | Không |
+| **Check Disk Integrity** | Scan disk for errors (`chkdsk /scan`). | Yes |
+| **Defrag / Trim Drive** | Defragment or optimize SSD. | Yes |
+| **Rebuild Caches** | Refresh icons, thumbnails, and restart WSearch. | No |
+| **Optimize Power Plan** | Add, remove, or set power plans (Ultimate, High...). | Yes |
+| **Optimize Visual Effects** | Enable/disable visual effects to boost performance. | No |
+| **Win 11 Context Menu** | Toggle between Win 10 and Win 11 context menus (Auto-restarts Explorer to apply). | No |
 
-### 4. Advanced Tools (Công cụ nâng cao)
-| Chức Năng | Tính năng cụ thể | Yêu cầu Expert Mode |
+### 4. Advanced Tools
+| Function | Specific Feature | Expert Mode Required |
 | :--- | :--- | :--- |
-| **Clear Update Cache** | Dọn dẹp cache của Windows Update. | Không |
-| **Uninstall Office Key** | Gỡ key bản quyền Office 2016. | Không |
-| **Remove Windows.old** | Xóa thư mục bản Win cũ sau khi nâng cấp. | **Có** |
-| **Manage Pagefile/Hibernation**| Tắt Pagefile hoặc chế độ ngủ đông (Hibernation). | **Có** |
-| **Network Reset & Flush DNS** | Đặt lại mạng và xóa bộ nhớ cache DNS. | Không |
-| **Create Restore Point** | Tạo điểm khôi phục hệ thống (Restore Point). | Không |
+| **Clear Update Cache** | Clean Windows Update cache. | No |
+| **Uninstall Office Key** | Remove Office 2016 license key. | No |
+| **Remove Windows.old** | Delete old Windows installation folder. | **Yes** |
+| **Manage Pagefile/Hibernation**| Disable Pagefile or Hibernation mode. | **Yes** |
+| **Network Reset & Flush DNS** | Reset network settings and flush DNS cache. | No |
+| **Create Restore Point** | Create a system Restore Point. | No |
 
-### 5. System Utilities (Tiện ích hệ thống)
-* Hiển thị thông tin hệ thống chi tiết (OS, CPU, RAM, GPU, Storage).
-* Khởi động lại Windows Explorer để sửa lỗi giao diện.
-* Tắt ép buộc (Kill) các ứng dụng đang bị treo (Not Responding).
-* **[MỚI] Check Windows License Key & Status:** Kiểm tra chi tiết trạng thái bản quyền (phát hiện key KMS/Volume rác), trích xuất key gốc từ BIOS/UEFI.
-* **[MỚI] Generate Battery Health Report:** Tự động tạo và mở báo cáo HTML chi tiết về tình trạng chai pin của thiết bị.
-* **Winget Power Tools:** * Cập nhật tất cả phần mềm tự động ẩn (Silent & Auto) hoặc chọn lọc theo App ID.
-  * Cài đặt phần mềm thiết yếu được chia theo danh mục cụ thể (Runtimes, Browsers, Media, Dev Tools, Utilities...).
-  * Sửa lỗi và đặt lại bộ nhớ cache của Winget (Reset Source).
+### 5. System Utilities
+* Display detailed system information (OS, CPU, RAM, GPU, Storage).
+* Restart Windows Explorer to fix UI glitches.
+* Force kill 'Not Responding' applications.
+* **Check Windows License Key & Status:** Check detailed license status (detects KMS/Volume keys), extract original key from BIOS/UEFI.
+* **Generate Battery Health Report:** Automatically generate and open a detailed HTML battery health report.
+* **Winget Power Tools:** * Update all software silently & automatically, or selectively by App ID.
+  * Install essential software categorized by type (Runtimes, Browsers, Media, Dev Tools, Utilities...).
+  * Fix and reset Winget cache (Reset Source).
 
-### 6. Screen & Power Tools (Công cụ màn hình & Nguồn)
-* Tắt màn hình ngay lập tức.
-* Tạo file script `Turn Off Screen.bat` ngoài Desktop để tắt màn hình nhanh.
+### 6. Screen & Power Tools
+* Turn off the screen immediately.
+* Create a `Turn Off Screen.bat` script on the Desktop for quick access.
 
-### 7. Quick Rename Pro (Đổi tên hàng loạt)
-Công cụ hỗ trợ kéo thả trực tiếp để đổi tên File và Folder số lượng lớn:
-* **File:** Xóa dấu ngoặc, đánh số thứ tự (1, 2, 3...), xóa hậu tố, hoặc tìm & thay thế chuỗi ký tự.
-* **Folder:** Xóa dấu ngoặc, xóa hậu tố.
-* **Fast Rename:** Đổi tên nhanh tương tác từng bước thủ công, hoặc đổi hàng loạt tự động dựa trên danh sách file `.txt` (Hỗ trợ cả File và Folder).
-* **Hoàn tác (Undo):** Hỗ trợ hoàn tác lại thao tác đổi tên gần nhất.
+### 7. Quick Rename Pro
+Direct drag-and-drop tool for bulk renaming Files and Folders:
+* **File:** Extract brackets, sequential numbering (1, 2, 3...), remove suffixes, or find & replace strings.
+* **Folder:** Extract brackets, remove suffixes.
+* **Fast Rename:** Quick interactive step-by-step renaming, or bulk rename based on a `.txt` list (Supports both Files and Folders).
+* **Undo:** Support undoing the last rename batch action.
 
-### 8. Auto Maintenance (Bảo trì tự động)
-*Yêu cầu quyền Admin.*
-* Chạy tự động chuỗi tác vụ: Quick Cleanup -> Deep Cleanup -> Clear Windows Update Cache.
+### 8. Auto Maintenance
+*Requires Admin rights.*
+* Automatically execute the task sequence: Quick Cleanup -> Deep Cleanup -> Clear Windows Update Cache.
 
-### 9. Toolkit Options (Cài đặt & Nhật ký)
-* Bật/Tắt chế độ chuyên gia (**Expert Mode**) để hiển thị các tính năng nâng cao/nguy hiểm.
-* Trích xuất nhật ký hoạt động (Export Action Report).
+### 9. Toolkit Options
+* Toggle **Expert Mode** to display advanced/dangerous features.
+* Export Action Report logs.
 
 ---
 
-## 🛠 Hướng Dẫn Sử Dụng
+## 🛠 Usage Guide
 
-1. **Tải xuống** tệp `WCaO.bat`.
-2. Khuyến nghị nhấp chuột phải và chọn **Run as administrator** để sử dụng được toàn bộ các tính năng.
-3. Gõ phím số tương ứng ở Menu (từ 0-9) và nhấn `Enter` để điều hướng.
-4. Đối với một số tính năng can thiệp sâu (Menu 4), bạn cần vào Menu `9` để bật **Expert Mode** trước khi sử dụng.
-5. Toàn bộ lịch sử dọn dẹp được tự động lưu tạm, bạn có thể xuất file Log tại Menu `9`.
+1. **Download** the `WCaO.bat` file.
+2. It is highly recommended to right-click and select **Run as administrator** to utilize all features.
+3. Type the corresponding number from the Menu (0-9) and press `Enter` to navigate.
+4. For some deep system interventions (Menu 4), you need to go to Menu `9` to enable **Expert Mode** first.
+5. All activity history is temporarily saved; you can export the Log file in Menu `9`.
