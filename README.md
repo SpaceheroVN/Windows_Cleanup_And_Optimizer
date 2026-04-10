@@ -1,8 +1,8 @@
-# 🚀 Windows Cleanup & Optimizer v6.1.5 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.5/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
+# 🚀 Windows Cleanup & Optimizer v6.1.7 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.7/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
 
-![Version](https://img.shields.io/badge/version-v6.1.5-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
+![Version](https://img.shields.io/badge/version-v6.1.7-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
 
-Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. Phiên bản v6.1.5 cung cấp tổng cộng **9 nhóm danh mục** với nhiều chức năng cụ thể giúp dọn dẹp, sửa lỗi và tối ưu hóa Windows. Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
+Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. Phiên bản v6.1.7 cung cấp tổng cộng **9 nhóm danh mục** với nhiều chức năng cụ thể giúp dọn dẹp, sửa lỗi và tối ưu hóa Windows. Nếu bạn thấy tôi cập nhật **README.md** đúng phiên bản **hiện tại** thì việc đó đồng nghĩa dự án ***đã tạm dừng vô thời hạn**...
 
 ---
 
@@ -31,7 +31,7 @@ Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức 
 | **Rebuild Caches** | Làm mới icon, thumbnail và khởi động lại WSearch. | Không |
 | **Optimize Power Plan** | Thêm, xóa hoặc thiết lập các chế độ nguồn điện (Ultimate, High...). | Có |
 | **Optimize Visual Effects** | Bật/tắt hiệu ứng đồ họa để tăng hiệu suất. | Không |
-| **Win 11 Context Menu** | Chuyển đổi giữa Menu chuột phải kiểu Win 10 và Win 11. | Không |
+| **Win 11 Context Menu** | Chuyển đổi giữa Menu chuột phải kiểu Win 10 và Win 11 (Tự động khởi động lại Explorer để áp dụng). | Không |
 
 ### 4. Advanced Tools (Công cụ nâng cao)
 | Chức Năng | Tính năng cụ thể | Yêu cầu Expert Mode |
@@ -47,8 +47,11 @@ Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức 
 * Hiển thị thông tin hệ thống chi tiết (OS, CPU, RAM, GPU, Storage).
 * Khởi động lại Windows Explorer để sửa lỗi giao diện.
 * Tắt ép buộc (Kill) các ứng dụng đang bị treo (Not Responding).
-* **[MỚI] Winget Power Tools:** * Cập nhật tất cả phần mềm tự động ẩn (Silent & Auto) hoặc chọn lọc theo App ID.
+* **[MỚI] Check Windows License Key & Status:** Kiểm tra chi tiết trạng thái bản quyền (phát hiện key KMS/Volume rác), trích xuất key gốc từ BIOS/UEFI.
+* **[MỚI] Generate Battery Health Report:** Tự động tạo và mở báo cáo HTML chi tiết về tình trạng chai pin của thiết bị.
+* **Winget Power Tools:** * Cập nhật tất cả phần mềm tự động ẩn (Silent & Auto) hoặc chọn lọc theo App ID.
   * Cài đặt phần mềm thiết yếu được chia theo danh mục cụ thể (Runtimes, Browsers, Media, Dev Tools, Utilities...).
+  * Sửa lỗi và đặt lại bộ nhớ cache của Winget (Reset Source).
 
 ### 6. Screen & Power Tools (Công cụ màn hình & Nguồn)
 * Tắt màn hình ngay lập tức.
@@ -58,7 +61,7 @@ Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức 
 Công cụ hỗ trợ kéo thả trực tiếp để đổi tên File và Folder số lượng lớn:
 * **File:** Xóa dấu ngoặc, đánh số thứ tự (1, 2, 3...), xóa hậu tố, hoặc tìm & thay thế chuỗi ký tự.
 * **Folder:** Xóa dấu ngoặc, xóa hậu tố.
-* **[MỚI] Fast Rename:** Đổi tên nhanh tương tác từng bước thủ công, hoặc đổi hàng loạt tự động dựa trên danh sách file `.txt` (Hỗ trợ cả File và Folder).
+* **Fast Rename:** Đổi tên nhanh tương tác từng bước thủ công, hoặc đổi hàng loạt tự động dựa trên danh sách file `.txt` (Hỗ trợ cả File và Folder).
 * **Hoàn tác (Undo):** Hỗ trợ hoàn tác lại thao tác đổi tên gần nhất.
 
 ### 8. Auto Maintenance (Bảo trì tự động)
