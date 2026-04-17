@@ -8,6 +8,12 @@ Open-source system maintenance tool written in Batch Script. Version v6.1.7 prov
 
 ---
 
+## ⚠️ DISCLAIMER
+**BY USING THIS TOOLKIT, YOU AGREE TO THE [TERMS OF USE](#terms-of-use).**
+This script modifies system files and registry settings. The author is **NOT responsible** for any data loss, system instability, or hardware damage. **Use at your own risk.**
+
+---
+
 ## ⚙️ Features Detail
 
 The toolkit is divided into 9 main categories on the Menu, including the following functions:
@@ -76,10 +82,21 @@ Direct drag-and-drop tool for bulk renaming Files and Folders:
 
 ---
 
-## 🛠 Usage Guide
+## 🛠 How to Use
 
 1. **Download** the `WCaO.bat` file.
 2. It is highly recommended to right-click and select **Run as administrator** to utilize all features.
 3. Type the corresponding number from the Menu (0-9) and press `Enter` to navigate.
 4. For some deep system interventions (Menu 4), you need to go to Menu `9` to enable **Expert Mode** first.
 5. All activity history is temporarily saved; you can export the Log file in Menu `9`.
+
+---
+
+## Terms of Use
+1. **Educational Purpose:** This project is for educational and research purposes only.
+2. **No Liability:** The author assumes no liability for any direct or indirect damages.
+3. **Precaution:** It is highly recommended to create a **System Restore Point** before using advanced optimization features.
+4. **No Warranties:** This software is provided "as-is", without warranty of any kind.
+
+---
+*Copyright (c) 2026 9311-nex4. Licensed under the MIT License.*
