@@ -99,5 +99,5 @@ Direct drag-and-drop tool for bulk renaming Files and Folders:
 
 ---
 ## License
-MIT License - Copyright (c) 2026 SpaceheroVN. 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software... (See LICENSE file for full text).
+MIT License - Copyright (c) 2026 SpaceheroVN.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
