@@ -8,6 +8,12 @@ Công cụ bảo trì hệ thống mã nguồn mở viết bằng Batch Script. 
 
 ---
 
+## ⚠️ TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM
+**BẰNG VIỆC SỬ DỤNG BỘ CÔNG CỤ NÀY, BẠN ĐỒNG Ý VỚI [ĐIỀU KHOẢN SỬ DỤNG](#dieu-khoan-su-dung).**
+Script này can thiệp vào file hệ thống và Registry. Tác giả **KHÔNG chịu trách nhiệm** cho bất kỳ rủi ro mất dữ liệu hay hư hại hệ thống nào. **Hãy tự chịu rủi ro khi sử dụng.**
+
+---
+
 ## ⚙️ Chi Tiết Chức Năng
 
 Tool được chia thành 9 danh mục chính trên Menu, bao gồm các chức năng sau:
@@ -83,3 +89,14 @@ Công cụ hỗ trợ kéo thả trực tiếp để đổi tên File và Folder
 3. Gõ phím số tương ứng ở Menu (từ 0-9) và nhấn `Enter` để điều hướng.
 4. Đối với một số tính năng can thiệp sâu (Menu 4), bạn cần vào Menu `9` để bật **Expert Mode** trước khi sử dụng.
 5. Toàn bộ lịch sử dọn dẹp được tự động lưu tạm, bạn có thể xuất file Log tại Menu `9`.
+
+---
+
+## Điều khoản sử dụng
+1. **Mục đích:** Dự án này chỉ dành cho mục đích nghiên cứu, học tập và làm sạch hệ thống cá nhân.
+2. **Trách nhiệm:** Tác giả không chịu bất kỳ trách nhiệm pháp lý nào đối với các hư hỏng trực tiếp hoặc gián tiếp.
+3. **Cẩn trọng:** Khuyến khích người dùng tạo **Điểm khôi phục hệ thống (Restore Point)** trước khi sử dụng các tính năng trong mục Advanced hoặc Expert.
+4. **Bản quyền:** Phần mềm được cung cấp dưới dạng "nguyên bản", không có bảo hành đi kèm.
+
+---
+*Bản quyền (c) 2026 9311-nex4. Được cấp phép theo Giấy phép MIT.*
