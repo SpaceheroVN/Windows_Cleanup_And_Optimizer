@@ -97,7 +97,6 @@ Công cụ hỗ trợ kéo thả trực tiếp để đổi tên File và Folder
 2. **Trách nhiệm:** Tác giả không chịu trách nhiệm pháp lý cho mọi hư hỏng.
 3. **Cẩn trọng:** Hãy tạo **Restore Point** trước khi dùng.
 
----
-## Giấy phép (License)
-Dự án này được phát hành dưới giấy phép **MIT**.
-Bản quyền (c) 2026 thuộc về SpaceheroVN. Bạn có quyền sử dụng, sao chép, sửa đổi và phân phối phần mềm này miễn phí, miễn là đính kèm thông báo bản quyền này.
+## Giấy phép
+Giấy phép MIT - Bản quyền (c) 2026 thuộc về SpaceheroVN.
+Dự án này được cấp phép theo Giấy phép MIT - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
