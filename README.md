@@ -10,7 +10,7 @@ Open-source system maintenance tool written in Batch Script. Version v6.1.7 prov
 
 ## ⚠️ DISCLAIMER
 **BY USING THIS TOOLKIT, YOU AGREE TO THE [TERMS OF USE](#terms-of-use).**
-This script modifies system files and registry settings. The author is **NOT responsible** for any data loss, system instability, or hardware damage. **Use at your own risk.**
+The author is **NOT responsible** for any data loss or system instability. **Use at your own risk.**
 
 ---
 
@@ -93,10 +93,11 @@ Direct drag-and-drop tool for bulk renaming Files and Folders:
 ---
 
 ## Terms of Use
-1. **Educational Purpose:** This project is for educational and research purposes only.
-2. **No Liability:** The author assumes no liability for any direct or indirect damages.
-3. **Precaution:** It is highly recommended to create a **System Restore Point** before using advanced optimization features.
-4. **No Warranties:** This software is provided "as-is", without warranty of any kind.
+1. **Educational Purpose:** For research and learning only.
+2. **No Liability:** The author assumes no liability for damages.
+3. **Precaution:** Create a **Restore Point** before use.
 
 ---
-*Copyright (c) 2026 9311-nex4. Licensed under the MIT License.*
+## License
+MIT License - Copyright (c) 2026 SpaceheroVN. 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software... (See LICENSE file for full text).
