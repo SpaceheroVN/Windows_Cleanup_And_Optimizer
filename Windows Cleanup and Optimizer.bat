@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-title Windows Cleanup ^& Optimizer v6.1.7 - Ultimate Toolkit
+title Windows Cleanup ^& Optimizer v6.1.8 - Ultimate Toolkit
 
 reg add "HKCU\Console" /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
 cd /d "%~dp0"
@@ -8,7 +8,7 @@ cd /d "%~dp0"
 :: =====================================================================
 ::                            CONFIGURATION
 :: =====================================================================
-set "VERSION=6.1.7.Optimized"
+set "VERSION=6.1.8"
 set "TOOLNAME=Windows Cleanup & Optimizer"
 set "BASE_DIR=%LocalAppData%\WCaO_Toolkit"
 set "LOG_RETENTION_DAYS=7"
@@ -60,17 +60,17 @@ set "adm_stat=%cRED%NO (Limited)%cRES%" & if "!IS_ADMIN!"=="1" set "adm_stat=%cG
 echo.
 echo  %cWHI%System: %cYEL%%OS_DRIVE%%cWHI%  ^|  Admin: !adm_stat!%cWHI%  ^|  Expert: !exp_stat!
 echo.
-echo  %cGRE%[1]%cRES% Quick Cleanup
-echo  %cRED%[2]%cRES% Deep Cleanup (Admin)
-echo  %cCYA%[3]%cRES% System Optimization
-echo  %cMAG%[4]%cRES% Advanced Tools
-echo  %cBLU%[5]%cRES% System Utilities (Info, Keys, Battery, Winget)
-echo  %cYEL%[6]%cRES% Screen ^& Power Tools
-echo  %cGRE%[7]%cRES% Quick Rename Pro
-echo  %cRED%[8]%cRES% Auto Maintenance (Admin)
+echo  %cGRE%[1]%cWHI% Quick Cleanup%cRES%
+echo  %cRED%[2]%cWHI% Deep Cleanup %cRED%(Admin)%cRES%
+echo  %cCYA%[3]%cWHI% System Optimization%cRES%
+echo  %cMAG%[4]%cWHI% Advanced Tools%cRES%
+echo  %cBLU%[5]%cWHI% System Utilities%cRES% 
+echo  %cYEL%[6]%cWHI% Screen ^& Power Tools%cRES%
+echo  %cGRE%[7]%cWHI% Quick Rename Pro%cRES%
+echo  %cRED%[8]%cWHI% Auto Maintenance %cRED%(Admin)%cRES%
 echo  --------------------------------------
-echo  %cYEL%[9]%cRES% Toolkit Options (Expert / Logs)
-echo  %cWHI%[0]%cRES% Exit Toolkit
+echo  %cYEL%[9]%cWHI% Toolkit Options %cMAG%(Expert / Logs)%cRES%
+echo  %cWHI%[0] Exit Toolkit%cRES%
 echo.
 set "choice="
 set /p "choice= %cCYA%Choose an option (0-9): %cRES%"
@@ -80,7 +80,7 @@ if "!choice!"=="1" call :QuickClean & goto main_menu
 if "!choice!"=="2" call :DeepClean & goto main_menu
 if "!choice!"=="3" goto SystemOptimizeMenu
 if "!choice!"=="4" goto AdvancedMenu
-if "!choice!"=="5" goto SystemUtilities
+if "!choice!"=="5" goto SystemUtilitiesMenu
 if "!choice!"=="6" goto ScreenToolsMenu
 if "!choice!"=="7" goto QuickRename
 if "!choice!"=="8" call :AutoRun & goto main_menu
@@ -93,7 +93,7 @@ if "!choice!"=="0" (
 goto main_menu
 
 :: =====================================================================
-::                         1. QUICK CLEANUP
+::                           1. QUICK CLEANUP
 :: =====================================================================
 :QuickClean
 call :LogNav "Quick Cleanup"
@@ -115,7 +115,7 @@ call :PauseToContinue
 goto :EOF
 
 :: =====================================================================
-::                         2. DEEP CLEANUP
+::                           2. DEEP CLEANUP
 :: =====================================================================
 :DeepClean
 call :CheckAdmin || goto :EOF
@@ -144,42 +144,65 @@ goto :EOF
 :SystemOptimizeMenu
 call :LogNav "System Optimization Menu"
 cls & call :DrawBox "SYSTEM OPTIMIZATION" "%cCYA%" & echo.
-echo  [1] Check Disk Integrity (Admin)
-echo  [2] Defrag / Trim Drive (Admin)
-echo  [3] Rebuild System Caches
-echo  [4] Optimize Power Plan (Admin)
-echo  [5] Optimize Visual Effects
-echo  [6] Windows 11 Classic Context Menu (Toggle)
-echo  [0] Back to Main Menu
+echo  %cYEL%[1]%cWHI% Check Disk Integrity %cRED%(Admin)%cRES%
+echo  %cYEL%[2]%cWHI% Defrag / Trim Drive %cRED%(Admin)%cRES%
+echo  %cYEL%[3]%cWHI% Rebuild System Caches%cRES%
+echo  %cYEL%[4]%cWHI% Optimize Power Plan %cRED%(Admin)%cRES%
+echo  %cYEL%[5]%cWHI% Optimize Visual Effects%cRES%
+echo  %cYEL%[6]%cWHI% Windows 11 Classic Context Menu %cGRE%(Toggle)%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
 echo.
 set "opt="
 set /p "opt= %cCYA%Choose option: %cRES%"
 call :LogInput "System Opt Choice" "!opt!"
 
 if "!opt!"=="" goto SystemOptimizeMenu
-if "!opt!"=="1" (call :CheckAdmin && (cls & echo %cCYA%[+] Running Check Disk...%cRES% & call :RunAndLog chkdsk %OS_DRIVE% /scan & echo %cGRE%[+] Done.%cRES% & call :PauseToContinue))
-if "!opt!"=="2" (call :CheckAdmin && (cls & echo %cCYA%[+] Running Defrag/Trim...%cRES% & call :RunAndLog defrag %OS_DRIVE% /O /L & echo %cGRE%[+] Done.%cRES% & call :PauseToContinue))
-if "!opt!"=="3" (
-    cls & echo %cCYA%[+] Rebuilding icon ^& thumbnail caches...%cRES%
-    call :RunAndLog taskkill /f /im explorer.exe
-    timeout /t 1 /nobreak >nul
-    call :RunAndLog del /a /f /q "%localappdata%\IconCache.db"
-    call :RunAndLog del /a /f /q "%localappdata%\Microsoft\Windows\Explorer\thumbcache_*.db"
-    start explorer.exe
-    if "!IS_ADMIN!"=="1" (sc query "WSearch" >nul 2>&1 && (call :RunAndLog net stop "WSearch" & call :RunAndLog net start "WSearch"))
-    echo  %cGRE%[+] Done.%cRES% & call :PauseToContinue
-)
+if "!opt!"=="1" call :CheckDisk
+if "!opt!"=="2" call :DefragDrive
+if "!opt!"=="3" call :RebuildCaches
 if "!opt!"=="4" (call :CheckAdmin && call :SetPowerPlan)
-if "!opt!"=="5" (call :SetVisualEffects)
+if "!opt!"=="5" call :SetVisualEffects
 if "!opt!"=="6" goto ToggleContextMenu
 if "!opt!"=="0" goto main_menu
 goto SystemOptimizeMenu
 
+:: 3.1 Check Disk Integrity
+:CheckDisk
+call :CheckAdmin || goto :EOF
+cls & echo %cCYA%[+] Running Check Disk...%cRES%
+call :RunAndLog chkdsk %OS_DRIVE% /scan
+echo %cGRE%[+] Done.%cRES%
+call :PauseToContinue
+goto :EOF
+
+:: 3.2 Defrag / Trim Drive
+:DefragDrive
+call :CheckAdmin || goto :EOF
+cls & echo %cCYA%[+] Running Defrag/Trim...%cRES%
+call :RunAndLog defrag %OS_DRIVE% /O /L
+echo %cGRE%[+] Done.%cRES%
+call :PauseToContinue
+goto :EOF
+
+:: 3.3 Rebuild System Caches
+:RebuildCaches
+cls & echo %cCYA%[+] Rebuilding icon ^& thumbnail caches...%cRES%
+call :RunAndLog taskkill /f /im explorer.exe
+timeout /t 1 /nobreak >nul
+call :RunAndLog del /a /f /q "%localappdata%\IconCache.db"
+call :RunAndLog del /a /f /q "%localappdata%\Microsoft\Windows\Explorer\thumbcache_*.db"
+start explorer.exe
+if "!IS_ADMIN!"=="1" (sc query "WSearch" >nul 2>&1 && (call :RunAndLog net stop "WSearch" & call :RunAndLog net start "WSearch"))
+echo  %cGRE%[+] Done.%cRES%
+call :PauseToContinue
+goto :EOF
+
+:: 3.4 Optimize Power Plan
 :SetPowerPlan
 cls & call :DrawBox "OPTIMIZE POWER PLAN" "%cCYA%" & echo.
 powercfg /list & echo -----------------------------------
-echo  [1] Add Ultimate Plan   [2] Remove Plan   [3] Set Active Plan
-echo  [4] Restore Default     [0] Back to Optimization Menu
+echo  %cYEL%[1]%cWHI% Add Ultimate Plan   %cYEL%[2]%cWHI% Remove Plan   %cYEL%[3]%cWHI% Set Active Plan%cRES%
+echo  %cYEL%[4]%cWHI% Restore Default     %cYEL%[0]%cWHI% Back to Optimization Menu%cRES%
 echo.
 set "pp=" & set /p "pp= Choose: "
 if "!pp!"=="" goto SetPowerPlan
@@ -190,9 +213,10 @@ if "!pp!"=="4" (call :RunAndLog powercfg /restoredefaultschemes & echo %cGRE%[+]
 if "!pp!"=="0" goto :EOF
 goto SetPowerPlan
 
+:: 3.5 Optimize Visual Effects
 :SetVisualEffects
 cls & call :DrawBox "VISUAL EFFECTS" "%cCYA%" & echo.
-echo  [1] Best Performance  [2] Custom (Peek+Smooth Fonts)  [3] Default  [0] Back
+echo  %cYEL%[1]%cWHI% Best Performance  %cYEL%[2]%cWHI% Custom (Peek+Smooth Fonts)  %cYEL%[3]%cWHI% Default  %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "ve=" & set /p "ve= Choose: "
 if "!ve!"=="1" (call :RunAndLog reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v "VisualFxSetting" /t REG_DWORD /d 2 /f & echo %cGRE%[+] Applied.%cRES% & call :PauseToContinue)
@@ -201,11 +225,12 @@ if "!ve!"=="3" (call :RunAndLog reg add "HKCU\Software\Microsoft\Windows\Current
 if "!ve!"=="0" goto :EOF
 goto SetVisualEffects
 
+:: 3.6 Windows 11 Classic Context Menu
 :ToggleContextMenu
 cls & call :DrawBox "WIN 11 CONTEXT MENU" "%cCYA%" & echo.
-echo  [1] Enable Classic Menu (Win 10 Style)
-echo  [2] Restore Default Menu (Win 11 Style)
-echo  [0] Back
+echo  %cYEL%[1]%cWHI% Enable Classic Menu %cGRE%(Win 10 Style)%cRES%
+echo  %cYEL%[2]%cWHI% Restore Default Menu %cCYA%(Win 11 Style)%cRES%
+echo  %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "cm=" & set /p "cm= Choose: "
 if "!cm!"=="1" goto EnableClassicMenu
@@ -226,7 +251,7 @@ goto AskRestartExplorer
 :AskRestartExplorer
 echo.
 set "res_exp="
-set /p "res_exp= %cYEL%Muon Restart Windows Explorer de ap dung ngay khong? (Y/N): %cRES%"
+set /p "res_exp= %cYEL%Restart Windows Explorer to apply immediately? (Y/N): %cRES%"
 if /i "!res_exp!"=="Y" (
     echo %cBLU%[+] Restarting Explorer...%cRES%
     call :RunAndLog taskkill /f /im explorer.exe
@@ -240,18 +265,19 @@ call :PauseToContinue
 goto ToggleContextMenu
 
 :: =====================================================================
-::                       4. ADVANCED TOOLS
+::                          4. ADVANCED TOOLS
 :: =====================================================================
 :AdvancedMenu
 call :LogNav "Advanced Tools Menu"
 cls & call :DrawBox "ADVANCED TOOLS" "%cMAG%" & echo.
-echo  [1] Clear Update Cache (Admin)
-echo  [2] Uninstall Office Key (Admin)
-echo  [3] Remove Windows.old (Admin+Expert)
-echo  [4] Manage Pagefile/Hibernation (Admin+Expert)
-echo  [5] Network Reset ^& Flush DNS (Admin)
-echo  [6] Create Restore Point (Admin)
-echo  [0] Back to Main Menu
+echo  %cYEL%[1]%cWHI% Clear Update Cache %cRED%(Admin)%cRES%
+echo  %cYEL%[2]%cWHI% Uninstall Office Key %cRED%(Admin)%cRES%
+echo  %cYEL%[3]%cWHI% Remove Windows.old %cRED%(Admin+Expert)%cRES%
+echo  %cYEL%[4]%cWHI% Manage Pagefile/Hibernation %cRED%(Admin+Expert)%cRES%
+echo  %cYEL%[5]%cWHI% Network Reset ^& Flush DNS %cRED%(Admin)%cRES%
+echo  %cYEL%[6]%cWHI% Create Restore Point %cRED%(Admin)%cRES%
+echo  %cYEL%[7]%cWHI% Wipe Free Space %cMAG%(Anti-Recovery)%cRES% %cRED%(Admin+Expert)%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
 echo.
 set "adv="
 set /p "adv= %cMAG%Choose option: %cRES%"
@@ -263,9 +289,11 @@ if "!adv!"=="3" (call :CheckAdmin && if "!EXPERT_MODE!"=="1" (call :RemoveWindow
 if "!adv!"=="4" (call :CheckAdmin && if "!EXPERT_MODE!"=="1" (call :PagefileMenu) else (echo %cRED%[-] Expert Mode required.%cRES% & call :PauseToContinue))
 if "!adv!"=="5" (call :CheckAdmin && call :NetReset)
 if "!adv!"=="6" (call :CheckAdmin && call :CreateRestorePoint)
+if "!adv!"=="7" (call :CheckAdmin && if "!EXPERT_MODE!"=="1" (call :WipeFreeSpace) else (echo %cRED%[-] Expert Mode required.%cRES% & call :PauseToContinue))
 if "!adv!"=="0" goto main_menu
 goto AdvancedMenu
 
+:: 4.1 Clear Update Cache
 :ClearWinUpdate
 cls & echo %cBLU%[+] Stopping services...%cRES%
 call :RunAndLog sc stop wuauserv
@@ -279,11 +307,13 @@ call :RunAndLog net start bits
 call :RunAndLog net start wuauserv
 echo %cGRE%[+] Update Cache Cleared.%cRES% & call :PauseToContinue & goto :EOF
 
+:: 4.2 Uninstall Office Key
 :UninstallOfficeKey
 cls & if exist "C:\Program Files\Microsoft Office\Office16\ospp.vbs" (cd /d "C:\Program Files\Microsoft Office\Office16") else (if exist "C:\Program Files (x86)\Microsoft Office\Office16\ospp.vbs" (cd /d "C:\Program Files (x86)\Microsoft Office\Office16") else (echo %cRED%[-] Office 2016 ospp.vbs not found.%cRES% & call :PauseToContinue & cd /d "%~dp0" & goto :EOF))
 call :RunAndLog cscript ospp.vbs /dstatus
 call :PauseToContinue & cd /d "%~dp0" & goto :EOF
 
+:: 4.3 Remove Windows.old
 :RemoveWindowsOld
 cls & set "WINOLD=%OS_DRIVE%\Windows.old"
 if exist "%WINOLD%" (
@@ -297,9 +327,10 @@ if exist "%WINOLD%" (
 ) else (echo %cYEL%[-] Windows.old not found.%cRES%)
 call :PauseToContinue & goto :EOF
 
+:: 4.4 Manage Pagefile/Hibernation
 :PagefileMenu
 cls & call :DrawBox "PAGEFILE & HIBERNATION" "%cMAG%" & echo.
-echo  [1] Disable Auto Pagefile  [2] Disable Hibernation  [0] Back
+echo  %cYEL%[1]%cWHI% Disable Auto Pagefile  %cYEL%[2]%cWHI% Disable Hibernation  %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "pf=" & set /p "pf=Choose: "
 if "!pf!"=="1" (call :RunAndLog wmic computersystem where name="%computername%" set AutomaticManagedPagefile=False & echo %cGRE%[+] Disabled. Reboot needed.%cRES% & call :PauseToContinue)
@@ -307,6 +338,7 @@ if "!pf!"=="2" (call :RunAndLog powercfg -h off & echo %cGRE%[+] Hibernation dis
 if "!pf!"=="0" goto :EOF
 goto PagefileMenu
 
+:: 4.5 Network Reset & Flush DNS
 :NetReset
 cls & echo %cBLU%[+] Resetting Network...%cRES%
 call :RunAndLog ipconfig /flushdns
@@ -314,6 +346,7 @@ call :RunAndLog netsh winsock reset
 call :RunAndLog netsh int ip reset
 echo %cGRE%[+] Complete. Reboot recommended.%cRES% & call :PauseToContinue & goto :EOF
 
+:: 4.6 Create Restore Point
 :CreateRestorePoint
 cls & echo %cBLU%[+] Creating Restore Point...%cRES%
 call :RunAndLog powershell -NoProfile -ExecutionPolicy Bypass -Command "Enable-ComputerRestore -Drive '%OS_DRIVE%'"
@@ -321,96 +354,56 @@ call :RunAndLog powershell -NoProfile -ExecutionPolicy Bypass -Command "Checkpoi
 if %errorlevel% equ 0 (echo %cGRE%[OK] Created.%cRES%) else (echo %cRED%[ERROR] Failed.%cRES%)
 call :PauseToContinue & goto :EOF
 
+:: 4.7 Wipe Free Space (Anti-Recovery)
+:WipeFreeSpace
+cls & call :DrawBox "WIPE FREE SPACE (SECURITY WIPE)" "%cRED%" & echo.
+echo  %cRED%[!] WARNING: This will permanently overwrite all free space on %OS_DRIVE%.%cRES%
+echo  %cYEL% - It prevents recovery of deleted files.%cRES%
+echo  %cYEL% - It takes a VERY LONG TIME (hours).%cRES%
+echo  %cYEL% - It causes severe wear and tear on SSDs. DO NOT use on SSDs frequently.%cRES%
+echo.
+set "confirm_wipe=" & set /p "confirm_wipe=Type 'WIPE' to proceed or anything else to cancel: "
+if /i "!confirm_wipe!"=="WIPE" (
+    echo.
+    echo  %cBLU%[+] Starting free space wipe on %OS_DRIVE%\... DO NOT CLOSE THIS WINDOW.%cRES%
+    call :RunAndLog cipher /w:%OS_DRIVE%\
+    echo  %cGRE%[+] Wipe complete.%cRES%
+) else (
+    echo  %cYEL%[-] Operation cancelled.%cRES%
+)
+call :PauseToContinue & goto :EOF
+
 :: =====================================================================
-::                       5. SYSTEM UTILITIES
+::                         5. SYSTEM UTILITIES
 :: =====================================================================
-:SystemUtilities
+:SystemUtilitiesMenu
 call :LogNav "System Utilities Menu"
 cls & call :DrawBox "SYSTEM UTILITIES" "%cBLU%" & echo.
-echo  [1] Show Advanced System Info
-echo  [2] Restart Windows Explorer (Fix UI Glitches)
-echo  [3] Kill 'Not Responding' Tasks
-echo  [4] Winget Power Tools (Update, Install, Fix)
-echo  %cCYA%[5] Check Windows License Key ^& Status%cRES%
-echo  %cCYA%[6] Generate Battery Health Report%cRES%
-echo  [0] Back to Main Menu
+echo  %cYEL%[1]%cWHI% Show Advanced System Info%cRES%
+echo  %cYEL%[2]%cWHI% Restart Windows Explorer %cGRE%(Fix UI Glitches)%cRES%
+echo  %cYEL%[3]%cWHI% Kill 'Not Responding' Tasks%cRES%
+echo  %cYEL%[4]%cWHI% Winget Power Tools %cGRE%(Update, Install, Fix)%cRES%
+echo  %cYEL%[5]%cWHI% Check Windows License Key ^& Status%cRES%
+echo  %cYEL%[6]%cWHI% Generate Battery Health Report%cRES%
+echo  %cYEL%[7]%cWHI% Show Current Wi-Fi Password%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
 echo.
 set "util="
 set /p "util= %cBLU%Choose option: %cRES%"
 
-if "!util!"=="" goto SystemUtilities
-if "!util!"=="1" goto SysUtil1
-if "!util!"=="2" goto SysUtil2
-if "!util!"=="3" goto SysUtil3
+if "!util!"=="" goto SystemUtilitiesMenu
+if "!util!"=="1" goto ShowAdvancedSysInfo
+if "!util!"=="2" goto RestartExplorer
+if "!util!"=="3" goto KillNotRespondingTasks
 if "!util!"=="4" goto WingetMenu
 if "!util!"=="5" goto CheckWinKey
 if "!util!"=="6" goto CheckBattery
+if "!util!"=="7" goto ShowWifiPass
 if "!util!"=="0" goto main_menu
-goto SystemUtilities
+goto SystemUtilitiesMenu
 
-:CheckWinKey
-cls & call :DrawBox "WINDOWS LICENSE & STATUS" "%cBLU%" & echo.
-echo  %cCYA%[+] Checking Windows Activation Status ^& Channel...%cRES%
-
-set "channel=Unknown"
-set "is_kms=0"
-set "lic_status=Unknown"
-for /f "tokens=* delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /dli 2^>nul') do (
-    set "line=%%A"
-    if "!line:Description:=!" neq "!line!" set "channel=!line!"
-    if "!line:VOLUME_KMSCLIENT=!" neq "!line!" set "is_kms=1"
-    if "!line:License Status:=!" neq "!line!" set "lic_status=!line!"
-)
-
-echo  %cWHI%Status: %cRES%!lic_status!
-echo  %cWHI%License Channel: %cRES%!channel!
-
-if "!is_kms!"=="1" (
-    echo  %cRED%[!] WARNING: System is using a Volume/KMS Key.%cRES%
-    echo  %cRED%[!] ^(For personal PCs, this often indicates an unofficial/cracked key^).%cRES%
-) else (
-    echo  %cGRE%[+] System is using a legitimate license ^(Retail/OEM^).%cRES%
-)
-
-echo.
-echo  %cCYA%[+] Expiration Status (slmgr /xpr):%cRES%
-for /f "delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /xpr 2^>nul') do (
-    set "xpr_out=%%A"
-    echo  %cWHI%!xpr_out!%cRES%
-)
-
-echo.
-echo  %cCYA%[+] Detailed Information (slmgr /dlv):%cRES%
-for /f "delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /dlv 2^>nul') do (
-    set "dlv_out=%%A"
-    echo  %cWHI%!dlv_out!%cRES%
-)
-
-echo.
-echo  %cCYA%[+] Extracting Original Key from BIOS/UEFI...%cRES%
-for /f "tokens=2 delims==" %%A in ('wmic path softwarelicensingservice get OA3xOriginalProductKey /value 2^>nul') do set "bios_key=%%A"
-if not "!bios_key!"=="" (
-    echo  %cGRE%Original OEM Key: !bios_key!%cRES%
-) else (
-    echo  %cYEL%No original key found in BIOS/UEFI.%cRES%
-)
-
-call :PauseToContinue & goto SystemUtilities
-
-:CheckBattery
-cls & call :DrawBox "BATTERY HEALTH REPORT" "%cBLU%" & echo.
-echo  %cCYA%[+] Generating battery report...%cRES%
-set "bat_report=%temp%\battery_report.html"
-call :RunAndLog powercfg /batteryreport /output "!bat_report!" >nul 2>&1
-if exist "!bat_report!" (
-    echo  %cGRE%[+] Report generated successfully! Opening file...%cRES%
-    start "" "!bat_report!"
-) else (
-    echo  %cRED%[-] Failed to generate report. This device might not have a battery.%cRES%
-)
-call :PauseToContinue & goto SystemUtilities
-
-:SysUtil1
+:: 5.1 Show Advanced System Info
+:ShowAdvancedSysInfo
 cls & call :DrawBox "ADVANCED SYSTEM INFO" "%cBLU%" & echo.
 echo  %cCYA%[+] Fetching detailed hardware information... (Please wait)%cRES%
 echo.
@@ -429,29 +422,36 @@ call :RunAndLog powershell -NoProfile -ExecutionPolicy Bypass -Command ^
     "$mb=Get-CimInstance Win32_BaseBoard; Write-Host ('   Motherboard  : '+$mb.Manufacturer+' '+$mb.Product) -F $w; Write-Host ''; " ^
     "Write-Host ' [MEMORY AND GRAPHICS]' -F $c; " ^
     "$rT=[math]::Round((Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum/1GB, 2); " ^
-    "$rA=[math]::Round($os.FreePhysicalMemory/1024, 2); " ^
+    "$rA=[math]::Round($os.FreePhysicalMemory/1048576, 2); " ^
     "Write-Host ('   RAM Total    : '+$rT+' GB') -F $w; " ^
     "Write-Host ('   RAM Available: '+$rA+' GB') -F $w; " ^
     "foreach($g in @(Get-CimInstance Win32_VideoController)){Write-Host ('   GPU          : '+$g.Caption) -F $w}; Write-Host ''; " ^
-    "Write-Host ' [STORAGE]' -F $c; " ^
-    "foreach($d in @(Get-CimInstance Win32_DiskDrive)){Write-Host ('   Disk         : '+$d.Model+' ('+[math]::Round($d.Size/1GB, 2)+' GB)') -F $w}"
-call :PauseToContinue & goto SystemUtilities
+    "Write-Host ' [HARDWARE ID]' -F $c; " ^
+    "$pnpGPU = Get-PnpDevice -PresentOnly | Where-Object Class -eq 'Display'; " ^
+    "foreach($g in $pnpGPU) { " ^
+        "Write-Host ('   GPU ID       : ' + $g.InstanceId) -F $w; " ^
+    "}; " ^
+    "$pnpCPU = Get-PnpDevice -PresentOnly | Where-Object Class -eq 'Processor' | Select-Object -First 1; " ^
+    "if($pnpCPU) { " ^
+        "Write-Host ('   CPU ID       : ' + $pnpCPU.InstanceId) -F $w; " ^
+    "}"
+call :PauseToContinue & goto SystemUtilitiesMenu
 
-:SysUtil2
+:: 5.2 Restart Windows Explorer (Fix UI Glitches)
+:RestartExplorer
 echo. & echo %cBLU%[+] Restarting Explorer safely...%cRES%
 call :RunAndLog taskkill /f /im explorer.exe
 timeout /t 1 /nobreak >nul
 start explorer.exe
-echo %cGRE%[+] Done.%cRES% & call :PauseToContinue & goto SystemUtilities
+echo %cGRE%[+] Done.%cRES% & call :PauseToContinue & goto SystemUtilitiesMenu
 
-:SysUtil3
+:: 5.3 Kill 'Not Responding' Tasks
+:KillNotRespondingTasks
 echo. & echo %cBLU%[+] Terminating frozen applications...%cRES%
 call :RunAndLog taskkill.exe /F /FI "status eq NOT RESPONDING"
-echo %cGRE%[+] Done.%cRES% & call :PauseToContinue & goto SystemUtilities
+echo %cGRE%[+] Done.%cRES% & call :PauseToContinue & goto SystemUtilitiesMenu
 
-:: =====================================================================
-::                   WINGET POWER TOOLS
-:: =====================================================================
+:: 5.4 Winget Power Tools
 :WingetMenu
 cls & call :DrawBox "WINGET POWER TOOLS" "%cBLU%" & echo.
 echo  %cCYA%[+] Checking for available updates... (Please wait)%cRES%
@@ -459,12 +459,12 @@ echo.
 winget upgrade --include-unknown
 echo.
 echo  -------------------------------------------------------------
-echo  %cCYA%[1]%cRES% Update ALL Apps (Silent ^& Auto)
-echo  %cCYA%[2]%cRES% Choose Specific Applications to Update (By ID)
-echo  %cCYA%[3]%cRES% Recheck ^& Clear Output Screen
-echo  %cCYA%[4]%cRES% Fix ^& Reset Winget Cache
-echo  %cCYA%[5]%cRES% Install Essential Software
-echo  %cCYA%[0]%cRES% Back to Utilities Menu
+echo  %cYEL%[1]%cWHI% Update ALL Apps %cGRE%(Silent ^& Auto)%cRES%
+echo  %cYEL%[2]%cWHI% Choose Specific Applications to Update %cCYA%(By ID)%cRES%
+echo  %cYEL%[3]%cWHI% Recheck ^& Clear Output Screen%cRES%
+echo  %cYEL%[4]%cWHI% Fix ^& Reset Winget Cache%cRES%
+echo  %cYEL%[5]%cWHI% Install Essential Software%cRES%
+echo  %cYEL%[0]%cWHI% Back to Utilities Menu%cRES%
 echo  -------------------------------------------------------------
 echo.
 set "w_opt="
@@ -476,7 +476,7 @@ if "!w_opt!"=="2" goto WingetSelectUpdate
 if "!w_opt!"=="3" goto WingetMenu
 if "!w_opt!"=="4" (call :RunAndLog winget source reset --force & echo %cGRE%[+] Cache reset complete.%cRES% & call :PauseToContinue & goto WingetMenu)
 if "!w_opt!"=="5" goto WingetInstall
-if "!w_opt!"=="0" goto SystemUtilities
+if "!w_opt!"=="0" goto SystemUtilitiesMenu
 goto WingetMenu
 
 :WingetUpdateAll
@@ -488,7 +488,7 @@ call :PauseToContinue & goto WingetMenu
 
 :WingetSelectUpdate
 echo.
-echo  %cYEL%Tip: Copy hoac Boi den ID tren man hinh, roi click Chuot Phai de Paste nhanh vao day.%cRES%
+echo  %cYEL%Tip: Copy or highlight the ID on the screen, then Right-Click to paste it here quickly.%cRES%
 echo.
 set "spec_ids="
 set /p "spec_ids= %cCYA%Enter App IDs to update: %cRES%"
@@ -549,29 +549,29 @@ goto WingetInstall_Rec
 :WingetInstall_Rec
 cls & call :DrawBox "INSTALL ESSENTIALS - RECOMMENDED" "%cGRE%" & echo.
 echo  %cWHI%--- Runtimes ^& Environment ---%cRES%
-echo  [10] ALL VCRedist (x86+x64)    [12] .NET Desktop Runtime 8
-echo  [14] Java (Amazon Corretto)
+echo  %cYEL%[10]%cWHI% ALL VCRedist (x86+x64)    %cYEL%[12]%cWHI% .NET Desktop Runtime 8%cRES%
+echo  %cYEL%[14]%cWHI% Java (Amazon Corretto)%cRES%
 echo.
 echo  %cWHI%--- Web Browsers ^& Messaging ---%cRES%
-echo  [37] Coc Coc                   [42] Discord
+echo  %cYEL%[37]%cWHI% Coc Coc                   %cYEL%[42]%cWHI% Discord%cRES%
 echo.
 echo  %cWHI%--- Media, 3D ^& Imaging ---%cRES%
-echo  [62] VLC Media Player          [72] Blender
+echo  %cYEL%[62]%cWHI% VLC Media Player          %cYEL%[72]%cWHI% Blender%cRES%
 echo.
 echo  %cWHI%--- Compression ^& Security ---%cRES%
-echo  [86] WinRAR                    [84] 7-Zip
-echo  [102] Avast Free Antivirus
+echo  %cYEL%[86]%cWHI% WinRAR                    %cYEL%[84]%cWHI% 7-Zip%cRES%
+echo  %cYEL%[102]%cWHI% Avast Free Antivirus%cRES%
 echo.
 echo  %cWHI%--- Developer Tools ---%cRES%
-echo  [111] Python 3                 [112] Git
-echo  [114] VS Code                  [113] Notepad++
+echo  %cYEL%[111]%cWHI% Python 3                 %cYEL%[112]%cWHI% Git%cRES%
+echo  %cYEL%[114]%cWHI% VS Code                  %cYEL%[113]%cWHI% Notepad++%cRES%
 echo.
 echo  %cWHI%--- Utilities ^& Gaming ---%cRES%
-echo  [121] AnyDesk                  [122] TeamViewer
-echo  [133] Everything Search        [131] Steam
-echo  [132] Epic Games Launcher
+echo  %cYEL%[121]%cWHI% AnyDesk                  %cYEL%[122]%cWHI% TeamViewer%cRES%
+echo  %cYEL%[133]%cWHI% Everything Search        %cYEL%[131]%cWHI% Steam%cRES%
+echo  %cYEL%[132]%cWHI% Epic Games Launcher%cRES%
 echo  -------------------------------------------------------------
-echo  %cYEL%[N] View ALL Apps (Pages 1-3)%cRES%    [0] Back to Winget Menu
+echo  %cYEL%[N]%cWHI% View ALL Apps %cMAG%(Pages 1-3)%cRES%    %cYEL%[0]%cWHI% Back to Winget Menu%cRES%
 echo.
 set "wi_opt="
 set /p "wi_opt= %cCYA%Select software (Ex: 10 37 86) or N for more: %cRES%"
@@ -584,24 +584,24 @@ goto WingetInstall_Rec
 :WingetInstall_P1
 cls & call :DrawBox "ALL APPS - P1 (Runtimes, Web, Media)" "%cBLU%" & echo.
 echo  %cWHI%--- VC++ Redistributables (Individual) ---%cRES%
-echo  [11] VCRedist 2005   [13] VCRedist 2008   [15] VCRedist 2010
-echo  [17] VCRedist 2012   [19] VCRedist 2013   [21] VCRedist 2015-2022
+echo  %cYEL%[11]%cWHI% VCRedist 2005   %cYEL%[13]%cWHI% VCRedist 2008   %cYEL%[15]%cWHI% VCRedist 2010%cRES%
+echo  %cYEL%[17]%cWHI% VCRedist 2012   %cYEL%[19]%cWHI% VCRedist 2013   %cYEL%[21]%cWHI% VCRedist 2015-2022%cRES%
 echo.
 echo  %cWHI%--- Web Browsers ---%cRES%
-echo  [31] Chrome          [32] Firefox         [33] Edge
-echo  [34] Brave           [35] Opera           [36] Vivaldi
+echo  %cYEL%[31]%cWHI% Chrome          %cYEL%[32]%cWHI% Firefox         %cYEL%[33]%cWHI% Edge%cRES%
+echo  %cYEL%[34]%cWHI% Brave           %cYEL%[35]%cWHI% Opera           %cYEL%[36]%cWHI% Vivaldi%cRES%
 echo.
 echo  %cWHI%--- Messaging ---%cRES%
-echo  [41] Zoom            [43] MS Teams        [44] Pidgin
-echo  [45] Thunderbird     [46] Trillian
+echo  %cYEL%[41]%cWHI% Zoom            %cYEL%[43]%cWHI% MS Teams        %cYEL%[44]%cWHI% Pidgin%cRES%
+echo  %cYEL%[45]%cWHI% Thunderbird     %cYEL%[46]%cWHI% Trillian%cRES%
 echo.
 echo  %cWHI%--- Media ---%cRES%
-echo  [61] iTunes          [63] AIMP            [64] foobar2000
-echo  [65] MusicBee        [66] Audacity        [67] K-Lite Codecs
-echo  [68] Spotify         [69] HandBrake       [60] Winamp
-echo  [601] GOM Player     [602] MediaMonkey
+echo  %cYEL%[61]%cWHI% iTunes          %cYEL%[63]%cWHI% AIMP            %cYEL%[64]%cWHI% foobar2000%cRES%
+echo  %cYEL%[65]%cWHI% MusicBee        %cYEL%[66]%cWHI% Audacity        %cYEL%[67]%cWHI% K-Lite Codecs%cRES%
+echo  %cYEL%[68]%cWHI% Spotify         %cYEL%[69]%cWHI% HandBrake       %cYEL%[60]%cWHI% Winamp%cRES%
+echo  %cYEL%[601]%cWHI% GOM Player     %cYEL%[602]%cWHI% MediaMonkey%cRES%
 echo  -------------------------------------------------------------
-echo  %cYEL%[R] Recommended Page   [N] Next Page (P2)%cRES%   [0] Back
+echo  %cYEL%[R]%cWHI% Recommended Page   %cYEL%[N]%cWHI% Next Page (P2)   %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "wi_opt="
 set /p "wi_opt= %cCYA%Select software (Ex: 11 31) or N to next: %cRES%"
@@ -615,23 +615,23 @@ goto WingetInstall_P1
 :WingetInstall_P2
 cls & call :DrawBox "ALL APPS - P2 (Imaging, Docs, Sec)" "%cBLU%" & echo.
 echo  %cWHI%--- Imaging ---%cRES%
-echo  [71] Krita           [73] Paint.NET       [74] GIMP
-echo  [75] IrfanView       [76] XnView          [77] Inkscape
-echo  [78] Greenshot       [79] ShareX          [70] FastStone
+echo  %cYEL%[71]%cWHI% Krita           %cYEL%[73]%cWHI% Paint.NET       %cYEL%[74]%cWHI% GIMP%cRES%
+echo  %cYEL%[75]%cWHI% IrfanView       %cYEL%[76]%cWHI% XnView          %cYEL%[77]%cWHI% Inkscape%cRES%
+echo  %cYEL%[78]%cWHI% Greenshot       %cYEL%[79]%cWHI% ShareX          %cYEL%[70]%cWHI% FastStone%cRES%
 echo.
 echo  %cWHI%--- Documents ^& Compression ---%cRES%
-echo  [81] Foxit Reader    [82] LibreOffice     [83] SumatraPDF
-echo  [85] PeaZip          [87] CutePDF         [88] OpenOffice
+echo  %cYEL%[81]%cWHI% Foxit Reader    %cYEL%[82]%cWHI% LibreOffice     %cYEL%[83]%cWHI% SumatraPDF%cRES%
+echo  %cYEL%[85]%cWHI% PeaZip          %cYEL%[87]%cWHI% CutePDF         %cYEL%[88]%cWHI% OpenOffice%cRES%
 echo.
 echo  %cWHI%--- Storage ^& Sharing ---%cRES%
-echo  [91] Dropbox         [92] Google Drive    [93] OneDrive
-echo  [94] qBittorrent
+echo  %cYEL%[91]%cWHI% Dropbox         %cYEL%[92]%cWHI% Google Drive    %cYEL%[93]%cWHI% OneDrive%cRES%
+echo  %cYEL%[94]%cWHI% qBittorrent%cRES%
 echo.
 echo  %cWHI%--- Security ---%cRES%
-echo  [101] Malwarebytes   [103] AVG Free       [104] Avira Security
-echo  [105] SUPERAntiSpyware
+echo  %cYEL%[101]%cWHI% Malwarebytes   %cYEL%[103]%cWHI% AVG Free       %cYEL%[104]%cWHI% Avira Security%cRES%
+echo  %cYEL%[105]%cWHI% SUPERAntiSpyware%cRES%
 echo  -------------------------------------------------------------
-echo  %cYEL%[P] Prev Page (P1)     [N] Next Page (P3)%cRES%   [0] Back
+echo  %cYEL%[P]%cWHI% Prev Page (P1)     %cYEL%[N]%cWHI% Next Page (P3)   %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "wi_opt="
 set /p "wi_opt= %cCYA%Select software (Ex: 71 91) or P/N to switch: %cRES%"
@@ -645,20 +645,20 @@ goto WingetInstall_P2
 :WingetInstall_P3
 cls & call :DrawBox "ALL APPS - P3 (Dev, Utils, Other)" "%cBLU%" & echo.
 echo  %cWHI%--- Developer Tools ---%cRES%
-echo  [115] FileZilla      [116] WinSCP         [117] PuTTY
-echo  [118] WinMerge       [119] Cursor         [110] Eclipse Java
+echo  %cYEL%[115]%cWHI% FileZilla      %cYEL%[116]%cWHI% WinSCP         %cYEL%[117]%cWHI% PuTTY%cRES%
+echo  %cYEL%[118]%cWHI% WinMerge       %cYEL%[119]%cWHI% Cursor         %cYEL%[110]%cWHI% Eclipse Java%cRES%
 echo.
 echo  %cWHI%--- Utilities ---%cRES%
-echo  [123] Revo Uninstaller [124] WizTree      [125] WinDirStat
-echo  [126] Glary Utilities  [127] CCleaner     [128] TeraCopy
-echo  [129] Open-Shell       [120] ImgBurn      [1201] VNC Viewer
-echo  [1202] TightVNC
+echo  %cYEL%[123]%cWHI% Revo Uninstaller %cYEL%[124]%cWHI% WizTree      %cYEL%[125]%cWHI% WinDirStat%cRES%
+echo  %cYEL%[126]%cWHI% Glary Utilities  %cYEL%[127]%cWHI% CCleaner     %cYEL%[128]%cWHI% TeraCopy%cRES%
+echo  %cYEL%[129]%cWHI% Open-Shell       %cYEL%[120]%cWHI% ImgBurn      %cYEL%[1201]%cWHI% VNC Viewer%cRES%
+echo  %cYEL%[1202]%cWHI% TightVNC%cRES%
 echo.
 echo  %cWHI%--- Other ---%cRES%
-echo  [134] KeePass 2      [135] Google Earth   [136] Evernote
-echo  [137] NV Access
+echo  %cYEL%[134]%cWHI% KeePass 2      %cYEL%[135]%cWHI% Google Earth   %cYEL%[136]%cWHI% Evernote%cRES%
+echo  %cYEL%[137]%cWHI% NV Access%cRES%
 echo  -------------------------------------------------------------
-echo  %cYEL%[P] Prev Page (P2)%cRES%                       [0] Back
+echo  %cYEL%[P]%cWHI% Prev Page (P2)                       %cYEL%[0]%cWHI% Back%cRES%
 echo.
 set "wi_opt="
 set /p "wi_opt= %cCYA%Select software (Ex: 115 124) or P to prev: %cRES%"
@@ -685,14 +685,112 @@ echo. & echo  %cGRE%[+] Installation process complete.%cRES%
 call :PauseToContinue
 goto !RETURN_PAGE!
 
+:: 5.5 Check Windows License Key & Status
+:CheckWinKey
+cls & call :DrawBox "WINDOWS LICENSE & STATUS" "%cBLU%" & echo.
+echo  %cCYA%[+] Checking Windows Activation Status ^& Channel...%cRES%
+
+set "channel=Unknown"
+set "is_kms=0"
+set "lic_status=Unknown"
+for /f "tokens=* delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /dli 2^>nul') do (
+    set "line=%%A"
+    if "!line:Description:=!" neq "!line!" set "channel=!line!"
+    if "!line:VOLUME_KMSCLIENT=!" neq "!line!" set "is_kms=1"
+    if "!line:License Status:=!" neq "!line!" set "lic_status=!line!"
+)
+
+echo  %cWHI%Status: %cRES%!lic_status!
+echo  %cWHI%License Channel: %cRES%!channel!
+
+if "!is_kms!"=="1" (
+    echo  %cRED%[!] WARNING: System is using a Volume/KMS Key.%cRES%
+    echo  %cRED%[!] ^(For personal PCs, this often indicates an unofficial/cracked key^).%cRES%
+) else (
+    echo  %cGRE%[+] System is using a legitimate license ^(Retail/OEM^).%cRES%
+)
+
+echo.
+echo  %cCYA%[+] Expiration Status (slmgr /xpr):%cRES%
+for /f "delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /xpr 2^>nul') do (
+    set "xpr_out=%%A"
+    echo  %cWHI%!xpr_out!%cRES%
+)
+
+echo.
+echo  %cCYA%[+] Detailed Information (slmgr /dlv):%cRES%
+for /f "delims=" %%A in ('cscript //nologo "%windir%\System32\slmgr.vbs" /dlv 2^>nul') do (
+    set "dlv_out=%%A"
+    echo  %cWHI%!dlv_out!%cRES%
+)
+
+echo.
+echo  %cCYA%[+] Extracting Original Key from BIOS/UEFI...%cRES%
+for /f "tokens=2 delims==" %%A in ('wmic path softwarelicensingservice get OA3xOriginalProductKey /value 2^>nul') do set "bios_key=%%A"
+if not "!bios_key!"=="" (
+    echo  %cGRE%Original OEM Key: !bios_key!%cRES%
+) else (
+    echo  %cYEL%No original key found in BIOS/UEFI.%cRES%
+)
+
+call :PauseToContinue & goto SystemUtilitiesMenu
+
+:: 5.6 Generate Battery Health Report
+:CheckBattery
+cls & call :DrawBox "BATTERY HEALTH REPORT" "%cBLU%" & echo.
+echo  %cCYA%[+] Generating battery report...%cRES%
+set "bat_report=%temp%\battery_report.html"
+call :RunAndLog powercfg /batteryreport /output "!bat_report!" >nul 2>&1
+if exist "!bat_report!" (
+    echo  %cGRE%[+] Report generated successfully! Opening file...%cRES%
+    start "" "!bat_report!"
+) else (
+    echo  %cRED%[-] Failed to generate report. This device might not have a battery.%cRES%
+)
+call :PauseToContinue & goto SystemUtilitiesMenu
+
+:: 5.7 Show Current Wi-Fi Password
+:ShowWifiPass
+cls & call :DrawBox "CURRENT WI-FI PASSWORD" "%cBLU%" & echo.
+echo  %cCYA%[+] Checking network connection type...%cRES%
+echo.
+call :RunAndLog powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+    "$iface = netsh wlan show interfaces 2>$null; " ^
+    "$prof = $iface | Select-String -Pattern '^\s*Profile\s*:\s*(.+)$'; " ^
+    "if ($prof) { " ^
+        "$ssid = $prof.Matches[0].Groups[1].Value.Trim(); " ^
+        "Write-Host ('   Connection Type     : Wi-Fi') -F Cyan; " ^
+        "Write-Host ('   Network Name (SSID) : ' + $ssid) -F White; " ^
+        "$cmd = 'netsh wlan show profile name=\"{0}\" key=clear' -f $ssid; " ^
+        "$keyInfo = Invoke-Expression $cmd; " ^
+        "$key = $keyInfo | Select-String -Pattern '^\s*Key Content\s*:\s*(.+)$'; " ^
+        "if ($key) { " ^
+            "$pass = $key.Matches[0].Groups[1].Value.Trim(); " ^
+            "Write-Host ('   Password (Key)      : ' + $pass) -F Green; " ^
+        "} else { " ^
+            "Write-Host '   Password (Key)      : [Not Found or Open Network]' -F Yellow; " ^
+        "} " ^
+    "} else { " ^
+        "$eth = Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Status -eq 'Up' -and $_.InterfaceAlias -match 'Ethernet|LAN' }; " ^
+        "if ($eth) { " ^
+            "Write-Host '   Connection Type     : Ethernet (LAN Cable)' -F Cyan; " ^
+            "Write-Host '   [-] Cannot retrieve Wi-Fi password over a wired connection.' -F Yellow; " ^
+            "Write-Host '       (Or this system does not have an active Wi-Fi adapter).' -F DarkGray; " ^
+        "} else { " ^
+            "Write-Host '   [-] Not connected to any active Wi-Fi or Ethernet network.' -F Red; " ^
+        "} " ^
+    "}"
+echo.
+call :PauseToContinue & goto SystemUtilitiesMenu
+
 :: =====================================================================
-::                      6. SCREEN & POWER TOOLS
+::                        6. SCREEN & POWER TOOLS
 :: =====================================================================
 :ScreenToolsMenu
 cls & call :DrawBox "SCREEN AND POWER TOOLS" "%cYEL%" & echo.
-echo  [1] Turn Off Screen Immediately
-echo  [2] Create "Turn Off Screen.bat" on Desktop
-echo  [0] Back to Main Menu
+echo  %cYEL%[1]%cWHI% Turn Off Screen Immediately%cRES%
+echo  %cYEL%[2]%cWHI% Create "Turn Off Screen.bat" on Desktop%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
 echo.
 set "scr_choice="
 set /p "scr_choice= %cYEL%Choose option: %cRES%"
@@ -703,10 +801,12 @@ if "!scr_choice!"=="2" goto ScrOffBat
 if "!scr_choice!"=="0" goto main_menu
 goto ScreenToolsMenu
 
+:: 6.1 Turn Off Screen Immediately
 :ScrOffNow
 powershell -Command "(Add-Type '[DllImport(\"user32.dll\")]public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);' -Name a -Pas)::SendMessage(-1,0x0112,0xF170,2)"
 goto ScreenToolsMenu
 
+:: 6.2 Create "Turn Off Screen.bat" on Desktop
 :ScrOffBat
 for /f "delims=" %%I in ('powershell -NoProfile -Command "[Environment]::GetFolderPath('Desktop')"') do set "real_desktop=%%I"
 set "bat_path=!real_desktop!\Turn Off Screen.bat"
@@ -727,7 +827,7 @@ if exist "!bat_path!" (echo  %cGRE%[+] Created: "!bat_path!"%cRES%) else (echo  
 call :PauseToContinue & goto ScreenToolsMenu
 
 :: =====================================================================
-::                       7. QUICK RENAME PRO
+::                         7. QUICK RENAME PRO
 :: =====================================================================
 :QuickRename
 if not defined mode1 set "mode1=File"
@@ -743,20 +843,20 @@ if defined remove_x echo  %cBLU%[+] Param [x]: !remove_x!%cRES%
 if defined rep_a echo  %cBLU%[+] Replace: '!rep_a!' with '!rep_b!'%cRES%
 echo.
 echo  %cGRE%--- CONFIGURATION ---%cRES%
-echo  [0] Back to Main Menu
-echo  %cYEL%[1] FILE Modes:%cRES%
-echo      %cCYA%[1.1] Extract Brackets   %cRES%Ex: Report(2023).txt -^> 2023.txt
-echo      %cCYA%[1.2] Sequential Series  %cRES%Ex: Folder -^> Folder - 1.jpg
-echo      %cCYA%[1.3] Remove Suffix (x)  %cRES%Ex: Image_copy.png -^> Image.png
-echo      %cCYA%[1.4] Replace String     %cRES%Ex: A -^> B
-echo      %cCYA%[1.5] Fast Rename        %cRES%Scan and rename file-by-file or via list
-echo  %cYEL%[2] FOLDER Modes:%cRES%
-echo      %cCYA%[2.1] Extract Brackets   %cRES%Ex: Docs(Secret) -^> Secret
-echo      %cCYA%[2.2] Remove Suffix (x)  %cRES%Ex: Backup_old -^> Backup
-echo      %cCYA%[2.3] Fast Rename        %cRES%Scan and rename folder-by-folder or via list
-echo  %cYEL%[3] ACTIONS:%cRES%
-echo      [3.1] Clear Output Screen
-echo      [3.2] %cYEL%Undo Last Rename Batch%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
+echo  %cMAG%[1] FILE Modes:%cRES%
+echo      %cYEL%[1.1]%cWHI% Extract Brackets   %cGRE%Ex: Report(2023).txt -^> 2023.txt%cRES%
+echo      %cYEL%[1.2]%cWHI% Sequential Series  %cGRE%Ex: Folder -^> Folder - 1.jpg%cRES%
+echo      %cYEL%[1.3]%cWHI% Remove Suffix (x)  %cGRE%Ex: Image_copy.png -^> Image.png%cRES%
+echo      %cYEL%[1.4]%cWHI% Replace String     %cGRE%Ex: A -^> B%cRES%
+echo      %cYEL%[1.5]%cWHI% Fast Rename        %cGRE%Scan and rename file-by-file or via list%cRES%
+echo  %cMAG%[2] FOLDER Modes:%cRES%
+echo      %cYEL%[2.1]%cWHI% Extract Brackets   %cGRE%Ex: Docs(Secret) -^> Secret%cRES%
+echo      %cYEL%[2.2]%cWHI% Remove Suffix (x)  %cGRE%Ex: Backup_old -^> Backup%cRES%
+echo      %cYEL%[2.3]%cWHI% Fast Rename        %cGRE%Scan and rename folder-by-folder or via list%cRES%
+echo  %cMAG%[3] ACTIONS:%cRES%
+echo      %cYEL%[3.1]%cWHI% Clear Output Screen%cRES%
+echo      %cYEL%[3.2]%cWHI% %cRED%Undo Last Rename Batch%cRES%
 echo.
 
 :SubQuickRenameLoop
@@ -841,11 +941,12 @@ if "%mode2_code%"=="2.3" set "FAST_MODE=Folder" & goto RunFastRename
 echo  %cGRE%[+] Done^^!%cRES%
 goto SubQuickRenameLoop
 
+:: 7.1 Fast Rename Core
 :RunFastRename
 echo.
 echo  %cCYA%--- FAST RENAME (%FAST_MODE%) ---%cRES%
-echo  [1] Manual Step-by-Step (s/skip, u/up)
-echo  [2] Rename from a .txt list
+echo  %cYEL%[1]%cWHI% Manual Step-by-Step %cGRE%(s/skip, u/up)%cRES%
+echo  %cYEL%[2]%cWHI% Rename from a .txt list%cRES%
 set "fast_opt="
 set /p fast_opt=" %cYEL%Choose option (1/2): %cRES%"
 
@@ -871,7 +972,7 @@ echo  %cGRE%[+] Done^^!%cRES%
 goto SubQuickRenameLoop
 
 :: =====================================================================
-::                   8. AUTO MAINTENANCE (ADMIN)
+::                    8. AUTO MAINTENANCE (ADMIN)
 :: =====================================================================
 :AutoRun
 call :CheckAdmin || goto :EOF
@@ -885,13 +986,13 @@ if /i "!rebootq!"=="Y" shutdown /r /t 10
 goto :EOF
 
 :: =====================================================================
-::                   9. TOOLKIT OPTIONS
+::                      9. TOOLKIT OPTIONS & LOGS
 :: =====================================================================
 :Options
 cls & call :DrawBox "OPTIONS & LOGS" "%cYEL%" & echo.
-echo  [1] Toggle Expert Mode (Show hidden/dangerous options)
-echo  [2] Export Action Report
-echo  [0] Back to Main Menu
+echo  %cYEL%[1]%cWHI% Toggle Expert Mode %cMAG%(Show hidden/dangerous options)%cRES%
+echo  %cYEL%[2]%cWHI% Export Action Report%cRES%
+echo  %cYEL%[0]%cWHI% Back to Main Menu%cRES%
 echo.
 set "opt_c="
 set /p "opt_c= %cYEL%Choose option: %cRES%"
@@ -908,7 +1009,7 @@ if "!opt_c!"=="2" (
 goto :EOF
 
 :: =====================================================================
-::                       HELPER FUNCTIONS
+::                         HELPER FUNCTIONS
 :: =====================================================================
 
 :CheckAdmin
