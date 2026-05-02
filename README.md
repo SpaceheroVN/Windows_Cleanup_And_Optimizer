@@ -1,6 +1,6 @@
 *Read this in other languages: [English](README.md) | [Tiếng Việt](README-vi.md)*
 
-# 🚀 Windows Cleanup & Optimizer v6.1.8 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.7/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
+# 🚀 Windows Cleanup & Optimizer v6.1.8 - Ultimate Toolkit (WCaO) <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.8/WCaO.bat"><img src="https://img.shields.io/badge/Download-brightgreen?style=flat&logo=download&logoColor=white" alt="Latest Release" width="85"></a>
 
 ![Version](https://img.shields.io/badge/version-v6.1.8-blue?style=plastic) ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=plastic&logo=windows&logoColor=white) ![Language](https://img.shields.io/badge/language-Batch-4D4D4D?style=plastic&logo=windows-terminal&logoColor=white) ![License](https://img.shields.io/badge/license-Open%20Source-brightgreen?style=plastic&logo=opensource&logoColor=white) ![Admin](https://img.shields.io/badge/requires_Admin-Optional-yellow?style=plastic&logo=powershell&logoColor=white) ![Status](https://img.shields.io/badge/status-Active-success?style=plastic&logo=rocket&logoColor=white)
 
