@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCaO — Windows Cleanup & Optimizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #06080f;
+      --bg2: #0c1120;
+      --surface: #101827;
+      --border: #1e2d47;
+      --cyan: #00f5ff;
+      --green: #00ff88;
+      --red: #ff3c5c;
+      --yellow: #ffd200;
+      --text: #c8d8f0;
+      --muted: #4a6080;
+      --glow-cyan: 0 0 20px rgba(0,245,255,0.4);
+      --glow-green: 0 0 20px rgba(0,255,136,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── SCANLINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── GRID BG ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(6,8,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-shadow: var(--glow-cyan);
+    }
+
+    .nav-logo span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .nav-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: var(--bg);
+      background: var(--cyan);
+      border: none;
+      padding: 9px 22px;
+      cursor: pointer;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--green);
+      box-shadow: var(--glow-green);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 100px 24px 60px;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,245,255,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--green);
+      border: 1px solid rgba(0,255,136,0.3);
+      padding: 6px 16px;
+      margin-bottom: 28px;
+      animation: fadeIn 0.6s ease both;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(36px, 6vw, 80px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      animation: fadeUp 0.8s ease both 0.1s;
+    }
+
+    h1 .line1 { color: #fff; display: block; }
+    h1 .line2 { 
+      color: var(--cyan); 
+      display: block;
+      text-shadow: var(--glow-cyan);
+    }
+
+    .hero-sub {
+      margin-top: 20px;
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s ease both 0.2s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s ease both 0.3s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cyan);
+      color: #000;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      padding: 16px 32px;
+      text-decoration: none;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: all 0.2s;
+      box-shadow: var(--glow-cyan);
+    }
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: 0 0 40px rgba(0,245,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--cyan);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      padding: 16px 28px;
+      text-decoration: none;
+      border: 1px solid rgba(0,245,255,0.4);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      background: rgba(0,245,255,0.06);
+      color: #fff;
+    }
+
+    .version-tag {
+      margin-top: 48px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      animation: fadeUp 0.8s ease both 0.4s;
+    }
+
+    /* ── TERMINAL PREVIEW ── */
+    .terminal-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+      animation: fadeUp 0.8s ease both 0.5s;
+    }
+
+    .terminal {
+      background: rgba(0,0,0,0.7);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--cyan);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      padding: 20px 24px 24px;
+      margin-top: -10px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), var(--glow-cyan);
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .t-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .t-dot.r { background: #ff5f56; }
+    .t-dot.y { background: #ffbd2e; }
+    .t-dot.g { background: #27c93f; }
+
+    .t-title {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .t-line { line-height: 1.9; }
+    .t-cyan { color: var(--cyan); }
+    .t-green { color: var(--green); }
+    .t-red { color: var(--red); }
+    .t-yellow { color: var(--yellow); }
+    .t-muted { color: var(--muted); }
+    .t-white { color: #fff; }
+
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--cyan);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    /* ── STATS BAR ── */
+    .stats {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 80px auto;
+      max-width: 900px;
+      padding: 0 24px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      padding: 32px 24px;
+      border: 1px solid var(--border);
+      border-right: none;
+      background: var(--surface);
+      position: relative;
+    }
+    .stat-item:last-child { border-right: 1px solid var(--border); }
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .stat-item:nth-child(1)::before { background: var(--cyan); }
+    .stat-item:nth-child(2)::before { background: var(--green); }
+    .stat-item:nth-child(3)::before { background: var(--yellow); }
+    .stat-item:nth-child(4)::before { background: var(--red); }
+
+    .stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ── SECTION ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 500px;
+      font-size: 15px;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 56px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 32px 28px;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      width: 0;
+      transition: width 0.3s;
+    }
+
+    .feature-card:hover::after { width: 100%; }
+    .feature-card:nth-child(1)::after { background: var(--green); }
+    .feature-card:nth-child(2)::after { background: var(--red); }
+    .feature-card:nth-child(3)::after { background: var(--cyan); }
+    .feature-card:nth-child(4)::after { background: var(--yellow); }
+    .feature-card:nth-child(5)::after { background: var(--green); }
+    .feature-card:nth-child(6)::after { background: var(--cyan); }
+    .feature-card:nth-child(7)::after { background: var(--red); }
+    .feature-card:nth-child(8)::after { background: var(--yellow); }
+
+    .feature-card:hover { background: #131e30; }
+
+    .feat-icon {
+      font-size: 28px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .feat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .feat-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .feat-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .feat-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border: 1px solid;
+    }
+
+    .tag-admin { color: var(--red); border-color: rgba(255,60,92,0.4); }
+    .tag-free { color: var(--green); border-color: rgba(0,255,136,0.4); }
+    .tag-pro { color: var(--cyan); border-color: rgba(0,245,255,0.4); }
+
+    /* ── REQUIREMENTS ── */
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .req-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-left: 3px solid var(--cyan);
+    }
+
+    .req-icon { font-size: 22px; margin-bottom: 10px; }
+    .req-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .req-val {
+      font-size: 15px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* ── DOWNLOAD CTA ── */
+    .cta {
+      position: relative;
+      z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,245,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .cta-inner h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(26px, 4vw, 46px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .cta-inner h2 span { color: var(--cyan); text-shadow: var(--glow-cyan); }
+
+    .cta-inner p {
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .download-box {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--cyan);
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .dl-info { flex: 1; }
+
+    .dl-name {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+    .dl-meta {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .dl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #000;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 2px;
+      padding: 12px 24px;
+      text-decoration: none;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .dl-btn:hover {
+      background: #fff;
+      box-shadow: var(--glow-green);
+    }
+
+    .warn-box {
+      background: rgba(255,60,92,0.06);
+      border: 1px solid rgba(255,60,92,0.3);
+      padding: 14px 20px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,60,92,0.8);
+      letter-spacing: 0.5px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--cyan);
+      letter-spacing: 2px;
+    }
+    .footer-logo span { color: var(--green); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+
+    .footer-copy {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+      .stat-item { border-right: 1px solid var(--border); border-bottom: none; }
+      .stats { gap: 1px; background: var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">WC<span>a</span>O</div>
+  <ul class="nav-links">
+    <li><a href="#features">FEATURES</a></li>
+    <li><a href="#requirements">REQUIREMENTS</a></li>
+    <li><a href="#download">DOWNLOAD</a></li>
+    <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank">GITHUB</a></li>
+  </ul>
+  <a href="#download" class="nav-btn">↓ DOWNLOAD</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="badge">v6.1.8 — LATEST RELEASE</div>
+
+  <h1>
+    <span class="line1">WINDOWS CLEANUP</span>
+    <span class="line2">&amp; OPTIMIZER</span>
+  </h1>
+
+  <p class="hero-sub">
+    Bộ công cụ tối ưu hóa Windows toàn diện — dọn dẹp, sửa lỗi hệ thống, quản lý tệp, và tăng tốc máy tính chỉ với một file <code style="color:var(--cyan)">.bat</code>.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#download" class="btn-primary">
+      ⬇ TẢI NGAY — FREE
+    </a>
+    <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank" class="btn-secondary">
+      ★ GitHub
+    </a>
+  </div>
+
+  <div class="version-tag">// RELEASE 6.1.8 &nbsp;·&nbsp; WINDOWS 10 / 11 &nbsp;·&nbsp; BATCH SCRIPT</div>
+</div>
+
+<!-- TERMINAL -->
+<div class="terminal-wrap">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="t-dot r"></div>
+      <div class="t-dot y"></div>
+      <div class="t-dot g"></div>
+      <div class="t-title">Windows Cleanup & Optimizer v6.1.8</div>
+    </div>
+    <div class="t-line"><span class="t-muted">System: C: &nbsp;|&nbsp; Admin: </span><span class="t-green">YES (Full)</span><span class="t-muted"> &nbsp;|&nbsp; Expert: </span><span class="t-muted">Off</span></div>
+    <div class="t-line">&nbsp;</div>
+    <div class="t-line"><span class="t-green">[1]</span><span class="t-white"> Quick Cleanup</span></div>
+    <div class="t-line"><span class="t-red">[2]</span><span class="t-white"> Deep Cleanup</span> <span class="t-red">(Admin)</span></div>
+    <div class="t-line"><span class="t-cyan">[3]</span><span class="t-white"> System Optimization</span></div>
+    <div class="t-line"><span class="t-muted">[4]</span><span class="t-white"> Advanced Tools</span></div>
+    <div class="t-line"><span class="t-muted">[5]</span><span class="t-white"> System Utilities</span></div>
+    <div class="t-line"><span class="t-yellow">[6]</span><span class="t-white"> Screen &amp; Power Tools</span></div>
+    <div class="t-line"><span class="t-green">[7]</span><span class="t-white"> Quick Rename Pro</span></div>
+    <div class="t-line"><span class="t-red">[8]</span><span class="t-white"> Auto Maintenance</span> <span class="t-red">(Admin)</span></div>
+    <div class="t-line"><span class="t-muted">--------------------------------------</span></div>
+    <div class="t-line"><span class="t-yellow">[9]</span><span class="t-white"> Toolkit Options</span></div>
+    <div class="t-line"><span class="t-white">[0] Exit</span></div>
+    <div class="t-line">&nbsp;</div>
+    <div class="t-line"><span class="t-cyan">&gt; Choose an option (0-9): </span><span class="cursor"></span></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num">8</div>
+    <div class="stat-label">MODULE CHỨC NĂNG</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6.1.8</div>
+    <div class="stat-label">PHIÊN BẢN HIỆN TẠI</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0MB</div>
+    <div class="stat-label">KHÔNG CẦN CÀI ĐẶT</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">FREE</div>
+    <div class="stat-label">MÃ NGUỒN MỞ</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-label">// MODULES</div>
+  <h2 class="section-title">8 Bộ Công Cụ Mạnh Mẽ</h2>
+  <p class="section-desc">Tất cả trong một file — không cần cài đặt, không cần phụ thuộc thêm.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feat-icon">🧹</span>
+      <div class="feat-num">MODULE 01</div>
+      <div class="feat-title">QUICK CLEANUP</div>
+      <div class="feat-desc">Dọn Temp folder, xóa file Recent, làm sạch Recycle Bin và flush DNS cache chỉ trong vài giây.</div>
+      <span class="feat-tag tag-free">FREE</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🔥</span>
+      <div class="feat-num">MODULE 02</div>
+      <div class="feat-title">DEEP CLEANUP</div>
+      <div class="feat-desc">Chạy DISM RestoreHealth, SFC scannow, và Disk Cleanup tự động để sửa lỗi hệ thống sâu.</div>
+      <span class="feat-tag tag-admin">ADMIN</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">⚡</span>
+      <div class="feat-num">MODULE 03</div>
+      <div class="feat-title">SYSTEM OPTIMIZATION</div>
+      <div class="feat-desc">Check disk, defrag/TRIM ổ đĩa, rebuild cache, tối ưu Power Plan và Visual Effects.</div>
+      <span class="feat-tag tag-admin">ADMIN</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🛠</span>
+      <div class="feat-num">MODULE 04</div>
+      <div class="feat-title">ADVANCED TOOLS</div>
+      <div class="feat-desc">Các công cụ nâng cao cho người dùng chuyên nghiệp với chế độ Expert Mode tùy chỉnh.</div>
+      <span class="feat-tag tag-pro">EXPERT</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🖥</span>
+      <div class="feat-num">MODULE 05</div>
+      <div class="feat-title">SYSTEM UTILITIES</div>
+      <div class="feat-desc">Bộ tiện ích hệ thống đa năng cho các tác vụ quản trị và bảo trì thường ngày.</div>
+      <span class="feat-tag tag-free">FREE</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🔋</span>
+      <div class="feat-num">MODULE 06</div>
+      <div class="feat-title">SCREEN &amp; POWER</div>
+      <div class="feat-desc">Quản lý màn hình, nguồn điện và các thiết lập tiết kiệm pin cho laptop.</div>
+      <span class="feat-tag tag-free">FREE</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">✏️</span>
+      <div class="feat-num">MODULE 07</div>
+      <div class="feat-title">QUICK RENAME PRO</div>
+      <div class="feat-desc">Đổi tên hàng loạt file/folder theo từng bước hoặc từ danh sách .txt với khả năng Undo.</div>
+      <span class="feat-tag tag-pro">PRO</span>
+    </div>
+    <div class="feature-card">
+      <span class="feat-icon">🤖</span>
+      <div class="feat-num">MODULE 08</div>
+      <div class="feat-title">AUTO MAINTENANCE</div>
+      <div class="feat-desc">Chạy toàn bộ quy trình bảo trì một lần duy nhất: Quick + Deep Clean + Windows Update.</div>
+      <span class="feat-tag tag-admin">ADMIN</span>
+    </div>
+  </div>
+</section>
+
+<!-- REQUIREMENTS -->
+<section id="requirements">
+  <div class="section-label">// SYSTEM REQUIREMENTS</div>
+  <h2 class="section-title">Yêu Cầu Hệ Thống</h2>
+  <p class="section-desc">Siêu nhẹ — chỉ cần Windows là đủ, không cài thêm bất kỳ thứ gì.</p>
+
+  <div class="req-grid">
+    <div class="req-card">
+      <div class="req-icon">🪟</div>
+      <div class="req-label">HỆ ĐIỀU HÀNH</div>
+      <div class="req-val">Windows 10 / 11</div>
+    </div>
+    <div class="req-card" style="border-left-color: var(--green)">
+      <div class="req-icon">📁</div>
+      <div class="req-label">RUNTIME</div>
+      <div class="req-val">CMD + PowerShell</div>
+    </div>
+    <div class="req-card" style="border-left-color: var(--yellow)">
+      <div class="req-icon">👤</div>
+      <div class="req-label">QUYỀN ADMIN</div>
+      <div class="req-val">Tùy tính năng</div>
+    </div>
+    <div class="req-card" style="border-left-color: var(--red)">
+      <div class="req-icon">💾</div>
+      <div class="req-label">DUNG LƯỢNG</div>
+      <div class="req-val">&lt; 100 KB</div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<div class="cta" id="download">
+  <div class="cta-inner">
+    <h2>Tải Về &amp; <span>Chạy Ngay</span></h2>
+    <p>Chỉ cần tải file <code style="color:var(--cyan)">WCaO.bat</code>, click chuột phải → <strong style="color:#fff">Run as Administrator</strong> và bắt đầu dọn dẹp hệ thống.</p>
+
+    <div class="download-box">
+      <div class="dl-info">
+        <div class="dl-name">📦 WCaO.bat</div>
+        <div class="dl-meta">Version 6.1.8 &nbsp;·&nbsp; Batch Script &nbsp;·&nbsp; Windows 10/11</div>
+      </div>
+      <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.8/WCaO.bat" class="dl-btn">
+        ⬇ DOWNLOAD
+      </a>
+    </div>
+
+    <div class="warn-box">
+      ⚠ &nbsp;Một số tính năng yêu cầu chạy với quyền Administrator. Hãy right-click → "Run as Administrator" để có đầy đủ chức năng.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">WC<span>a</span>O</div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank">GitHub</a></li>
+    <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases" target="_blank">Releases</a></li>
+    <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/issues" target="_blank">Report Bug</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 SpaceheroVN — MIT LICENSE</div>
+</footer>
+
+</body>
+</html>
