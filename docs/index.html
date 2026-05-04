@@ -9,105 +9,90 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#0d1117;--bg2:#161b22;--surface:#1c2128;
-  --border:#30363d;--border2:#484f58;
-  --text:#e6edf3;--muted:#8b949e;--muted2:#6e7681;
-  --accent:#58a6ff;--accent2:#79c0ff;
-  --green:#3fb950;--green2:#56d364;
-  --red:#f85149;--red2:#ff7b72;
-  --yellow:#d29922;--yellow2:#e3b341;
-  --purple:#a371f7;--purple2:#bc8cff;
-  --blue:#58a6ff;--blue2:#79c0ff;
-  --orange:#f0883e;--orange2:#ffa657;
-  --cyan:#39d0d8;--cyan2:#56d4dc;
-  --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.35);
-  --shadow-lg:0 4px 6px rgba(0,0,0,.4),0 10px 40px rgba(0,0,0,.5);
-  --glow-accent:0 0 20px rgba(88,166,255,.15);
-  --glow-green:0 0 20px rgba(86,211,100,.12);
+  --bg:#09090b;--bg2:#18181b;--surface:#121214;
+  --border:#27272a;--border2:#3f3f46;
+  --text:#fafafa;--muted:#a1a1aa;--muted2:#71717a;
+  --accent:#ffffff;--accent2:#e4e4e7;
+  --green:#10b981;--green2:#34d399;
+  --red:#ef4444;--red2:#f87171;
+  --yellow:#f59e0b;--yellow2:#fbbf24;
+  --purple:#8b5cf6;--purple2:#a78bfa;
+  --blue:#3b82f6;--blue2:#60a5fa;
+  --orange:#f97316;--orange2:#fb923c;
+  --cyan:#06b6d4;--cyan2:#22d3ee;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+  --shadow-lg:0 8px 30px rgba(0,0,0,.6);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
-::-webkit-scrollbar-thumb:hover{background:var(--muted);}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:400;overflow-x:hidden;position:relative;}
-body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(88,166,255,.12) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0;opacity:.3;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0;opacity:.4;}
 .lang-vi .en{display:none!important;}
 .lang-en .vi{display:none!important;}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(13,17,23,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 16px rgba(0,0,0,.4);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 48px;background:rgba(9,9,11,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);box-shadow:0 1px 12px rgba(0,0,0,.6);}
 .nav-left{display:flex;align-items:center;gap:14px;}
-.nav-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:15px;color:var(--accent);letter-spacing:3px;display:flex;align-items:center;gap:8px;text-decoration:none;transition:opacity .2s;}
-.nav-logo:hover{opacity:.8;}
+.nav-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:15px;color:var(--accent);letter-spacing:3px;display:flex;align-items:center;gap:8px;text-decoration:none;transition:transform .3s;}
+.nav-logo:hover{transform:scale(1.05);}
 .nav-logo svg{width:18px;height:18px;color:var(--accent);}
-.nav-logo .lo-a{color:var(--green2);}
+.nav-logo .lo-a{color:var(--muted2);}
 .nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{color:var(--muted);text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1.5px;transition:color .2s;}
+.nav-links a{color:var(--muted);text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1.5px;transition:color .3s;}
 .nav-links a:hover{color:var(--accent);}
 .nav-right{display:flex;align-items:center;gap:10px;}
-.lang-btn{display:flex;align-items:center;border:1px solid var(--border2);border-radius:6px;overflow:hidden;background:var(--surface);}
-.lang-btn button{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1.5px;padding:6px 13px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:background .15s,color .15s;font-weight:500;}
-.lang-btn button.active{background:var(--accent);color:#0d1117;}
-.nav-dl{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#0d1117;background:var(--accent);border:none;padding:8px 20px;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:700;}
-.nav-dl:hover{background:var(--cyan2);box-shadow:0 0 18px rgba(86,212,220,.3);}
+.lang-btn{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--surface);}
+.lang-btn button{font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 14px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:all .3s;}
+.lang-btn button.active{background:var(--text);color:var(--bg);}
+.nav-dl{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1.5px;color:var(--bg);background:var(--accent);border:none;padding:8px 20px;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .3s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;}
+.nav-dl:hover{background:var(--accent2);transform:translateY(-1px);}
 .nav-dl svg{width:14px;height:14px;}
-
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:110px 24px 70px;}
-.hero-glow{position:absolute;width:800px;height:600px;background:radial-gradient(ellipse,rgba(88,166,255,.08) 0%,transparent 65%);top:40%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:glowPulse 6s ease-in-out infinite;}
-@keyframes glowPulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05);}}
-.badge{display:inline-flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--green2);border:1px solid rgba(86,211,100,.3);background:rgba(86,211,100,.07);padding:6px 16px;margin-bottom:28px;border-radius:4px;animation:fadeIn .6s ease both;}
-.badge::before{content:'';width:6px;height:6px;background:var(--green2);border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 6px var(--green2);}
+.hero-glow{position:absolute;width:700px;height:500px;background:radial-gradient(ellipse,rgba(255,255,255,.03) 0%,transparent 70%);top:40%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--green2);border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.07);padding:6px 16px;margin-bottom:28px;border-radius:4px;animation:fadeIn .6s ease both;}
+.badge::before{content:'';width:6px;height:6px;background:var(--green2);border-radius:50%;animation:pulse 2s infinite;box-shadow:0 0 8px var(--green2);}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(.7);}}
 h1{font-family:'Orbitron',monospace;font-size:clamp(34px,6vw,78px);font-weight:900;line-height:1.1;letter-spacing:-1px;animation:fadeUp .8s ease both .1s;}
 h1 .l1{color:var(--text);display:block;}
-h1 .l2{color:var(--accent);display:block;text-shadow:0 0 40px rgba(88,166,255,.25);}
+h1 .l2{color:var(--muted2);display:block;}
 .hero-sub{margin-top:22px;font-size:17px;color:var(--muted);max-width:520px;line-height:1.75;animation:fadeUp .8s ease both .2s;}
-.hero-sub code{color:var(--accent2);background:rgba(88,166,255,.1);padding:1px 6px;border-radius:3px;font-family:'Share Tech Mono',monospace;}
+.hero-sub code{color:var(--accent);background:var(--border);padding:2px 6px;border-radius:3px;font-family:'Share Tech Mono',monospace;}
 .hero-actions{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap;justify-content:center;animation:fadeUp .8s ease both .3s;}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#0d1117;font-family:'Orbitron',monospace;font-weight:700;font-size:13px;letter-spacing:2px;padding:16px 32px;text-decoration:none;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:all .25s;box-shadow:0 4px 20px rgba(88,166,255,.25);}
-.btn-primary:hover{background:var(--cyan2);transform:translateY(-2px);box-shadow:0 6px 28px rgba(86,212,220,.4);}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--text);color:var(--bg);font-family:'Orbitron',monospace;font-weight:700;font-size:13px;letter-spacing:2px;padding:16px 32px;text-decoration:none;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:all .3s;box-shadow:0 4px 20px rgba(255,255,255,.1);}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-3px);box-shadow:0 6px 28px rgba(255,255,255,.15);}
 .btn-primary svg{width:18px;height:18px;}
-.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:var(--surface);color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;padding:16px 28px;text-decoration:none;border:1.5px solid var(--border2);border-radius:2px;transition:all .25s;}
-.btn-secondary:hover{border-color:var(--accent);background:rgba(88,166,255,.07);box-shadow:var(--glow-accent);}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:var(--surface);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;padding:16px 28px;text-decoration:none;border:1px solid var(--border);border-radius:2px;transition:all .3s;}
+.btn-secondary:hover{border-color:var(--muted2);background:var(--border);box-shadow:var(--shadow);}
 .version-tag{margin-top:48px;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted2);letter-spacing:2px;animation:fadeUp .8s ease both .4s;}
-
 .terminal-wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 24px;animation:fadeUp .8s ease both .5s;}
-.terminal{background:#080c10;border:1px solid #21262d;border-top:2px solid var(--accent2);font-family:'Share Tech Mono',monospace;font-size:13px;padding:20px 24px 26px;box-shadow:0 8px 40px rgba(0,0,0,.5),0 0 0 1px rgba(88,166,255,.05);border-radius:0 0 4px 4px;position:relative;overflow:hidden;}
-.terminal::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(88,166,255,.015) 2px,rgba(88,166,255,.015) 4px);pointer-events:none;}
-.terminal-bar{display:flex;align-items:center;gap:8px;margin-bottom:18px;padding:10px 16px;background:#0d1117;margin:-20px -24px 18px;border-bottom:1px solid #21262d;}
+.terminal{background:#0d1117;border:1px solid #30363d;border-top:2px solid var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;padding:20px 24px 26px;box-shadow:0 12px 40px rgba(0,0,0,.6);border-radius:0 0 4px 4px;}
+.terminal-bar{display:flex;align-items:center;gap:8px;margin-bottom:18px;padding:10px 16px;background:#161b22;margin:-20px -24px 18px;border-bottom:1px solid #30363d;}
 .t-dot{width:10px;height:10px;border-radius:50%;}
-.t-dot.r{background:#ff5f56;box-shadow:0 0 6px rgba(255,95,86,.5);}
-.t-dot.y{background:#ffbd2e;box-shadow:0 0 6px rgba(255,189,46,.4);}
-.t-dot.g{background:#27c93f;box-shadow:0 0 6px rgba(39,201,63,.4);}
-.t-title{margin-left:auto;font-size:11px;color:#484f58;letter-spacing:1px;}
+.t-dot.r{background:#ff5f56;}
+.t-dot.y{background:#ffbd2e;}
+.t-dot.g{background:#27c93f;}
+.t-title{margin-left:auto;font-size:11px;color:#8b949e;letter-spacing:1px;}
 .t-line{line-height:2;}
-.t-cy{color:#56d3eb;}.t-gr{color:#3fb950;}.t-re{color:#f85149;}.t-ye{color:#e3b341;}.t-mu{color:#484f58;}.t-wh{color:#e6edf3;}
-.cursor{display:inline-block;width:8px;height:13px;background:#56d3eb;animation:blink 1s step-end infinite;vertical-align:middle;box-shadow:0 0 6px rgba(86,211,235,.6);}
+.t-cy{color:#56d3eb;}.t-gr{color:#3fb950;}.t-re{color:#f85149;}.t-ye{color:#e3b341;}.t-mu{color:#8b949e;}.t-wh{color:#e6edf3;}
+.cursor{display:inline-block;width:8px;height:13px;background:#56d3eb;animation:blink 1s step-end infinite;vertical-align:middle;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
-
-.stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);margin:70px auto;max-width:900px;padding:0 24px;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);}
+.stats{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);margin:70px auto;max-width:900px;padding:0;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);}
 .stat-item{text-align:center;padding:32px 20px;border-right:1px solid var(--border);position:relative;transition:background .2s;}
 .stat-item:last-child{border-right:none;}
 .stat-item:hover{background:var(--bg2);}
 .stat-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;transition:box-shadow .3s;}
-.stat-item:hover::before{box-shadow:0 0 10px 1px currentColor;}
-.stat-item:nth-child(1)::before{background:var(--accent2);color:var(--accent2);}
+.stat-item:hover::before{box-shadow:0 0 12px 1px currentColor;}
+.stat-item:nth-child(1)::before{background:var(--blue2);color:var(--blue2);}
 .stat-item:nth-child(2)::before{background:var(--green2);color:var(--green2);}
 .stat-item:nth-child(3)::before{background:var(--yellow2);color:var(--yellow2);}
 .stat-item:nth-child(4)::before{background:var(--red2);color:var(--red2);}
 .stat-num{font-family:'Orbitron',monospace;font-size:34px;font-weight:900;color:var(--text);letter-spacing:-1px;}
 .stat-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:6px;}
-
 section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 24px;}
-.section-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);margin-bottom:12px;}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted2);margin-bottom:12px;}
 .section-title{font-family:'Orbitron',monospace;font-size:clamp(22px,3vw,36px);font-weight:900;color:var(--text);letter-spacing:-.5px;margin-bottom:14px;}
 .section-desc{color:var(--muted);line-height:1.8;max-width:500px;font-size:15px;}
-
-.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:0;background:var(--border);border:1px solid var(--border);margin-top:52px;box-shadow:var(--shadow);}
-.feature-card{background:var(--surface);padding:28px 26px;transition:background .2s,box-shadow .2s;position:relative;overflow:hidden;}
-.feature-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;transition:width .35s;}
-.feature-card:hover::after{width:100%;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-top:52px;box-shadow:var(--shadow);}
+.feature-card{background:var(--surface);padding:28px 26px;transition:all .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;}
+.feature-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;transition:width .4s;}
 .feature-card:nth-child(1)::after{background:var(--green2);}
 .feature-card:nth-child(2)::after{background:var(--red2);}
 .feature-card:nth-child(3)::after{background:var(--cyan2);}
@@ -116,140 +101,140 @@ section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 
 .feature-card:nth-child(6)::after{background:var(--yellow2);}
 .feature-card:nth-child(7)::after{background:var(--orange2);}
 .feature-card:nth-child(8)::after{background:var(--red2);}
-.feature-card:hover{background:#21262d;}
-.feature-card:nth-child(1):hover{box-shadow:inset 0 0 40px rgba(86,211,100,.04);}
-.feature-card:nth-child(2):hover{box-shadow:inset 0 0 40px rgba(248,81,73,.04);}
-.feature-card:nth-child(3):hover{box-shadow:inset 0 0 40px rgba(86,212,220,.04);}
-.feature-card:nth-child(4):hover{box-shadow:inset 0 0 40px rgba(163,113,247,.04);}
-.feature-card:nth-child(5):hover{box-shadow:inset 0 0 40px rgba(88,166,255,.04);}
-.feature-card:nth-child(6):hover{box-shadow:inset 0 0 40px rgba(227,179,65,.04);}
-.feature-card:nth-child(7):hover{box-shadow:inset 0 0 40px rgba(255,166,87,.04);}
-.feature-card:nth-child(8):hover{box-shadow:inset 0 0 40px rgba(248,81,73,.04);}
 
-.feat-icon-wrap{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .2s;}
-.feature-card:hover .feat-icon-wrap{transform:scale(1.08);}
-.feature-card:nth-child(1) .feat-icon-wrap{background:rgba(86,211,100,.1);color:var(--green2);}
-.feature-card:nth-child(2) .feat-icon-wrap{background:rgba(248,81,73,.1);color:var(--red);}
-.feature-card:nth-child(3) .feat-icon-wrap{background:rgba(86,212,220,.1);color:var(--cyan);}
-.feature-card:nth-child(4) .feat-icon-wrap{background:rgba(163,113,247,.1);color:var(--purple2);}
-.feature-card:nth-child(5) .feat-icon-wrap{background:rgba(88,166,255,.1);color:var(--blue);}
-.feature-card:nth-child(6) .feat-icon-wrap{background:rgba(227,179,65,.12);color:var(--yellow2);}
-.feature-card:nth-child(7) .feat-icon-wrap{background:rgba(255,166,87,.1);color:var(--orange2);}
-.feature-card:nth-child(8) .feat-icon-wrap{background:rgba(248,81,73,.1);color:var(--red);}
+.feature-card:hover{background:var(--bg2);transform:translateY(-4px);z-index:2;}
+.feature-card:nth-child(1):hover{box-shadow:inset 0 0 40px rgba(52,211,153,.05), var(--shadow-lg);}
+.feature-card:nth-child(2):hover{box-shadow:inset 0 0 40px rgba(248,113,113,.05), var(--shadow-lg);}
+.feature-card:nth-child(3):hover{box-shadow:inset 0 0 40px rgba(34,211,238,.05), var(--shadow-lg);}
+.feature-card:nth-child(4):hover{box-shadow:inset 0 0 40px rgba(167,139,250,.05), var(--shadow-lg);}
+.feature-card:nth-child(5):hover{box-shadow:inset 0 0 40px rgba(96,165,250,.05), var(--shadow-lg);}
+.feature-card:nth-child(6):hover{box-shadow:inset 0 0 40px rgba(251,191,36,.05), var(--shadow-lg);}
+.feature-card:nth-child(7):hover{box-shadow:inset 0 0 40px rgba(251,146,60,.05), var(--shadow-lg);}
+.feature-card:nth-child(8):hover{box-shadow:inset 0 0 40px rgba(248,113,113,.05), var(--shadow-lg);}
+.feature-card:hover::after{width:100%;}
+
+.feat-icon-wrap{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:transform .4s;}
+.feature-card:hover .feat-icon-wrap{transform:scale(1.1);}
+.feature-card:nth-child(1) .feat-icon-wrap{background:rgba(52,211,153,.1);color:var(--green2);}
+.feature-card:nth-child(2) .feat-icon-wrap{background:rgba(248,113,113,.1);color:var(--red2);}
+.feature-card:nth-child(3) .feat-icon-wrap{background:rgba(34,211,238,.1);color:var(--cyan2);}
+.feature-card:nth-child(4) .feat-icon-wrap{background:rgba(167,139,250,.1);color:var(--purple2);}
+.feature-card:nth-child(5) .feat-icon-wrap{background:rgba(96,165,250,.1);color:var(--blue2);}
+.feature-card:nth-child(6) .feat-icon-wrap{background:rgba(251,191,36,.1);color:var(--yellow2);}
+.feature-card:nth-child(7) .feat-icon-wrap{background:rgba(251,146,60,.1);color:var(--orange2);}
+.feature-card:nth-child(8) .feat-icon-wrap{background:rgba(248,113,113,.1);color:var(--red2);}
 .feat-icon-wrap svg{width:22px;height:22px;}
+
 .feat-num{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;color:var(--muted2);margin-bottom:6px;}
 .feat-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:.5px;}
 .feat-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+
 .feat-tag{display:inline-block;margin-top:4px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;padding:3px 8px;border:1px solid;border-radius:2px;}
-.tag-admin{color:var(--red2);border-color:rgba(248,81,73,.35);background:rgba(248,81,73,.07);}
-.tag-free{color:var(--green2);border-color:rgba(86,211,100,.35);background:rgba(86,211,100,.07);}
-.tag-pro{color:var(--purple2);border-color:rgba(163,113,247,.35);background:rgba(163,113,247,.07);}
-.tag-expert{color:var(--orange2);border-color:rgba(255,166,87,.35);background:rgba(255,166,87,.07);}
+.feature-card:nth-child(1) .feat-tag, .feature-card:nth-child(5) .feat-tag, .feature-card:nth-child(6) .feat-tag { color:var(--green2); border-color:rgba(52,211,153,.35); background:rgba(52,211,153,.07); }
+.feature-card:nth-child(2) .feat-tag, .feature-card:nth-child(3) .feat-tag, .feature-card:nth-child(8) .feat-tag { color:var(--red2); border-color:rgba(248,113,113,.35); background:rgba(248,113,113,.07); }
+.feature-card:nth-child(4) .feat-tag { color:var(--orange2); border-color:rgba(251,146,60,.35); background:rgba(251,146,60,.07); }
+.feature-card:nth-child(7) .feat-tag { color:var(--purple2); border-color:rgba(167,139,250,.35); background:rgba(167,139,250,.07); }
 
 details.guide{margin-top:14px;border-top:1px solid var(--border);padding-top:12px;}
-details.guide summary{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--accent);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;transition:color .2s;}
+details.guide summary{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;transition:color .3s;}
 details.guide summary::-webkit-details-marker{display:none;}
-details.guide summary::before{content:'▸';font-size:10px;transition:transform .2s;}
+details.guide summary::before{content:'▸';font-size:10px;transition:transform .3s;}
 details[open].guide summary::before{transform:rotate(90deg);}
-details.guide summary:hover{color:var(--cyan2);}
-.guide-steps{margin-top:12px;display:flex;flex-direction:column;gap:6px;}
+details.guide summary:hover{color:var(--text);}
+.guide-steps{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
 .guide-step{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);line-height:1.6;}
-.step-num{min-width:20px;height:20px;border-radius:50%;background:var(--accent);color:#0d1117;font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-weight:700;}
-.guide-note{margin-top:8px;font-size:11px;color:var(--muted2);font-family:'Share Tech Mono',monospace;padding:6px 10px;background:var(--bg2);border-left:2px solid var(--border2);}
-
+.step-num{min-width:20px;height:20px;border-radius:50%;background:var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.guide-note{margin-top:10px;font-size:11px;color:var(--muted2);font-family:'Share Tech Mono',monospace;padding:8px 10px;background:var(--bg);border-left:2px solid var(--border2);}
 .req-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:46px;}
-.req-card{background:var(--surface);border:1px solid var(--border);padding:22px 20px;border-left:3px solid var(--accent2);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;}
-.req-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
-.req-icon-wrap{width:36px;height:36px;border-radius:8px;background:rgba(88,166,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--accent);}
+.req-card{background:var(--surface);border:1px solid var(--border);padding:22px 20px;border-left:3px solid var(--blue2);box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;}
+.req-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.req-icon-wrap{width:36px;height:36px;border-radius:8px;background:rgba(96,165,250,.1);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--blue2);}
 .req-icon-wrap svg{width:18px;height:18px;}
 .req-card:nth-child(2){border-left-color:var(--green2);}
-.req-card:nth-child(2) .req-icon-wrap{background:rgba(86,211,100,.1);color:var(--green2);}
+.req-card:nth-child(2) .req-icon-wrap{background:rgba(52,211,153,.1);color:var(--green2);}
 .req-card:nth-child(3){border-left-color:var(--yellow2);}
-.req-card:nth-child(3) .req-icon-wrap{background:rgba(227,179,65,.1);color:var(--yellow2);}
+.req-card:nth-child(3) .req-icon-wrap{background:rgba(251,191,36,.1);color:var(--yellow2);}
 .req-card:nth-child(4){border-left-color:var(--red2);}
-.req-card:nth-child(4) .req-icon-wrap{background:rgba(248,81,73,.1);color:var(--red2);}
+.req-card:nth-child(4) .req-icon-wrap{background:rgba(248,113,113,.1);color:var(--red2);}
 .req-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:5px;}
 .req-val{font-size:14px;color:var(--text);font-weight:500;}
-
 .howto-section{position:relative;z-index:1;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 0;}
 .howto-inner{max-width:900px;margin:0 auto;padding:0 24px;}
-.accordion-list{margin-top:48px;display:flex;flex-direction:column;gap:2px;border:1px solid var(--border);box-shadow:var(--shadow);}
-.acc-item{background:var(--bg);border-bottom:1px solid var(--border);}
-.acc-item:last-child{border-bottom:none;}
-.acc-header{width:100%;display:flex;align-items:center;gap:14px;padding:18px 24px;background:none;border:none;cursor:pointer;text-align:left;transition:background .15s;}
+.accordion-list{margin-top:48px;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);box-shadow:var(--shadow);}
+.acc-item{background:var(--surface);}
+.acc-header{width:100%;display:flex;align-items:center;gap:14px;padding:18px 24px;background:none;border:none;cursor:pointer;text-align:left;transition:background .3s;}
 .acc-header:hover{background:var(--bg2);}
 .acc-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;}
 .acc-item.open .acc-icon{transform:scale(1.05);}
 .acc-icon svg{width:18px;height:18px;}
-.acc-m1 .acc-icon{background:rgba(86,211,100,.12);color:var(--green2);}
-.acc-m2 .acc-icon{background:rgba(248,81,73,.12);color:var(--red);}
-.acc-m3 .acc-icon{background:rgba(86,212,220,.12);color:var(--cyan2);}
-.acc-m4 .acc-icon{background:rgba(163,113,247,.12);color:var(--purple2);}
-.acc-m5 .acc-icon{background:rgba(88,166,255,.12);color:var(--blue);}
-.acc-m6 .acc-icon{background:rgba(227,179,65,.12);color:var(--yellow2);}
-.acc-m7 .acc-icon{background:rgba(255,166,87,.12);color:var(--orange2);}
-.acc-m8 .acc-icon{background:rgba(248,81,73,.12);color:var(--red);}
+.acc-m1 .acc-icon{background:rgba(52,211,153,.12);color:var(--green2);}
+.acc-m2 .acc-icon{background:rgba(248,113,113,.12);color:var(--red2);}
+.acc-m3 .acc-icon{background:rgba(34,211,238,.12);color:var(--cyan2);}
+.acc-m4 .acc-icon{background:rgba(167,139,250,.12);color:var(--purple2);}
+.acc-m5 .acc-icon{background:rgba(96,165,250,.12);color:var(--blue2);}
+.acc-m6 .acc-icon{background:rgba(251,191,36,.12);color:var(--yellow2);}
+.acc-m7 .acc-icon{background:rgba(251,146,60,.12);color:var(--orange2);}
+.acc-m8 .acc-icon{background:rgba(248,113,113,.12);color:var(--red2);}
 .acc-label{flex:1;}
 .acc-num{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted2);}
 .acc-name{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--text);margin-top:2px;}
-.acc-arrow{font-size:12px;color:var(--muted);transition:transform .25s;}
+.acc-arrow{font-size:12px;color:var(--muted);transition:transform .3s;}
 .acc-item.open .acc-arrow{transform:rotate(180deg);}
 .acc-body{display:none;padding:0 24px 22px 74px;}
-.acc-item.open .acc-body{display:block;animation:slideDown .25s ease;}
-@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-.acc-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;}
+.acc-item.open .acc-body{display:block;animation:fadeIn .4s ease;}
+.acc-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:10px;}
 .acc-step{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.65;}
-.acc-step-n{min-width:22px;height:22px;border-radius:50%;background:var(--accent);color:#0d1117;font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;font-weight:700;}
-.acc-note{font-size:11px;color:var(--muted2);font-family:'Share Tech Mono',monospace;padding:8px 12px;background:var(--bg2);border-left:2px solid var(--border2);margin-top:8px;}
-.acc-note strong{color:var(--accent2);}
-
+.acc-step-n{min-width:22px;height:22px;border-radius:50%;background:var(--border);color:var(--text);font-family:'Share Tech Mono',monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.acc-note{font-size:11px;color:var(--muted2);font-family:'Share Tech Mono',monospace;padding:8px 12px;background:var(--bg);border-left:2px solid var(--border2);margin-top:12px;}
+.acc-note strong{color:var(--text);}
 .cta{position:relative;z-index:1;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;}
-.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(88,166,255,.08) 0%,transparent 65%);pointer-events:none;}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.03) 0%,transparent 65%);pointer-events:none;}
 .cta-inner{max-width:700px;margin:0 auto;padding:90px 24px;text-align:center;position:relative;z-index:1;}
 .cta-inner h2{font-family:'Orbitron',monospace;font-size:clamp(24px,4vw,42px);font-weight:900;color:var(--text);margin-bottom:14px;line-height:1.2;}
-.cta-inner h2 span{color:var(--accent);}
+.cta-inner h2 span{color:var(--muted2);}
 .cta-inner p{color:var(--muted);margin-bottom:40px;font-size:15px;line-height:1.8;}
-.cta-inner p code{color:var(--accent2);background:rgba(88,166,255,.1);padding:1px 6px;border-radius:3px;font-family:'Share Tech Mono',monospace;}
-.download-box{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent2);padding:22px 28px;margin-bottom:20px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:var(--shadow);transition:box-shadow .2s;}
-.download-box:hover{box-shadow:var(--glow-accent);}
+.cta-inner p code{color:var(--text);background:var(--border);padding:2px 6px;border-radius:3px;font-family:'Share Tech Mono',monospace;}
+.download-box{background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--blue2);padding:22px 28px;margin-bottom:20px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:var(--shadow);transition:box-shadow .2s;}
+.download-box:hover{box-shadow:0 0 20px rgba(96,165,250,.15);}
 .dl-info{flex:1;}
-.dl-name{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--accent2);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
+.dl-name{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--blue2);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
 .dl-name svg{width:15px;height:15px;}
 .dl-meta{font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:.5px;}
-.dl-btn{display:inline-flex;align-items:center;gap:9px;background:var(--green);color:#0d1117;font-family:'Orbitron',monospace;font-weight:700;font-size:11px;letter-spacing:2px;padding:12px 22px;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .2s;white-space:nowrap;}
-.dl-btn:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 20px rgba(88,166,255,.3);}
+.dl-btn{display:inline-flex;align-items:center;gap:9px;background:var(--green);color:var(--bg);font-family:'Orbitron',monospace;font-weight:700;font-size:11px;letter-spacing:2px;padding:12px 22px;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .2s;white-space:nowrap;}
+.dl-btn:hover{background:var(--green2);transform:translateY(-2px);box-shadow:0 4px 20px rgba(16,185,129,.3);}
 .dl-btn svg{width:16px;height:16px;}
-.warn-box{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.25);padding:14px 18px;font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(255,123,114,.9);letter-spacing:.5px;line-height:1.7;border-radius:2px;}
-
+.warn-box{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.25);padding:14px 18px;font-family:'Share Tech Mono',monospace;font-size:11px;color:rgba(248,113,113,.9);letter-spacing:.5px;line-height:1.7;border-radius:2px;}
 footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--surface);}
 .footer-logo{font-family:'Orbitron',monospace;font-weight:900;font-size:13px;color:var(--accent);letter-spacing:2px;display:flex;align-items:center;gap:7px;}
 .footer-logo svg{width:15px;height:15px;}
-.footer-logo .lo-a{color:var(--green2);}
+.footer-logo .lo-a{color:var(--muted2);}
 .footer-links{display:flex;gap:22px;list-style:none;}
-.footer-links a{color:var(--muted);text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;transition:color .2s;}
-.footer-links a:hover{color:var(--accent);}
+.footer-links a{color:var(--muted);text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;transition:color .3s;}
+.footer-links a:hover{color:var(--text);}
 .footer-copy{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted2);letter-spacing:1px;}
-
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.5,0,0,1);}
+.reveal.active{opacity:1;transform:translateY(0);}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:.1s;}
-.reveal-delay-2{transition-delay:.2s;}
-.reveal-delay-3{transition-delay:.3s;}
-.reveal-delay-4{transition-delay:.4s;}
-
-@media(max-width:900px){
-  .stats{grid-template-columns:repeat(2,1fr);}
-  .stat-item:nth-child(2){border-right:none;}
-  .stat-item:nth-child(3){border-top:1px solid var(--border);}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr);}.stat-item:nth-child(2){border-right:none;}.stat-item:nth-child(3){border-top:1px solid var(--border);}}
+@media(max-width:640px){nav{padding:13px 18px;}.nav-links{display:none;}footer{padding:26px 18px;flex-direction:column;align-items:flex-start;}.acc-body{padding-left:24px;}}
+.nav-logo .lo-a, 
+.footer-logo .lo-a, 
+h1 .l2, 
+.cta-inner h2 span {
+  color: var(--green2) !important;
+  animation: smoothTextGlow 2s infinite ease-in-out;
 }
-@media(max-width:640px){
-  nav{padding:13px 18px;}
-  .nav-links{display:none;}
-  footer{padding:26px 18px;flex-direction:column;align-items:flex-start;}
-  .acc-body{padding-left:24px;}
+
+@keyframes smoothTextGlow {
+  0%, 100% { 
+    opacity: 1; 
+    text-shadow: 0 0 22px rgba(52, 211, 153, 0.75); 
+  }
+  50% { 
+    opacity: 0.6; 
+    text-shadow: 0 0 5px rgba(52, 211, 153, 0.1); 
+  }
 }
 </style>
 </head>
@@ -266,12 +251,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
     <li><a href="#features"><span class="vi">TÍNH NĂNG</span><span class="en">FEATURES</span></a></li>
     <li><a href="#howto"><span class="vi">HƯỚNG DẪN</span><span class="en">GUIDE</span></a></li>
     <li><a href="#requirements"><span class="vi">YÊU CẦU</span><span class="en">REQUIREMENTS</span></a></li>
-    <li><a href="#download"><span class="vi">TẢI VỀ</span><span class="en">DOWNLOAD</span></a></li>
+    <li><a href="#download">DOWNLOAD</a></li>
     <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank">GITHUB</a></li>
   </ul>
   <div class="nav-right">
     <div class="lang-btn">
-      <button id="btn-vi" class="active" onclick="setLang('vi')">VI</button>
+      <button id="btn-vi" onclick="setLang('vi')">VI</button>
       <button id="btn-en" onclick="setLang('en')">EN</button>
     </div>
     <a href="#download" class="nav-dl">
@@ -283,12 +268,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
 
 <div class="hero">
   <div class="hero-glow"></div>
-  <div class="badge">v6.1.8 — <span class="vi">PHIÊN BẢN MỚI NHẤT</span><span class="en">LATEST RELEASE</span></div>
+  <div class="badge"><span class="vi">PHIÊN BẢN MỚI NHẤT</span><span class="en">LATEST RELEASE</span> — v6.1.8</div>
   <h1>
     <span class="l1">WINDOWS CLEANUP</span>
     <span class="l2">&amp; OPTIMIZER</span>
   </h1>
-  <p class="hero-sub vi">Bộ công cụ tối ưu hóa Windows toàn diện — dọn dẹp, sửa lỗi hệ thống, quản lý tệp, và tăng tốc máy tính chỉ với một file <code>.bat</code>.</p>
+  <p class="hero-sub vi">Bộ công cụ tối ưu hóa Windows toàn diện — dọn dẹp, sửa lỗi hệ thống, quản lý tệp, và tăng tốc máy tính chỉ với một tệp <code>.bat</code>.</p>
   <p class="hero-sub en">A comprehensive Windows optimization toolkit — clean, repair, manage files, and speed up your PC with a single <code>.bat</code> file.</p>
   <div class="hero-actions">
     <a href="#download" class="btn-primary">
@@ -297,7 +282,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
     </a>
     <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank" class="btn-secondary">★ GitHub</a>
   </div>
-  <div class="version-tag">// RELEASE 6.1.8 &nbsp;·&nbsp; WINDOWS 10 / 11 &nbsp;·&nbsp; BATCH SCRIPT</div>
+  <div class="version-tag">
+    <span class="vi">// PHIÊN BẢN 6.1.8 &nbsp;·&nbsp; WINDOWS 10 / 11 &nbsp;·&nbsp; BATCH SCRIPT</span>
+    <span class="en">// RELEASE 6.1.8 &nbsp;·&nbsp; WINDOWS 10 / 11 &nbsp;·&nbsp; BATCH SCRIPT</span>
+  </div>
 </div>
 
 <div class="terminal-wrap">
@@ -320,13 +308,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
     <div class="t-line"><span class="t-ye">[9]</span><span class="t-wh"> Toolkit Options</span></div>
     <div class="t-line"><span class="t-wh">[0] Exit</span></div>
     <div class="t-line">&nbsp;</div>
-    <div class="t-line"><span class="t-cy">&gt; <span class="vi">Chọn tuỳ chọn</span><span class="en">Choose an option</span> (0-9): </span><span class="cursor"></span></div>
+    <div class="t-line"><span class="t-cy">&gt; Choose an option (0-9): </span><span class="cursor"></span></div>
   </div>
 </div>
 
 <div class="stats reveal">
   <div class="stat-item">
-    <div class="stat-num" data-count="8">0</div>
+    <div class="stat-num">8</div>
     <div class="stat-label vi">MODULE CHỨC NĂNG</div>
     <div class="stat-label en">MODULES</div>
   </div>
@@ -337,7 +325,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
   </div>
   <div class="stat-item">
     <div class="stat-num">0MB</div>
-    <div class="stat-label vi">KHÔNG CẦN CÀI ĐẶT</div>
+    <div class="stat-label vi">KHÔNG YÊU CẦU CÀI ĐẶT</div>
     <div class="stat-label en">NO INSTALLATION</div>
   </div>
   <div class="stat-item">
@@ -347,12 +335,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
   </div>
 </div>
 
-<section id="features">
-  <div class="section-label reveal">// MODULES</div>
-  <h2 class="section-title vi reveal reveal-delay-1">8 Bộ Công Cụ Mạnh Mẽ</h2>
-  <h2 class="section-title en reveal reveal-delay-1">8 Powerful Toolkits</h2>
-  <p class="section-desc vi reveal reveal-delay-2">Tất cả trong một file — không cần cài đặt, không cần phụ thuộc thêm.</p>
-  <p class="section-desc en reveal reveal-delay-2">Everything in one file — no installation, no extra dependencies.</p>
+<section id="features" class="reveal">
+  <div class="section-label">// MODULES</div>
+  <h2 class="section-title vi">8 Bộ Công Cụ Mạnh Mẽ</h2>
+  <h2 class="section-title en">8 Powerful Toolkits</h2>
+  <p class="section-desc vi">Tất cả trong một tệp duy nhất — không cần cài đặt, không cần phụ thuộc bên thứ ba.</p>
+  <p class="section-desc en">Everything in one single file — no installation, no extra dependencies.</p>
 
   <div class="features-grid">
 
@@ -362,9 +350,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </div>
       <div class="feat-num">MODULE 01</div>
       <div class="feat-title">QUICK CLEANUP</div>
-      <div class="feat-desc vi">Dọn Temp, xóa Recent, làm sạch Recycle Bin và flush DNS cache chỉ trong vài giây.</div>
-      <div class="feat-desc en">Clean Temp, delete Recent files, empty Recycle Bin and flush DNS cache in seconds.</div>
-      <span class="feat-tag tag-free">FREE</span>
+      <div class="feat-desc vi">Dọn dẹp tệp Temp, xóa Recent, làm sạch thùng rác và flush DNS cache chỉ trong vài giây.</div>
+      <div class="feat-desc en">Clean Temp files, delete Recent, empty Recycle Bin and flush DNS cache in seconds.</div>
+      <span class="feat-tag">FREE</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -378,15 +366,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-1">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 22-1-4"/><path d="M19 14a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2h-3a1 1 0 0 1-1-1V4a2 2 0 0 0-4 0v5a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2v1a1 1 0 0 0 1 1"/><path d="M19 14H5l-1.973 6.767A1 1 0 0 0 4 22h16a1 1 0 0 0 .973-1.233z"/><path d="m8 22 1-4"/></svg>
       </div>
       <div class="feat-num">MODULE 02</div>
       <div class="feat-title">DEEP CLEANUP</div>
-      <div class="feat-desc vi">Chạy DISM RestoreHealth, SFC scannow, và Disk Cleanup tự động để sửa lỗi hệ thống sâu.</div>
+      <div class="feat-desc vi">Chạy DISM RestoreHealth, SFC scannow và Disk Cleanup tự động để sửa lỗi hệ thống sâu.</div>
       <div class="feat-desc en">Runs DISM RestoreHealth, SFC scannow, and auto Disk Cleanup to fix deep system errors.</div>
-      <span class="feat-tag tag-admin">ADMIN</span>
+      <span class="feat-tag">ADMIN</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -401,15 +389,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-2">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v4"/><path d="m14.305 7.53.923-.382"/><path d="m15.228 4.852-.923-.383"/><path d="m16.852 3.228-.383-.924"/><path d="m16.852 8.772-.383.923"/><path d="m19.148 3.228.383-.924"/><path d="m19.53 9.696-.382-.924"/><path d="m20.772 4.852.924-.383"/><path d="m20.772 7.148.924.383"/><path d="M22 13v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"/><path d="M8 21h8"/><circle cx="18" cy="6" r="3"/></svg>
       </div>
       <div class="feat-num">MODULE 03</div>
       <div class="feat-title">SYSTEM OPTIMIZATION</div>
-      <div class="feat-desc vi">Check disk, defrag/TRIM ổ đĩa, rebuild cache, tối ưu Power Plan và Visual Effects.</div>
+      <div class="feat-desc vi">Check disk, defrag/TRIM ổ đĩa, xây dựng lại cache, tối ưu Power Plan và Visual Effects.</div>
       <div class="feat-desc en">Check disk, defrag/TRIM drive, rebuild cache, optimize Power Plan and Visual Effects.</div>
-      <span class="feat-tag tag-admin">ADMIN</span>
+      <span class="feat-tag">ADMIN</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -425,15 +413,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-3">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>
       </div>
       <div class="feat-num">MODULE 04</div>
       <div class="feat-title">ADVANCED TOOLS</div>
-      <div class="feat-desc vi">Công cụ nâng cao: xóa Update Cache, Remove Windows.old, Reset Network, Wipe Free Space.</div>
+      <div class="feat-desc vi">Công cụ nâng cao: xóa Update Cache, Remove Windows.old, Reset mạng, Wipe Free Space.</div>
       <div class="feat-desc en">Advanced tools: clear Update Cache, remove Windows.old, Network Reset, Wipe Free Space.</div>
-      <span class="feat-tag tag-expert">EXPERT</span>
+      <span class="feat-tag">EXPERT</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -455,9 +443,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </div>
       <div class="feat-num">MODULE 05</div>
       <div class="feat-title">SYSTEM UTILITIES</div>
-      <div class="feat-desc vi">Thông tin hệ thống, Restart Explorer, Kill tasks treo, Winget Tools, License Key, Wi-Fi Password.</div>
-      <div class="feat-desc en">System info, Restart Explorer, Kill frozen tasks, Winget Tools, License Key, Wi-Fi Password.</div>
-      <span class="feat-tag tag-free">FREE</span>
+      <div class="feat-desc vi">Restart Explorer, Kill task treo, Winget Tools, xem License Key và Mật khẩu Wi-Fi.</div>
+      <div class="feat-desc en">Restart Explorer, Kill frozen tasks, Winget Tools, view License Key and Wi-Fi Passwords.</div>
+      <span class="feat-tag">FREE</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -472,15 +460,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-1">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 7v4"/><path d="M7.998 9.003a5 5 0 1 0 8-.005"/></svg>
       </div>
       <div class="feat-num">MODULE 06</div>
       <div class="feat-title">SCREEN &amp; POWER</div>
-      <div class="feat-desc vi">Quản lý màn hình, chế độ nguồn điện và các thiết lập tiết kiệm pin cho laptop.</div>
-      <div class="feat-desc en">Manage display settings, power modes and battery saving settings for laptops.</div>
-      <span class="feat-tag tag-free">FREE</span>
+      <div class="feat-desc vi">Quản lý màn hình, chế độ nguồn điện và các thiết lập tiết kiệm pin tức thì cho laptop.</div>
+      <div class="feat-desc en">Manage display settings, power modes and instant battery saving settings for laptops.</div>
+      <span class="feat-tag">FREE</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -494,15 +482,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-2">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="m15 5 4 4"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>
       </div>
       <div class="feat-num">MODULE 07</div>
       <div class="feat-title">QUICK RENAME PRO</div>
-      <div class="feat-desc vi">Đổi tên hàng loạt file/folder theo từng bước hoặc từ danh sách .txt với khả năng Undo.</div>
-      <div class="feat-desc en">Batch rename files/folders step-by-step or from a .txt list with full Undo support.</div>
-      <span class="feat-tag tag-pro">PRO</span>
+      <div class="feat-desc vi">Đổi tên hàng loạt tệp theo quy tắc hoặc từ danh sách .txt với khả năng Undo an toàn.</div>
+      <div class="feat-desc en">Batch rename files by rules or from a .txt list with safe Undo support.</div>
+      <span class="feat-tag">PRO</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -517,15 +505,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       </details>
     </div>
 
-    <div class="feature-card reveal reveal-delay-3">
+    <div class="feature-card reveal">
       <div class="feat-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
       </div>
       <div class="feat-num">MODULE 08</div>
       <div class="feat-title">AUTO MAINTENANCE</div>
-      <div class="feat-desc vi">Chạy toàn bộ quy trình bảo trì một lần: Quick + Deep Clean + Windows Update.</div>
+      <div class="feat-desc vi">Chạy toàn bộ quy trình bảo trì một lần: Quick + Deep Clean + Cập nhật Windows.</div>
       <div class="feat-desc en">Run the full maintenance sequence at once: Quick + Deep Clean + Windows Update.</div>
-      <span class="feat-tag tag-admin">ADMIN</span>
+      <span class="feat-tag">ADMIN</span>
       <details class="guide">
         <summary><span class="vi">Hướng dẫn sử dụng</span><span class="en">How it works</span></summary>
         <div class="guide-steps">
@@ -542,15 +530,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
   </div>
 </section>
 
-<div class="howto-section" id="howto">
+<div class="howto-section reveal" id="howto">
   <div class="howto-inner">
-    <div class="section-label reveal">// HOW TO USE</div>
-    <h2 class="section-title vi reveal reveal-delay-1">Hướng Dẫn Từng Chức Năng</h2>
-    <h2 class="section-title en reveal reveal-delay-1">Step-by-Step Module Guide</h2>
-    <p class="section-desc vi reveal reveal-delay-2">Nhấn vào từng module để xem hướng dẫn chi tiết và cách hoạt động.</p>
-    <p class="section-desc en reveal reveal-delay-2">Click each module to see detailed instructions and how it works.</p>
+    <div class="section-label">// HOW TO USE</div>
+    <h2 class="section-title vi">Hướng Dẫn Sử Dụng Chi Tiết</h2>
+    <h2 class="section-title en">Detailed Instruction Guide</h2>
+    <p class="section-desc vi">Nhấn vào từng mục để xem hướng dẫn từng bước an toàn cho hệ thống của bạn.</p>
+    <p class="section-desc en">Click each item to view safe step-by-step instructions for your system.</p>
 
-    <div class="accordion-list reveal">
+    <div class="accordion-list">
 
       <div class="acc-item acc-m1">
         <button class="acc-header" onclick="toggleAcc(this)">
@@ -560,14 +548,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
         </button>
         <div class="acc-body">
           <div class="acc-steps">
-            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Tải file <strong>WCaO.bat</strong> về máy.</span><span class="en">Download <strong>WCaO.bat</strong> to your computer.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Click chuột phải vào file → chọn <strong>"Run as Administrator"</strong>.</span><span class="en">Right-click the file → select <strong>"Run as Administrator"</strong>.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi">Khi menu xuất hiện, nhập <strong>1</strong> và nhấn Enter.</span><span class="en">When the menu appears, type <strong>1</strong> and press Enter.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi">Script tự động dọn dẹp: <strong>%TEMP%</strong>, thư mục <strong>Recent</strong>, <strong>Recycle Bin</strong>, flush <strong>DNS Cache</strong>, và nếu có Admin: <strong>System Temp + Prefetch</strong>.</span><span class="en">Script auto-cleans: <strong>%TEMP%</strong>, <strong>Recent</strong> folder, <strong>Recycle Bin</strong>, flushes <strong>DNS Cache</strong>, and with Admin: <strong>System Temp + Prefetch</strong>.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi">Nhấn phím bất kỳ để quay lại menu chính. Không cần khởi động lại.</span><span class="en">Press any key to return to the main menu. No restart required.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Tải tệp <strong>WCaO.bat</strong> về máy tính.</span><span class="en">Download <strong>WCaO.bat</strong> to your computer.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Nhấp chuột phải vào tệp → chọn <strong>"Run as Administrator"</strong>.</span><span class="en">Right-click the file → select <strong>"Run as Administrator"</strong>.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi">Khi cửa sổ Command xuất hiện, nhập <strong>1</strong> và nhấn Enter.</span><span class="en">When the Command window appears, type <strong>1</strong> and press Enter.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi">Hệ thống sẽ dọn dẹp các tệp tạm thời một cách nhanh chóng. Nhấn phím bất kỳ để trở lại.</span><span class="en">The system will quickly clean temporary files. Press any key to return.</span></div></div>
           </div>
-          <div class="acc-note vi">✅ Nên chạy <strong>mỗi tuần</strong> để giữ máy sạch sẽ.</div>
-          <div class="acc-note en">✅ Run <strong>weekly</strong> to keep your system clean.</div>
+          <div class="acc-note vi">✅ Nên thực hiện <strong>mỗi tuần</strong> để giữ máy nhẹ nhàng.</div>
+          <div class="acc-note en">✅ Recommended to run <strong>weekly</strong> to keep your system fast.</div>
         </div>
       </div>
 
@@ -579,14 +566,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
         </button>
         <div class="acc-body">
           <div class="acc-steps">
-            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Bắt buộc chạy với quyền <strong>Administrator</strong>. Script sẽ tự từ chối nếu không đủ quyền.</span><span class="en">Must run as <strong>Administrator</strong>. Script will auto-reject if not elevated.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Từ menu chính, nhập <strong>2</strong> và nhấn Enter.</span><span class="en">From the main menu, type <strong>2</strong> and press Enter.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>DISM /Online /Cleanup-Image /RestoreHealth</strong>: tải và phục hồi các file Windows image bị thiếu hoặc hỏng từ Windows Update.</span><span class="en"><strong>DISM /Online /Cleanup-Image /RestoreHealth</strong>: downloads and restores missing/corrupted Windows image files from Windows Update.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>SFC /scannow</strong>: quét toàn bộ file hệ thống, phát hiện và thay thế file bị lỗi bằng bản sao lành.</span><span class="en"><strong>SFC /scannow</strong>: scans all system files, detects and replaces corrupted ones with healthy copies.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>Disk Cleanup (cleanmgr /autoclean)</strong>: tự động xóa file rác Windows tích lũy như Windows Update Cleanup, Temporary Files...</span><span class="en"><strong>Disk Cleanup (cleanmgr /autoclean)</strong>: automatically removes accumulated Windows junk files like Update Cleanup, Temporary Files...</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Bắt buộc phải mở bằng quyền <strong>Administrator</strong>.</span><span class="en">Must be opened with <strong>Administrator</strong> privileges.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Nhập <strong>2</strong> và nhấn Enter. Máy sẽ chạy lệnh DISM và SFC tự động.</span><span class="en">Type <strong>2</strong> and press Enter. The PC will run DISM and SFC commands automatically.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi">Disk Cleanup (cleanmgr) sẽ xóa các tệp dọn dẹp hệ thống chuyên sâu.</span><span class="en">Disk Cleanup (cleanmgr) will clear deep system cleanup files.</span></div></div>
           </div>
-          <div class="acc-note vi">⏱ Ước tính <strong>15–30 phút</strong>. DISM cần kết nối internet. Không tắt máy trong quá trình chạy.</div>
-          <div class="acc-note en">⏱ Est. <strong>15–30 minutes</strong>. DISM requires internet connection. Do not power off during process.</div>
+          <div class="acc-note vi">⏱ Ước tính <strong>15–30 phút</strong>. Yêu cầu kết nối Internet cho DISM.</div>
+          <div class="acc-note en">⏱ Est. <strong>15–30 minutes</strong>. Internet connection required for DISM.</div>
         </div>
       </div>
 
@@ -599,12 +584,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
         <div class="acc-body">
           <div class="acc-steps">
             <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Nhập <strong>3</strong> từ menu chính để vào menu con Optimization với 6 tùy chọn.</span><span class="en">Type <strong>3</strong> from the main menu to enter the Optimization sub-menu with 6 options.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[1] Check Disk</strong>: chạy <code>chkdsk /scan</code> để phát hiện lỗi sector trên ổ đĩa mà không cần khởi động lại.</span><span class="en"><strong>[1] Check Disk</strong>: runs <code>chkdsk /scan</code> to detect bad sectors without requiring a reboot.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[1] Check Disk</strong>: chạy <code>chkdsk /scan</code> để phát hiện lỗi sector trên ổ đĩa.</span><span class="en"><strong>[1] Check Disk</strong>: runs <code>chkdsk /scan</code> to detect bad sectors.</span></div></div>
             <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>[2] Defrag/TRIM</strong>: tự động nhận biết HDD hay SSD và áp dụng defrag hoặc TRIM phù hợp.</span><span class="en"><strong>[2] Defrag/TRIM</strong>: auto-detects HDD or SSD and applies appropriate defragmentation or TRIM.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[3] Rebuild Caches</strong>: xóa và build lại <strong>IconCache.db</strong>, <strong>thumbcache</strong>, và restart <strong>Windows Search</strong> service.</span><span class="en"><strong>[3] Rebuild Caches</strong>: deletes and rebuilds <strong>IconCache.db</strong>, <strong>thumbcache</strong>, and restarts <strong>Windows Search</strong> service.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[4] Power Plan</strong>: thêm Ultimate Performance Plan, xem danh sách GUID, đặt plan hoạt động hoặc khôi phục mặc định.</span><span class="en"><strong>[4] Power Plan</strong>: add Ultimate Performance Plan, list GUIDs, set active plan or restore defaults.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">6</div><div><span class="vi"><strong>[5] Visual Effects</strong>: chọn Best Performance (tắt animation), Custom (giữ Peek + font mượt), hoặc Default.</span><span class="en"><strong>[5] Visual Effects</strong>: choose Best Performance (disable animations), Custom (keep Peek + smooth fonts), or Default.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">7</div><div><span class="vi"><strong>[6] Classic Context Menu</strong>: bật menu chuột phải kiểu Windows 10 hoặc khôi phục về Windows 11.</span><span class="en"><strong>[6] Classic Context Menu</strong>: enable Windows 10-style right-click menu or restore Windows 11 style.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[3] Rebuild Caches</strong>: xóa và build lại <strong>IconCache.db</strong>, <strong>thumbcache</strong>, và restart <strong>Windows Search</strong>.</span><span class="en"><strong>[3] Rebuild Caches</strong>: deletes and rebuilds <strong>IconCache.db</strong>, <strong>thumbcache</strong>, and restarts <strong>Windows Search</strong>.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[4] Power Plan</strong> &amp; <strong>[5] Visual Effects</strong>: Cấu hình theo nhu cầu hiệu năng.</span><span class="en"><strong>[4] Power Plan</strong> &amp; <strong>[5] Visual Effects</strong>: Configure based on performance needs.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">6</div><div><span class="vi"><strong>[6] Classic Context Menu</strong>: bật menu chuột phải kiểu Windows 10 trên Windows 11.</span><span class="en"><strong>[6] Classic Context Menu</strong>: enable Windows 10-style right-click menu on Windows 11.</span></div></div>
           </div>
         </div>
       </div>
@@ -618,10 +602,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
         <div class="acc-body">
           <div class="acc-steps">
             <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi">Để dùng các tính năng có nhãn <strong>(Expert)</strong>: vào <strong>[9] Toolkit Options</strong> và bật Expert Mode trước.</span><span class="en">To use features marked <strong>(Expert)</strong>: go to <strong>[9] Toolkit Options</strong> and enable Expert Mode first.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[1] Clear Update Cache</strong>: dừng dịch vụ Windows Update, xóa <code>SoftwareDistribution</code> và <code>catroot2</code>, sau đó khởi động lại để sửa lỗi update bị kẹt.</span><span class="en"><strong>[1] Clear Update Cache</strong>: stops Windows Update services, deletes <code>SoftwareDistribution</code> &amp; <code>catroot2</code>, restarts them — fixes stuck updates.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>[3] Remove Windows.old</strong> (Expert): gỡ quyền sở hữu và xóa vĩnh viễn thư mục Windows cũ, thường chiếm 10–30GB.</span><span class="en"><strong>[3] Remove Windows.old</strong> (Expert): takes ownership and permanently deletes the old Windows folder, often freeing 10–30GB.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[5] Network Reset</strong>: reset <strong>Winsock</strong> và <strong>IP stack</strong>, flush DNS — khắc phục hầu hết lỗi mạng không giải thích được.</span><span class="en"><strong>[5] Network Reset</strong>: resets <strong>Winsock</strong> and <strong>IP stack</strong>, flushes DNS — fixes most unexplained network issues.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[6] Restore Point</strong>: tạo điểm khôi phục trước khi thực hiện thay đổi quan trọng. <strong>Luôn làm trước bước [3] và [7]</strong>.</span><span class="en"><strong>[6] Restore Point</strong>: create a restore point before major changes. <strong>Always do this before steps [3] and [7]</strong>.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[1] Clear Update Cache</strong>: xóa <code>SoftwareDistribution</code> và <code>catroot2</code> để sửa lỗi update bị kẹt.</span><span class="en"><strong>[1] Clear Update Cache</strong>: deletes <code>SoftwareDistribution</code> &amp; <code>catroot2</code> to fix stuck updates.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>[3] Remove Windows.old</strong> (Expert): xóa vĩnh viễn thư mục Windows cũ để giải phóng ổ cứng.</span><span class="en"><strong>[3] Remove Windows.old</strong> (Expert): permanently deletes the old Windows folder to reclaim space.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[5] Network Reset</strong>: reset <strong>Winsock</strong> và <strong>IP stack</strong>, flush DNS để sửa lỗi mạng.</span><span class="en"><strong>[5] Network Reset</strong>: resets <strong>Winsock</strong> and <strong>IP stack</strong>, flushes DNS to fix network issues.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[6] Restore Point</strong>: tạo điểm khôi phục trước khi thay đổi. <strong>Luôn làm trước khi dùng Expert Mode</strong>.</span><span class="en"><strong>[6] Restore Point</strong>: create a restore point. <strong>Always do this before using Expert Mode</strong>.</span></div></div>
           </div>
           <div class="acc-note vi">⚠ Tính năng Expert có thể không phục hồi được. Hãy tạo Restore Point và backup dữ liệu trước.</div>
           <div class="acc-note en">⚠ Expert features may be irreversible. Always create a Restore Point and backup data first.</div>
@@ -636,13 +620,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
         </button>
         <div class="acc-body">
           <div class="acc-steps">
-            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi"><strong>[1] System Info</strong>: hiển thị OS, phiên bản, CPU, số nhân/luồng, RAM tổng/còn trống, GPU và Motherboard.</span><span class="en"><strong>[1] System Info</strong>: displays OS, version, CPU, core/thread count, total/free RAM, GPU and Motherboard details.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[2] Restart Explorer</strong>: tắt và khởi động lại <code>explorer.exe</code> — sửa lỗi taskbar không phản hồi, icon sai.</span><span class="en"><strong>[2] Restart Explorer</strong>: kills and restarts <code>explorer.exe</code> — fixes unresponsive taskbar, broken icons.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>[3] Kill Not Responding</strong>: chạy <code>taskkill /FI "status eq NOT RESPONDING"</code> để đóng toàn bộ app bị treo.</span><span class="en"><strong>[3] Kill Not Responding</strong>: runs <code>taskkill /FI "status eq NOT RESPONDING"</code> to close all frozen apps.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[4] Winget Tools</strong>: liệt kê app có bản cập nhật, cập nhật tất cả hoặc từng app theo ID, cài Essential Software, reset cache Winget.</span><span class="en"><strong>[4] Winget Tools</strong>: lists updatable apps, update all or specific apps by ID, install Essential Software, reset Winget cache.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[5] License Key</strong>: kiểm tra trạng thái kích hoạt và hiển thị product key Windows hiện tại.</span><span class="en"><strong>[5] License Key</strong>: checks activation status and displays the current Windows product key.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">6</div><div><span class="vi"><strong>[6] Battery Report</strong>: tạo file <code>battery-report.html</code> với lịch sử và sức khỏe pin chi tiết.</span><span class="en"><strong>[6] Battery Report</strong>: generates <code>battery-report.html</code> with detailed battery history and health data.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">7</div><div><span class="vi"><strong>[7] Wi-Fi Password</strong>: dùng <code>netsh wlan</code> để hiển thị mật khẩu của các Wi-Fi đã lưu trên máy.</span><span class="en"><strong>[7] Wi-Fi Password</strong>: uses <code>netsh wlan</code> to display passwords of saved Wi-Fi networks on this device.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">1</div><div><span class="vi"><strong>[1] System Info</strong>: hiển thị OS, phiên bản, CPU, RAM tổng/còn trống, GPU và Motherboard.</span><span class="en"><strong>[1] System Info</strong>: displays OS, version, CPU, total/free RAM, GPU and Motherboard details.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi"><strong>[2] Restart Explorer</strong>: tắt và khởi động lại <code>explorer.exe</code> — sửa lỗi taskbar không phản hồi.</span><span class="en"><strong>[2] Restart Explorer</strong>: kills and restarts <code>explorer.exe</code> — fixes unresponsive taskbar.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi"><strong>[3] Kill Not Responding</strong>: chạy <code>taskkill</code> để đóng toàn bộ app bị treo tự động.</span><span class="en"><strong>[3] Kill Not Responding</strong>: runs <code>taskkill</code> to close all frozen apps automatically.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi"><strong>[4] Winget Tools</strong>: cài Essential Software hoặc cập nhật tất cả các ứng dụng có sẵn.</span><span class="en"><strong>[4] Winget Tools</strong>: install Essential Software or update all available applications.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi"><strong>[6] Battery Report</strong>: tạo file <code>battery-report.html</code> với lịch sử và sức khỏe pin chi tiết.</span><span class="en"><strong>[6] Battery Report</strong>: generates <code>battery-report.html</code> with detailed battery history and health.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">6</div><div><span class="vi"><strong>[7] Wi-Fi Password</strong>: dùng <code>netsh wlan</code> để hiển thị mật khẩu của các Wi-Fi đã lưu trên máy.</span><span class="en"><strong>[7] Wi-Fi Password</strong>: uses <code>netsh wlan</code> to display passwords of saved Wi-Fi networks.</span></div></div>
           </div>
         </div>
       </div>
@@ -677,8 +660,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
             <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Nhập đường dẫn thư mục chứa file cần đổi tên (ví dụ: <code>D:\Photos\2024</code>).</span><span class="en">Enter the folder path containing files to rename (e.g. <code>D:\Photos\2024</code>).</span></div></div>
             <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi">Chọn phương thức đổi tên: thêm <strong>prefix</strong>/<strong>suffix</strong>, thay thế chuỗi ký tự, hoặc đánh số tuần tự.</span><span class="en">Choose rename method: add <strong>prefix</strong>/<strong>suffix</strong>, replace string pattern, or sequential numbering.</span></div></div>
             <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi">Hoặc tạo file <code>.txt</code> với danh sách tên mới (1 tên / 1 dòng) và cung cấp đường dẫn file đó.</span><span class="en">Or create a <code>.txt</code> file with new names (1 name per line) and provide that file path.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi">Xem <strong>Preview</strong> danh sách tên cũ → mới trước khi xác nhận thực hiện.</span><span class="en">Review the <strong>Preview</strong> list of old → new names before confirming.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">6</div><div><span class="vi">Nếu đổi nhầm, chọn <strong>Undo</strong> để phục hồi toàn bộ tên gốc từ log file.</span><span class="en">If something went wrong, select <strong>Undo</strong> to restore all original names from the log file.</span></div></div>
+            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi">Xem <strong>Preview</strong> danh sách tên cũ → mới trước khi xác nhận thực hiện. Dùng <strong>Undo</strong> nếu cần phục hồi.</span><span class="en">Review the <strong>Preview</strong> list before confirming. Use <strong>Undo</strong> if restoration is needed.</span></div></div>
           </div>
           <div class="acc-note vi">💡 Log Undo được lưu tại: <strong>%LocalAppData%\WCaO_Toolkit\RenameUndo.txt</strong></div>
           <div class="acc-note en">💡 Undo log saved at: <strong>%LocalAppData%\WCaO_Toolkit\RenameUndo.txt</strong></div>
@@ -697,10 +679,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
             <div class="acc-step"><div class="acc-step-n">2</div><div><span class="vi">Nhập <strong>8</strong> từ menu chính và xác nhận.</span><span class="en">Type <strong>8</strong> from the main menu and confirm.</span></div></div>
             <div class="acc-step"><div class="acc-step-n">3</div><div><span class="vi">Script chạy tuần tự hoàn toàn tự động: <strong>Quick Cleanup</strong> → <strong>Deep Cleanup (DISM + SFC)</strong> → <strong>Windows Update</strong>.</span><span class="en">Script runs fully automatically in sequence: <strong>Quick Cleanup</strong> → <strong>Deep Cleanup (DISM + SFC)</strong> → <strong>Windows Update</strong>.</span></div></div>
             <div class="acc-step"><div class="acc-step-n">4</div><div><span class="vi">Toàn bộ nhật ký hành động được lưu vào file log tại <code>%LocalAppData%\WCaO_Toolkit\Log_*.txt</code>.</span><span class="en">All action logs are saved to log files at <code>%LocalAppData%\WCaO_Toolkit\Log_*.txt</code>.</span></div></div>
-            <div class="acc-step"><div class="acc-step-n">5</div><div><span class="vi">Log cũ hơn 7 ngày được tự động xóa để tiết kiệm dung lượng.</span><span class="en">Logs older than 7 days are automatically deleted to save disk space.</span></div></div>
           </div>
-          <div class="acc-note vi">⏱ Thời gian chạy ước tính <strong>20–45 phút</strong>. Có thể dùng Task Scheduler để lên lịch tự động hàng tuần.</div>
-          <div class="acc-note en">⏱ Est. runtime <strong>20–45 minutes</strong>. Use Task Scheduler to automate weekly runs.</div>
+          <div class="acc-note vi">⏱ Có thể dùng Task Scheduler để lên lịch tự động hàng tuần.</div>
+          <div class="acc-note en">⏱ Use Task Scheduler to automate weekly runs.</div>
         </div>
       </div>
 
@@ -708,15 +689,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
   </div>
 </div>
 
-<section id="requirements">
-  <div class="section-label reveal">// SYSTEM REQUIREMENTS</div>
-  <h2 class="section-title vi reveal reveal-delay-1">Yêu Cầu Hệ Thống</h2>
-  <h2 class="section-title en reveal reveal-delay-1">System Requirements</h2>
-  <p class="section-desc vi reveal reveal-delay-2">Siêu nhẹ — chỉ cần Windows là đủ, không cài thêm bất kỳ thứ gì.</p>
-  <p class="section-desc en reveal reveal-delay-2">Ultra lightweight — just Windows, no extra installations needed.</p>
+<section id="requirements" class="reveal">
+  <div class="section-label">// SYSTEM REQUIREMENTS</div>
+  <h2 class="section-title vi">Yêu Cầu Hệ Thống</h2>
+  <h2 class="section-title en">System Requirements</h2>
+  <p class="section-desc vi">Khởi chạy trực tiếp ngay trên Windows, không yêu cầu thư viện mở rộng.</p>
+  <p class="section-desc en">Runs directly on Windows, no extended libraries required.</p>
 
   <div class="req-grid">
-    <div class="req-card reveal">
+    <div class="req-card">
       <div class="req-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
       </div>
@@ -724,23 +705,23 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
       <div class="req-label en">OPERATING SYSTEM</div>
       <div class="req-val">Windows 10 / 11</div>
     </div>
-    <div class="req-card reveal reveal-delay-1">
+    <div class="req-card">
       <div class="req-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
       </div>
       <div class="req-label">RUNTIME</div>
-      <div class="req-val">CMD + PowerShell</div>
+      <div class="req-val">CMD / PowerShell</div>
     </div>
-    <div class="req-card reveal reveal-delay-2">
+    <div class="req-card">
       <div class="req-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M6.376 18.91a6 6 0 0 1 11.249.003"/><circle cx="12" cy="11" r="4"/></svg>
       </div>
       <div class="req-label vi">QUYỀN ADMIN</div>
       <div class="req-label en">ADMIN RIGHTS</div>
-      <div class="req-val vi">Tùy tính năng</div>
-      <div class="req-val en">Per feature</div>
+      <div class="req-val vi">Yêu cầu ở một số mục</div>
+      <div class="req-val en">Required for some parts</div>
     </div>
-    <div class="req-card reveal reveal-delay-3">
+    <div class="req-card">
       <div class="req-icon-wrap">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg>
       </div>
@@ -751,7 +732,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
   </div>
 </section>
 
-<div class="cta" id="download">
+<div class="cta reveal" id="download">
   <div class="cta-inner">
     <h2 class="vi">Tải Về &amp; <span>Chạy Ngay</span></h2>
     <h2 class="en">Download &amp; <span>Run Now</span></h2>
@@ -788,57 +769,39 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:36
     <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases" target="_blank">Releases</a></li>
     <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/issues" target="_blank">Report Bug</a></li>
   </ul>
-  <div class="footer-copy">© 2025 SpaceheroVN — MIT LICENSE</div>
+  <div class="footer-copy">© 2026 SpaceheroVN — MIT LICENSE</div>
 </footer>
 
 <script>
-(function(){
-  var saved=localStorage.getItem('wcao-lang')||'vi';
-  setLang(saved,true);
-})();
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('wcao-lang') || 'vi';
+  setLang(savedLang);
 
-function setLang(l,silent){
-  document.documentElement.className='lang-'+l;
-  document.getElementById('btn-vi').className=l==='vi'?'active':'';
-  document.getElementById('btn-en').className=l==='en'?'active':'';
-  if(!silent)localStorage.setItem('wcao-lang',l);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+});
+
+function setLang(l){
+  document.documentElement.className = 'lang-' + l;
+  document.getElementById('btn-vi').className = l === 'vi' ? 'active' : '';
+  document.getElementById('btn-en').className = l === 'en' ? 'active' : '';
+  localStorage.setItem('wcao-lang', l);
 }
 
 function toggleAcc(btn){
-  var item=btn.closest('.acc-item');
-  var isOpen=item.classList.contains('open');
-  document.querySelectorAll('.acc-item.open').forEach(function(i){i.classList.remove('open');});
-  if(!isOpen)item.classList.add('open');
+  const item = btn.closest('.acc-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
 }
-
-var revealObserver=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe(el);});
-
-var countObserver=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){
-      var el=e.target;
-      var target=parseInt(el.getAttribute('data-count'));
-      var start=0;
-      var dur=1200;
-      var step=dur/target;
-      var t=setInterval(function(){
-        start++;
-        el.textContent=start;
-        if(start>=target)clearInterval(t);
-      },step);
-      countObserver.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll('[data-count]').forEach(function(el){countObserver.observe(el);});
 </script>
 </body>
 </html>
