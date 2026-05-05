@@ -41,7 +41,7 @@
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       background: var(--bg);
@@ -79,7 +79,7 @@
       pointer-events: none;
       z-index: 1;
       transform: translate(-50%, -50%);
-      transition: transform .08s linear;
+      transition: none;
       will-change: transform;
     }
 
@@ -126,7 +126,20 @@
       transition: transform .3s var(--ease-out), filter .3s;
     }
     .nav-logo:hover { transform: scale(1.06); filter: brightness(1.15); }
-    .nav-logo svg { width: 18px; height: 18px; }
+
+    @keyframes borderGlow {
+      0%, 100% { border-color: var(--green2); box-shadow: 0 0 6px rgba(52,211,153,.6); }
+      50%       { border-color: rgba(52,211,153,.2); box-shadow: none; }
+    }
+
+    .nav-logo svg { 
+      width: 22px; height: 22px; 
+      color: var(--text);
+      border: 1px solid var(--green2);
+      border-radius: 4px;
+      padding: 2px;
+      animation: borderGlow 2.4s infinite ease-in-out;
+    }
     .nav-logo .lo-a,
     .footer-logo .lo-a,
     h1 .l2,
@@ -693,7 +706,6 @@
       top: 4px;
       bottom: 4px;
       left: 4px;
-      .tab-slider { width: 0; }
       background: var(--surface);
       border-radius: 4px;
       box-shadow: 0 1px 6px rgba(0,0,0,.4);
@@ -854,7 +866,7 @@
       margin-bottom: 20px;
       font-size: 15px;
       line-height: 1.8;
-      white-space: nowrap;
+      white-space: normal;
     }
     .cta-inner p code {
       color: var(--text);
@@ -977,13 +989,13 @@
       color: var(--cyan2);
       clip-path: polygon(0 15%, 100% 15%, 100% 40%, 0 40%);
       transform: translateX(-3px);
-      animation: glitch1 4.5s infinite ease-in-out;
+      animation: glitch1 2s infinite ease-in-out;
     }
     .glitch::after {
       color: var(--red2);
       clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
       transform: translateX(3px);
-      animation: glitch2 4.5s infinite ease-in-out;
+      animation: glitch2 2s infinite ease-in-out;
     }
 
     .scanlines {
@@ -1146,6 +1158,7 @@
       0% { opacity: 1; backdrop-filter: blur(3px); }
       100% { opacity: 0; backdrop-filter: blur(0); }
     }
+    
     details.guide summary::before {
       transform: rotate(90deg);
       transition: transform 0.4s var(--ease-out);
@@ -1268,8 +1281,10 @@
       color: var(--theme-color);
       font-weight: 500;
       user-select: none;
-      -webkit-user-select: text;
-      cursor: grab; 
+      -webkit-user-select: none;
+      cursor: grab;
+      touch-action: none;       
+      will-change: scroll-position;
     }
     .note-content strong.grabbing, 
     .note-content code.grabbing {
@@ -1314,6 +1329,148 @@
     .note-item.is-open .note-header .note-arrow { transform: rotate(180deg); }
 
     .note-icon { flex-shrink: 0; width: 14px; height: 14px; color: var(--theme-color); margin-top: 1px; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: all .3s var(--ease-out);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--text); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--text); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 199;
+      background: rgba(9,9,11,.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s var(--ease-out);
+      padding-top: 80px;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 24px;
+    }
+    .mobile-menu ul li {
+      width: 100%;
+      max-width: 320px;
+    }
+    .mobile-menu ul a {
+      display: block;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 2.5px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 16px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: all .25s;
+    }
+    .mobile-menu ul a:hover,
+    .mobile-menu ul a:active {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--surface);
+    }
+
+    @media (hover: none) {
+      #cursor-glow { display: none !important; }
+      .feature-card:hover,
+      .req-card:hover,
+      .stat-item:hover { transform: none !important; box-shadow: none !important; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 13px 18px; }
+      nav.scrolled { padding: 10px 18px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      .nav-dl { display: none; }
+      footer { padding: 26px 18px; flex-direction: column; align-items: flex-start; }
+      .acc-body { padding-left: 24px; }
+      .acc-item.open .acc-body { padding-left: 24px; }
+
+      .terminal-wrap { padding: 0 16px; }
+      .terminal { overflow-x: auto; font-size: 12px; padding: 16px 18px 20px; }
+
+      .hero { padding: 90px 18px 52px; }
+      .hero-sub { max-width: 100%; }
+
+      .stats { margin: 44px 16px; }
+
+      section { padding: 60px 18px; }
+
+      .download-box { flex-direction: column; align-items: stretch; }
+      .dl-btn { width: 100%; justify-content: center; clip-path: none; border-radius: 3px; }
+
+      .cta-inner { padding: 60px 18px; }
+
+      .tab-pane { padding: 20px 18px; }
+
+      .howto-inner { padding: 0 18px; }
+      .req-grid { grid-template-columns: repeat(2, 1fr); }
+      .req-card { padding: 14px 12px; }
+      .dl-meta { width: fit-content; margin: 0 auto; }
+      #particles-canvas { display: none; }
+      .scanlines { display: none; }
+      .tab-btn { flex: 0 0 auto; min-width: 100px; font-size: 11px; padding: 10px 12px; }
+    }
+
+    @media (max-width: 420px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(n) { border-right: none; border-top: none; }
+      .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid var(--border); }
+
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid .feature-card { padding: 18px 14px; }
+
+      h1 { font-size: clamp(28px, 8vw, 48px); }
+      .section-title { font-size: clamp(18px, 5vw, 26px); }
+      .stat-num { font-size: 26px; }
+      .acc-name { font-size: 12px; }
+    }
+
+    @media (max-width: 420px) {
+      .footer-links { flex-wrap: wrap; gap: 14px; }
+    }
   </style>
 </head>
 
@@ -1351,8 +1508,21 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
         <span class="vi">TẢI VỀ</span><span class="en">DOWNLOAD</span>
       </a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <ul>
+      <li><a href="#features" onclick="toggleMobileMenu()"><span class="vi">TÍNH NĂNG</span><span class="en">FEATURES</span></a></li>
+      <li><a href="#howto" onclick="toggleMobileMenu()"><span class="vi">HƯỚNG DẪN</span><span class="en">GUIDE</span></a></li>
+      <li><a href="#requirements" onclick="toggleMobileMenu()"><span class="vi">YÊU CẦU</span><span class="en">REQUIREMENTS</span></a></li>
+      <li><a href="#download" onclick="toggleMobileMenu()"><span class="vi">TẢI VỀ</span><span class="en">DOWNLOAD</span></a></li>
+      <li><a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer" target="_blank" onclick="toggleMobileMenu()">GITHUB</a></li>
+    </ul>
+  </div>
 
   <div class="hero">
     <div class="hero-glow"></div>
@@ -1817,7 +1987,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></svg>
             WCaO.bat
           </div>
-          <div class="dl-meta">Version 6.1.8 &nbsp;·&nbsp; Batch Script &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; ~85 KB</div>
+          <div class="dl-meta">Version 6.1.8 · Batch Script<br>Windows 10/11 · ~67 KB</div>
         </div>
         <a href="https://github.com/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/download/6.1.8/WCaO.bat" class="dl-btn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>
@@ -1901,6 +2071,8 @@
           drift: (Math.random() - .5) * .3,
         };
       }
+
+      if (window.innerWidth <= 640) return;
 
       for (let i = 0; i < 70; i++) {
         const p = randomParticle();
@@ -2020,21 +2192,27 @@
         });
 
         const addDragScroll = (target) => {
-          let isDown = false, startX, scrollLeft;
-          target.addEventListener('mousedown', (e) => {
-            isDown = true; target.classList.add('grabbing');
-            startX = e.pageX - target.offsetLeft; scrollLeft = target.scrollLeft;
+          let isDown = false, lastX;
+
+          target.addEventListener('pointerdown', (e) => {
+            isDown = true;
+            lastX  = e.clientX;
+            target.classList.add('grabbing');
+            target.setPointerCapture(e.pointerId);
             e.stopPropagation();
           });
-          target.addEventListener('mouseleave', () => { isDown = false; target.classList.remove('grabbing'); });
-          target.addEventListener('mouseup', () => { isDown = false; target.classList.remove('grabbing'); });
-          target.addEventListener('mousemove', (e) => {
+
+          target.addEventListener('pointermove', (e) => {
             if (!isDown) return;
-            e.preventDefault(); e.stopPropagation();
-            const x = e.pageX - target.offsetLeft;
-            const walk = (x - startX) * 2;
-            target.scrollLeft = scrollLeft - walk;
+            e.preventDefault();
+            const dx = e.clientX - lastX;  
+            target.scrollLeft -= dx;
+            lastX = e.clientX;           
           });
+
+          target.addEventListener('pointerup',     () => { isDown = false; target.classList.remove('grabbing'); });
+          target.addEventListener('pointercancel', () => { isDown = false; target.classList.remove('grabbing'); });
+
           target.addEventListener('wheel', (e) => {
             if (e.deltaY !== 0) { e.preventDefault(); target.scrollLeft += e.deltaY; }
           }, { passive: false });
@@ -2111,8 +2289,7 @@
         document.querySelector('.nav-dl')?.setAttribute('href', dlUrl);
 
         const metaEl = document.querySelector('.dl-meta');
-        if (metaEl) metaEl.innerHTML = `Version ${version} &nbsp;·&nbsp; Batch Script &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; ~${sizeKB} KB`;
-
+        if (metaEl) metaEl.innerHTML = `Version ${version} · Batch Script<br>Windows 10/11 · ~${sizeKB} KB`;
         const vtag = document.querySelector('.version-tag');
         if (vtag) vtag.textContent = `v${version} — Latest Stable`;
 
@@ -2223,6 +2400,24 @@
         terminalLine.classList.add('typewriter-fx');
       }
     })();
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn  = document.getElementById('nav-hamburger');
+      const isOpen = menu.classList.contains('open');
+      menu.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+
+    window.addEventListener('scroll', () => {
+      const menu = document.getElementById('mobile-menu');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        document.getElementById('nav-hamburger').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }, { passive: true });
+
     function setLang(l, isInit = false) {
       if (!isInit && document.documentElement.className === 'lang-' + l) return;
 
