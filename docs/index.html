@@ -262,10 +262,10 @@
 
     .hero-sub {
       margin-top: 22px;
-      font-size: 17px;
       color: var(--muted);
-      max-width: 590px;
       line-height: 1.75;
+      font-size: clamp(14px, 1.8vw, 17px);
+      max-width: clamp(300px, 58vw, 590px);
       animation: fadeUp .8s ease both .2s;
     }
     .hero-sub code {
@@ -473,8 +473,9 @@
     .section-desc {
       color: var(--muted);
       line-height: 1.8;
-      max-width: 600px;
-      font-size: 15px;
+      font-size: clamp(13px, 1.5vw, 15px);
+      max-width: clamp(320px, 55vw, 600px);  
+      text-wrap: pretty;
     }
 
     .features-grid {
@@ -2233,24 +2234,60 @@
       if (isInit) return;
 
       const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!<>-_\\/[]{}—=+*^?#_";
+
       document.querySelectorAll(`.${l}`).forEach(el => {
         if (!el.textContent.trim() || el.querySelector('svg') || el.closest('.note-header')) return;
-        
-        const origHTML = el.innerHTML;
-        const origText = el.textContent;
-        let iter = 0;
-        const step = Math.max(1, origText.length / 10);
-        
+
+        const origHTML  = el.innerHTML;
+        const origText  = el.textContent;
+        let iter        = 0;
+        const step      = Math.max(1, origText.length / 10);
+
+        el.style.width      = el.getBoundingClientRect().width + 'px';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow   = 'hidden';
+
         const int = setInterval(() => {
           el.textContent = origText.split('').map((c, i) => {
             if (c === ' ' || c === '\n') return c;
             if (i < iter) return origText[i];
             return chars[Math.floor(Math.random() * chars.length)];
           }).join('');
-          
+
           if (iter >= origText.length) {
             clearInterval(int);
-            el.innerHTML = origHTML;
+            el.innerHTML        = origHTML;
+            el.style.width      = '';
+            el.style.whiteSpace = '';
+            el.style.overflow   = '';
+          }
+          iter += step;
+        }, 25);
+      });
+
+      document.querySelectorAll('h1 .l1, h1 .l2').forEach(el => {
+        const origHTML = el.innerHTML;
+        const origText = el.textContent;
+        let iter       = 0;
+        const step     = Math.max(1, origText.length / 10);
+
+        el.style.width      = el.getBoundingClientRect().width + 'px';
+        el.style.whiteSpace = 'nowrap';
+        el.style.overflow   = 'hidden';
+
+        const int = setInterval(() => {
+          el.textContent = origText.split('').map((c, i) => {
+            if (c === ' ') return c;
+            if (i < iter) return origText[i];
+            return chars[Math.floor(Math.random() * chars.length)];
+          }).join('');
+
+          if (iter >= origText.length) {
+            clearInterval(int);
+            el.innerHTML        = origHTML;
+            el.style.width      = '';
+            el.style.whiteSpace = '';
+            el.style.overflow   = '';
           }
           iter += step;
         }, 25);
