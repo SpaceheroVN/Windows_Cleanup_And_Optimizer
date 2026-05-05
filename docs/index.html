@@ -802,6 +802,29 @@ function toggleAcc(btn){
   document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
   if(!isOpen) item.classList.add('open');
 }
+async function fetchLatestRelease() {
+  try {
+    const res = await fetch('https://api.github.com/repos/SpaceheroVN/Windows_Cleanup_And_Optimizer/releases/latest');
+    const data = await res.json();
+    const version = data.tag_name;
+    const asset = data.assets?.find(a => a.name.endsWith('.bat'));
+    if (!version || !asset) return;
+
+    const dlUrl = asset.browser_download_url;
+    const sizeKB = Math.round(asset.size / 1024);
+
+    document.querySelectorAll('a[href*="/releases/download/"]').forEach(a => a.href = dlUrl);
+    document.querySelector('.nav-dl')?.setAttribute('href', dlUrl);
+
+    document.querySelector('.dl-meta').innerHTML =
+      `Version ${version} &nbsp;·&nbsp; Batch Script &nbsp;·&nbsp; Windows 10/11 &nbsp;·&nbsp; ~${sizeKB} KB`;
+
+    const vtag = document.querySelector('.version-tag');
+    if (vtag) vtag.textContent = `v${version} — Latest Stable`;
+  } catch(e) { console.warn('Could not fetch latest release:', e); }
+}
+
+fetchLatestRelease();
 </script>
 </body>
 </html>
