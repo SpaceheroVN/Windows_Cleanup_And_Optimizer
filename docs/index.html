@@ -513,6 +513,7 @@
       --fc-color: var(--green2);
       --fc-rgb: var(--green-rgb);
       --fc-bg: rgba(var(--fc-rgb), .1);
+      --theme-color: var(--fc-color); 
       background: var(--surface);
       padding: 28px 26px;
       transition: all .45s var(--ease-out);
@@ -1272,6 +1273,15 @@
       border-color: var(--border);
       background: var(--surface);
     }
+
+    .tab-pane:nth-child(1) { --theme-color: var(--green2); }
+    .tab-pane:nth-child(2) { --theme-color: var(--red2); }
+    .tab-pane:nth-child(3) { --theme-color: var(--cyan2); }
+    .tab-pane:nth-child(4) { --theme-color: var(--purple2); }
+    .tab-pane:nth-child(5) { --theme-color: var(--blue2); }
+    .tab-pane:nth-child(6) { --theme-color: var(--yellow2); }
+    .tab-pane:nth-child(7) { --theme-color: var(--orange2); }
+    .tab-pane:nth-child(8) { --theme-color: var(--red2); }
 
     @media (max-width: 900px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
